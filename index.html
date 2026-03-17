@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer & Circuit | Premium Industrial Web Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tool-red': '#E30613',
+                        'tool-dark': '#0F0F0F',
+                        'tool-gray': '#1E1E1E',
+                        'tool-silver': '#C0C0C0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        mono: ['JetBrains+Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { --accent: #E30613; }
+        body { background-color: #0A0A0A; color: #FFFFFF; height: 100vh; overflow: hidden; }
+
+        /* Textura de Acero al Carbono */
+        .carbon-bg {
+            background-image: 
+                linear-gradient(45deg, #111 25%, transparent 25%), 
+                linear-gradient(-45deg, #111 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #111 75%), 
+                linear-gradient(-45deg, transparent 75%, #111 75%);
+            background-size: 4px 4px;
+            background-color: #0A0A0A;
+        }
+
+        /* Animación de Obturador Mecánico */
+        .shutter-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--accent); z-index: 100;
+            transform: translateY(100%); pointer-events: none;
+            transition: transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+        .shutter-active { transform: translateY(0); }
+
+        /* Animación de entrada de contenido */
+        .page-entry { animation: contentSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes contentSlideUp {
+            from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* Botón Estilo Interruptor */
+        .switch-btn {
+            position: relative; transition: all 0.2s;
+            border-left: 0px solid var(--accent);
+        }
+        .switch-btn:active { transform: scale(0.98); }
+        .switch-active {
+            background: linear-gradient(90deg, rgba(227, 6, 19, 0.2) 0%, transparent 100%);
+            border-left-width: 6px; color: white;
+        }
+
+        /* Scroll suave para móviles */
+        #content-area { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        #content-area::-webkit-scrollbar { width: 4px; }
+        #content-area::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        /* Glitch sutil de poder */
+        .power-on { animation: flicker 0.2s infinite alternate; }
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="font-sans carbon-bg">
+
+    <!-- Capa de transición -->
+    <div id="shutter" class="shutter-overlay"></div>
+
+    <div class="h-screen flex flex-col relative z-10">
+        
+        <!-- HEADER PRINCIPAL -->
+        <header class="bg-tool-dark border-b-4 border-tool-red p-4 md:px-8 flex justify-between items-center shadow-2xl">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="changePage('home')">
+                <!-- Contenedor de Logo Premium -->
+                <div class="bg-tool-red p-2 shadow-[0_0_20px_rgba(227,6,19,0.4)] relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-heading uppercase italic tracking-tighter leading-none">
+                        Hammer & <span class="text-tool-silver">Circuit</span>
+                    </h1>
+                    <p class="text-[9px] font-mono text-tool-red font-black tracking-[0.4em] uppercase">Web_Lab_Operational</p>
+                </div>
+            </div>
+
+            <!-- Selector de Idioma Minimalista -->
+            <div class="hidden md:flex bg-black/40 border border-white/10 rounded-sm">
+                <button onclick="setLanguage('en')" class="lang-btn px-3 py-1 text-[10px] font-bold hover:text-tool-red" id="lang-en">EN</button>
+                <button onclick="setLanguage('es')" class="lang-btn px-3 py-1 text-[10px] font-bold hover:text-tool-red" id="lang-es">ES</button>
+                <button onclick="setLanguage('fr')" class="lang-btn px-3 py-1 text-[10px] font-bold hover:text-tool-red" id="lang-fr">FR</button>
+                <button onclick="setLanguage('zh')" class="lang-btn px-3 py-1 text-[10px] font-bold hover:text-tool-red" id="lang-zh">ZH</button>
+            </div>
+            
+            <!-- Mobile Menu Toggle (Simplified) -->
+            <div class="md:hidden text-tool-red font-mono text-[10px] font-black animate-pulse">SYSTEM_ACTIVE</div>
+        </header>
+
+        <!-- CUERPO DE LA APP -->
+        <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
+            
+            <!-- NAVEGACIÓN LATERAL (Desktop) / INFERIOR (Mobile) -->
+            <nav class="w-full md:w-64 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0">
+                <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 hover:bg-white/5 border-b border-white/5">
+                    <div class="text-[10px] text-gray-500 font-mono mb-1 hidden md:block">01_START</div>
+                    <span class="font-heading text-lg md:text-xl uppercase italic tracking-tighter" data-i18n="nav_home">Home</span>
+                </button>
+                <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 hover:bg-white/5 border-b border-white/5">
+                    <div class="text-[10px] text-gray-500 font-mono mb-1 hidden md:block">02_BUILD</div>
+                    <span class="font-heading text-lg md:text-xl uppercase italic tracking-tighter" data-i18n="nav_solutions">Solutions</span>
+                </button>
+                <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 hover:bg-white/5 border-b border-white/5">
+                    <div class="text-[10px] text-gray-500 font-mono mb-1 hidden md:block">03_ESTIMATE</div>
+                    <span class="font-heading text-lg md:text-xl uppercase italic tracking-tighter" data-i18n="nav_pricing">Pricing</span>
+                </button>
+                <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 hover:bg-white/5 border-b border-white/5">
+                    <div class="text-[10px] text-gray-500 font-mono mb-1 hidden md:block">04_SUPPORT</div>
+                    <span class="font-heading text-lg md:text-xl uppercase italic tracking-tighter" data-i18n="nav_contact">Contact</span>
+                </button>
+
+                <!-- Status Panel (Desktop) -->
+                <div class="hidden md:block mt-auto p-6 bg-black/40 border-t border-white/5">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-1.5 h-1.5 rounded-full bg-tool-red power-on"></div>
+                        <span class="text-[9px] font-mono text-tool-red uppercase font-black">Lab_Base: Austin_TX</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 font-mono leading-tight">Optimizing sites for USA contractors 24/7.</p>
+                </div>
+            </nav>
+
+            <!-- ÁREA DE CONTENIDO DINÁMICO -->
+            <div id="content-area" class="flex-grow p-6 md:p-16 overflow-y-auto">
+                <!-- Se inyecta aquí -->
+            </div>
+        </main>
+
+        <!-- FOOTER SLIM -->
+        <footer class="bg-black text-[9px] md:text-[10px] font-mono text-gray-600 px-6 py-3 flex flex-col md:flex-row justify-between items-center border-t border-white/5 gap-2">
+            <div class="flex items-center gap-4">
+                <span class="text-white font-bold">HAMMER & CIRCUIT WEB LABS™</span>
+                <span class="hidden md:inline">|</span>
+                <span class="text-tool-red font-black">GRADE: INDUSTRIAL</span>
+            </div>
+            <div class="text-center">© 2026 Hammer and Circuit Web Labs LLC. All rights reserved.</div>
+            <div class="flex gap-4">
+                <span class="hidden md:inline">LAT: 30.2672° N, LONG: 97.7431° W</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                nav_home: "Initialization", nav_solutions: "Trade Solutions", nav_pricing: "Budget Plan", nav_contact: "Direct Line",
+                hero_title: "WE BUILD WEBSITES AS <span class='text-tool-red'>TOUGH</span> AS YOUR TOOLS.",
+                hero_desc: "Forget generic marketing. We build the digital engine for your business. Fast, secure, and ready to take calls in 48 hours.",
+                sol_title: "BUILT FOR THE FIELD",
+                sol_desc: "We build the websites. You do the work. High-performance tools for plumbers, electricians, and tradesmen.",
+                price_title: "$199 BUILD PROTOCOL",
+                price_sub: "One-time fee. No contracts. Industrial reliability.",
+                contact_title: "CONNECT WITH THE LAB",
+                contact_desc: "Ready to upgrade? Alex is on standby."
+            },
+            es: {
+                nav_home: "Inicio", nav_solutions: "Soluciones", nav_pricing: "Precios", nav_contact: "Contacto",
+                hero_title: "WEBS TAN <span class='text-tool-red'>RESISTENTES</span> COMO TUS HERRAMIENTAS.",
+                hero_desc: "Olvida el marketing genérico. Construimos el motor digital para tu negocio. Rápido, seguro y listo para recibir llamadas en 48 horas.",
+                sol_title: "HECHO PARA EL TRABAJO",
+                sol_desc: "Nosotros hacemos la web. Tú haces el trabajo. Herramientas de alto rendimiento para plomeros y contratistas.",
+                price_title: "PROTOCOLO DE $199",
+                price_sub: "Pago único. Sin contratos. Fiabilidad industrial.",
+                contact_title: "CONECTA CON EL LAB",
+                contact_desc: "¿Listo para mejorar? Alex está en espera."
+            },
+            fr: {
+                nav_home: "Accueil", nav_solutions: "Solutions", nav_pricing: "Tarifs", nav_contact: "Contact",
+                hero_title: "DES SITES AUSSI <span class='text-tool-red'>SOLIDES</span> QUE VOS OUTILS.",
+                hero_desc: "Oubliez le marketing générique. Nous construisons le moteur numérique de votre entreprise. Prêt en 48 heures.",
+                sol_title: "CONÇU POUR LE TERRAIN",
+                sol_desc: "Nous créons le site. Vous faites le travail. Performance pure pour les artisans.",
+                price_title: "PROTOCOLE À 199$",
+                price_sub: "Frais uniques. Pas de contrat. Fiabilité industrielle.",
+                contact_title: "CONTACTER LE LAB",
+                contact_desc: "Prêt à passer au niveau supérieur ?"
+            },
+            zh: {
+                nav_home: "初始化", nav_solutions: "行业方案", nav_pricing: "预算计划", nav_contact: "联系终端",
+                hero_title: "打造像您工具一样 <span class='text-tool-red'>坚固</span> 的网站",
+                hero_desc: "拒绝平庸。我们为您构建业务的数字引擎。48小时内快速上线、安全且随时待命。",
+                sol_title: "为现场而生",
+                sol_desc: "我们建站，您做业务。为水管工、电工和承包商打造的高性能工具。",
+                price_title: "$199 建造协议",
+                price_sub: "一次性费用。无合同。工业级可靠性。",
+                contact_title: "连接实验室",
+                contact_desc: "准备好升级了吗？Alex 正在待命。"
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Motor de Transición y Navegación
+        async function changePage(page) {
+            const shutter = document.getElementById('shutter');
+            const content = document.getElementById('content-area');
+            
+            // Iniciar obturador
+            shutter.classList.add('shutter-active');
+            
+            await new Promise(r => setTimeout(r, 400));
+            
+            // Actualizar contenido
+            renderPage(page);
+            updateNav(page);
+            
+            // Abrir obturador
+            shutter.classList.remove('shutter-active');
+        }
+
+        function renderPage(page) {
+            const content = document.getElementById('content-area');
+            const t = translations[currentLang];
+            content.classList.remove('page-entry');
+            void content.offsetWidth; // Reflow
+            content.classList.add('page-entry');
+
+            switch(page) {
+                case 'home':
+                    content.innerHTML = `
+                        <div class="max-w-4xl">
+                            <h2 class="text-5xl md:text-8xl font-heading uppercase italic italic leading-[0.85] mb-8">${t.hero_title}</h2>
+                            <p class="text-gray-400 text-lg md:text-2xl mb-12 max-w-2xl font-light leading-relaxed">${t.hero_desc}</p>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="changePage('solutions')" class="bg-tool-red text-white px-10 py-5 font-heading text-2xl uppercase italic tracking-tighter hover:scale-105 transition-transform shadow-[0_10px_30px_rgba(227,6,19,0.3)]">Get My Free Audit</button>
+                                <button onclick="changePage('pricing')" class="border-2 border-white/20 px-10 py-5 font-heading text-2xl uppercase italic tracking-tighter hover:bg-white/5">View Protocols</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'solutions':
+                    content.innerHTML = `
+                        <h2 class="text-5xl font-heading uppercase italic mb-12">${t.sol_title}</h2>
+                        <div class="grid md:grid-cols-2 gap-8 max-w-5xl">
+                            <div class="p-8 bg-tool-gray/50 border-l-4 border-tool-red relative group">
+                                <div class="absolute top-4 right-4 text-[10px] font-mono text-tool-red opacity-40">#001_HVAC_PLUMBING</div>
+                                <h3 class="text-3xl font-heading uppercase italic mb-4">Trade Sites</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 italic">Specifically coded for local search conversion. When someone's pipes burst, your 'Call Now' button is the first thing they see.</p>
+                                <div class="flex gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-tool-red animate-pulse"></span>
+                                    <span class="text-[9px] font-mono text-gray-500 uppercase">Optimized_For_Mobile</span>
+                                </div>
+                            </div>
+                            <div class="p-8 bg-tool-gray/50 border-l-4 border-white/20 relative">
+                                <div class="absolute top-4 right-4 text-[10px] font-mono text-gray-600 opacity-40">#002_SPEED</div>
+                                <h3 class="text-3xl font-heading uppercase italic mb-4">Lightning Performance</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 italic">99+ Google PageSpeed score. We use pure code, not bulky builders. Your site will load faster than a power drill starts.</p>
+                                <div class="text-[9px] font-mono text-gray-500 uppercase">Code: HTML/Tailwind_Pure</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'pricing':
+                    content.innerHTML = `
+                        <div class="max-w-2xl mx-auto py-10 text-center">
+                            <h2 class="text-6xl font-heading uppercase italic mb-2">${t.price_title}</h2>
+                            <p class="text-gray-500 font-mono text-[10px] uppercase tracking-widest mb-12 italic">${t.price_sub}</p>
+                            
+                            <div class="bg-tool-gray p-12 border-t-8 border-tool-red shadow-2xl relative">
+                                <div class="absolute -top-4 -right-4 bg-tool-red px-3 py-1 text-[9px] font-mono font-black italic">TOP_SELLER</div>
+                                <div class="text-[12rem] md:text-[9rem] font-heading font-black italic leading-none text-white/5 absolute inset-0 flex items-center justify-center pointer-events-none">199</div>
+                                <div class="relative z-10">
+                                    <div class="text-8xl font-heading font-black italic leading-none mb-4">$199</div>
+                                    <div class="text-xs font-mono text-tool-red uppercase mb-10 tracking-[0.4em]">One-Time Build Fee</div>
+                                    
+                                    <ul class="text-left space-y-4 mb-12 text-xs font-mono uppercase border-y border-white/10 py-8">
+                                        <li class="flex justify-between items-center"><span class="text-gray-400">48h Delivery Window</span> <span class="text-tool-red">ENABLED</span></li>
+                                        <li class="flex justify-between items-center"><span class="text-gray-400">Google Map Integration</span> <span class="text-tool-red">ENABLED</span></li>
+                                        <li class="flex justify-between items-center"><span class="text-gray-400">SSL & Cloudflare Security</span> <span class="text-tool-red">ENABLED</span></li>
+                                        <li class="flex justify-between items-center text-white font-bold"><span>Recurring Maintenance</span> <span>$29/mo</span></li>
+                                    </ul>
+                                    <button class="w-full bg-tool-red hover:bg-white hover:text-black py-5 font-heading text-3xl uppercase italic tracking-tighter transition-all">Secure Build Spot</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'contact':
+                    content.innerHTML = `
+                        <h2 class="text-5xl font-heading uppercase italic mb-8 italic">${t.contact_title}</h2>
+                        <div class="grid md:grid-cols-2 gap-12 max-w-5xl">
+                            <div class="space-y-6">
+                                <div class="p-8 bg-tool-gray border-l-4 border-tool-red">
+                                    <div class="text-[10px] font-mono text-gray-500 uppercase mb-2">Technical_Operator</div>
+                                    <h4 class="text-2xl font-heading uppercase italic">Alex | Hammer & Circuit</h4>
+                                    <p class="text-tool-red font-mono text-sm font-black mt-2">hammerandcircuit@gmail.com</p>
+                                </div>
+                                <div class="p-8 bg-tool-gray border-l-4 border-white/10">
+                                    <div class="text-[10px] font-mono text-gray-500 uppercase mb-2">Primary_Base</div>
+                                    <p class="text-xl font-heading uppercase italic tracking-tight">Austin, Texas, USA</p>
+                                    <p class="text-[9px] font-mono text-gray-600 mt-1 uppercase">Serving the entire North American market</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-center border border-white/5 p-8 bg-black/40">
+                                <p class="text-2xl italic text-gray-300 leading-relaxed font-heading uppercase">
+                                    "Your clients are looking for you on their phones. If your site is slow or broken, they call the other guy. <span class='text-white font-bold'>We stop that today.</span>"
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function updateNav(page) {
+            document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('switch-active'));
+            document.getElementById(`nav-${page}`).classList.add('switch-active');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('text-tool-red', 'border-b-2', 'border-tool-red'));
+            const langBtn = document.getElementById(`lang-${lang}`);
+            if (langBtn) langBtn.classList.add('text-tool-red', 'border-b-2', 'border-tool-red');
+            
+            // Actualizar textos estáticos del nav
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
+            });
+
+            // Re-renderizar la página actual para actualizar textos
+            const activeNav = document.querySelector('.switch-active');
+            const activePage = activeNav ? activeNav.id.replace('nav-', '') : 'home';
+            renderPage(activePage);
+        }
+
+        window.onload = () => {
+            setLanguage('en');
+            updateNav('home');
+            renderPage('home');
+        };
+    </script>
+</body>
+</html>
