@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer & Circuit - Industrial Core V13</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --m-red: #C1272D;
+            --m-red-dark: #7A1418;
+            --m-black: #050505;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--m-black);
+            color: #E0E0E0;
+            margin: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* --- ENGRANAJES REALISTAS --- */
+        .engine-room {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+        }
+
+        .gear-real {
+            position: absolute;
+            fill: url(#gear-gradient);
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.9));
+            animation: rotate-gear linear infinite;
+        }
+
+        @keyframes rotate-gear {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- SIDEBAR FIJA --- */
+        .sidebar-panel {
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            width: 90px;
+            background: #000;
+            border-right: 3px solid var(--m-red-dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .main-stage {
+            margin-left: 90px;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+        }
+
+        /* --- BOTONES 3D --- */
+        .btn-industrial {
+            background: linear-gradient(145deg, #d42b32, #9b1a1e);
+            box-shadow: 0 4px 0 var(--m-red-dark), 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .btn-industrial:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 var(--m-red-dark), 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .panel-machine {
+            background: linear-gradient(145deg, #181818, #0a0a0a);
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.8);
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes gear-idle {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        .animate-icon-idle { animation: gear-idle 3s infinite ease-in-out; }
+
+        @keyframes toast-in {
+            0% { transform: translate(-50%, -100%); opacity: 0; }
+            100% { transform: translate(-50%, 20px); opacity: 1; }
+        }
+        .anim-toast { animation: toast-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #000; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--m-red); }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none; height: 20px; width: 20px; background: white;
+            border: 5px solid var(--m-red); border-radius: 4px; cursor: pointer;
+        }
+    </style>
+</head>
+<body class="custom-scrollbar">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef } = React;
+
+        // --- ICONOS INDUSTRIALES OPTIMIZADOS ---
+        const Icon = ({ name, size = 24, className = "", active = false }) => {
+            const paths = {
+                zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+                dash: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
+                cal: "M19 4H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM16 2v4M8 2v4M3 10h18",
+                log: "M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                stat: "M18 20V10M12 20V4M6 20v-6",
+                target: "M12 22a10 10 0 100-20 10 10 0 000 20z",
+                share: "M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4",
+                check: "M20 6L9 17l-5-5",
+                x: "M18 6L6 18M6 6l12 12",
+                edit: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z",
+                hammer: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z"
+            };
+            return (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" 
+                     className={`${className} ${active ? 'text-white' : 'text-gray-600'} animate-icon-idle`}>
+                    <path d={paths[name] || ""} />
+                </svg>
+            );
+        };
+
+        // --- SONIDOS ---
+        const playSound = (type) => {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const g = ctx.createGain();
+                if (type === 'click') {
+                    osc.type = 'square'; osc.frequency.setValueAtTime(140, ctx.currentTime);
+                    g.gain.setValueAtTime(0.04, ctx.currentTime);
+                } else if (type === 'success') {
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, ctx.currentTime);
+                    g.gain.setValueAtTime(0.08, ctx.currentTime);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(80, ctx.currentTime);
+                    g.gain.setValueAtTime(0.06, ctx.currentTime);
+                }
+                osc.connect(g); g.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.15);
+            } catch(e) {}
+        };
+
+        // --- ENGRANAJES REALISTAS ---
+        const RealisticGear = ({ size, top, left, right, bottom, speed, rev = false }) => (
+            <svg width={size} height={size} className="gear-real" 
+                 style={{ top, left, right, bottom, animationDuration: speed + 's', animationDirection: rev ? 'reverse' : 'normal' }} 
+                 viewBox="0 0 100 100">
+                <defs>
+                    <linearGradient id="gear-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:'#444', stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:'#222', stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:'#444', stopOpacity:1}} />
+                    </linearGradient>
+                </defs>
+                <path d="M50 15c-19.3 0-35 15.7-35 35s15.7 35 35 35 35-15.7 35-35-15.7-35-35-35zm0 12c12.7 0 23 10.3 23 23s-10.3 23-23 23-23-10.3-23-23 10.3-23 23-23z M50 0l6 15h-12z M100 50l-15 6v-12z M50 100l-6-15h12z M0 50l15-6v12z M15 15l12 6l-6 6z M85 15l-12 6l6 6z M85 85l-12-6l6-6z M15 85l12-6l-6-6z" />
+                <circle cx="50" cy="50" r="8" fill="#111" />
+            </svg>
+        );
+
+        const PLAN = [
+            { d: 1, p: "Infra", t: "Dominio y Git", k: ["Registrar Namecheap", "DNS Cloudflare", "Google Workspace", "Repo GitHub Pro", "Perfil Git"] },
+            { d: 2, p: "Pagos", t: "Stack PayPal", k: ["PayPal Business", "Botones Pago", "Subs $29", "Tally Form", "Doc Maestro"] },
+            { d: 3, p: "Web", t: "Landing Agencia", k: ["Build Landing", "Deploy Pages", "SSL Check", "PageSpeed 90+", "Schema Set"] },
+            { d: 4, p: "Leads", t: "CRM & Phone", k: ["OpenPhone USA", "SMS Auto-Reply", "Sheets Setup", "CRM Webhook"] },
+            { d: 5, p: "QA", t: "Validación", k: ["PayPal Live", "Email Check", "HTTPS Check", "Wise Link"] },
+            { d: 6, p: "Dev", t: "Master Template", k: ["GitHub Folders", "CSS Vars", "Config JSON", "Variables Doc"] },
+            { d: 7, p: "UX", t: "Hero Block", k: ["Video/JPG <80KB", "CTA Sticky", "Trust Bar", "iPhone SE Test"] },
+            { d: 8, p: "UI", t: "Secciones", k: ["Services Grid", "Review Schema", "G-Maps Embed", "NAP Footer"] },
+            { d: 9, p: "Perf", t: "Performance", k: ["WebP Images", "PurgeCSS", "HTML Minify", "Lighthouse 90"] },
+            { d: 10, p: "Ops", t: "Fulfillment", k: ["Process Checklist", "Demo Austin", "Time Check", "GH Previews"] },
+            { d: 11, p: "Data", t: "Scraping", k: ["Outscraper", "Query Niche", "CSV 2000", "Clean Data"] },
+            { d: 12, p: "Data", t: "Filtrado", k: ["Rating 3.5+", "Reviews 10+", "SSL Site", "Clean 1-800"] },
+            { d: 13, p: "AI", t: "Retell Setup", k: ["Account Set", "Voice Pick", "CSV 500 Up", "Webhook Make"] },
+            { d: 14, p: "AI", t: "Script V1", k: ["Script Load", "Objection Tree", "Outcome Set", "SMS Trigger"] },
+            { d: 15, p: "AI", t: "QA Calls", k: ["20 Test Calls", "Drop-off Analys", "Adjust Voice", "CRM Update"] },
+            { d: 16, p: "Sales", t: "GO LIVE", k: ["Batch 50", "Live Monitor", "CRM Register", "9-11 AM TX"] },
+            { d: 17, p: "Sales", t: "Analysis", k: ["Conv. Metrics", "Niche Winner", "Tree Adjust", "Pickup %"] },
+            { d: 18, p: "Sales", t: "Primer Cierre", k: ["Fast Fullfill", "Send Tally.so", "Deploy Client", "SS Victory"] },
+            { d: 19, p: "Scale", t: "Escala 100", k: ["100 Calls/Day", "Houston market", "Scraping +500", "OpenPhone Opt"] },
+            { d: 20, p: "Scale", t: "Caso Estudio", k: ["Before/After", "Publicar Perm", "Landing Update", "Trigger Review"] },
+            { d: 21, p: "Auto", t: "Make Flows 1", k: ["PayPal Flow", "Tally Flow", "WhatsApp Push"] },
+            { d: 22, p: "Auto", t: "Make Flows 2", k: ["Trigger Manual", "Follow-up SMS", "Sequence D+2", "Sequence D+5"] },
+            { d: 23, p: "Auto", t: "Recurrentes", k: ["PayPal Subs", "Email Recur", "Boton Renovar"] },
+            { d: 24, p: "Auto", t: "Retención", k: ["Retencion Check", "Dashboard Update", "Reporte Mensual"] },
+            { d: 25, p: "Auto", t: "Scripts V2", k: ["Rewrite Scripts", "Best Hour", "CTA Adjust", "Retell V2"] },
+            { d: 26, p: "Exp", t: "Roofers", k: ["Nicho Nuevo", "Template Var", "500 Leads New"] },
+            { d: 27, p: "Exp", t: "Pools", k: ["Test Pool Niche", "Validate Assets", "Pricing Adjust"] },
+            { d: 28, p: "Cash", t: "Revisión", k: ["USD vs Costs", "Net Margin", "Transfer Wise"] },
+            { d: 29, p: "Growth", t: "Referidos", k: ["Referral Email", "Tally Refer", "Tracking Sheet"] },
+            { d: 30, p: "Master", t: "Retrospectiva", k: ["Total Stats", "Mes 2 Plan", "VA Decision", "Final Snapshot"] },
+        ];
+
+        function App() {
+            const [state, setState] = useState(() => {
+                const s = localStorage.getItem('hc_v13_db');
+                if (s) return JSON.parse(s);
+                const i = {};
+                PLAN.forEach(day => {
+                    i[day.d] = { k: day.k.map((t, idx) => ({ id: idx, text: t, s: 'pending' })), n: '', h: 0, c: false };
+                });
+                return i;
+            });
+
+            const [activeDay, setActiveDay] = useState(1);
+            const [view, setView] = useState('dashboard');
+            const [editing, setEditing] = useState(null);
+            const [focus, setFocus] = useState(false);
+            const [toast, setToast] = useState({ show: false, msg: '' });
+            const canvasRef = useRef(null);
+
+            useEffect(() => { localStorage.setItem('hc_v13_db', JSON.stringify(state)); }, [state]);
+
+            const stats = useMemo(() => {
+                let t = 0, d = 0, h = 0;
+                Object.values(state).forEach(day => {
+                    day.k.forEach(task => { t++; if (task.s === 'completed') d++; });
+                    h += parseFloat(day.h || 0);
+                });
+                return { p: Math.round((d/t)*100)||0, h, d, t, lvl: Math.floor(d/12)+1 };
+            }, [state]);
+
+            const updateTask = (id, s) => {
+                playSound(s === 'completed' ? 'success' : s === 'cancelled' ? 'error' : 'click');
+                if (s === 'completed') {
+                    setToast({ show: true, msg: "SISTEMA OPERATIVO: +100 XP" });
+                    setTimeout(() => setToast({show:false, msg:''}), 3000);
+                }
+                setState(prev => {
+                    const d = {...prev[activeDay]};
+                    d.k = d.k.map(t => t.id === id ? {...t, s} : t);
+                    d.c = d.k.every(t => t.s !== 'pending');
+                    return {...prev, [activeDay]: d};
+                });
+            };
+
+            const exportFinalSnapshot = () => {
+                playSound('success');
+                const c = canvasRef.current; const ctx = c.getContext('2d');
+                c.width = 1000; c.height = 1400; 
+                ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1000,1400);
+                ctx.fillStyle = '#C1272D'; ctx.fillRect(0,0,1000,150);
+                ctx.fillStyle = 'white'; ctx.font = 'bold 50px Inter'; ctx.fillText('HAMMER & CIRCUIT', 50, 85);
+                ctx.font = '16px Inter'; ctx.fillText('INDUSTRIAL LOGBOOK • MASTER OPERATOR REPORT', 50, 115);
+                ctx.fillStyle = '#121212'; ctx.fillRect(40, 180, 920, 200);
+                ctx.fillStyle = 'white'; ctx.font = '900 110px Inter'; ctx.fillText(stats.p + '%', 80, 310);
+                ctx.font = 'bold 20px Inter'; ctx.fillText('READY TO SCALE', 100, 350);
+                ctx.font = 'bold 50px Inter'; ctx.fillText('NVL ' + stats.lvl, 550, 270);
+                ctx.font = 'bold 30px Inter'; ctx.fillText(stats.h + 'h INVERTED', 550, 325);
+                ctx.fillStyle = '#181818'; ctx.fillRect(40, 410, 920, 950);
+                ctx.fillStyle = '#C1272D'; ctx.font = 'bold 22px Inter'; ctx.fillText('30-DAY PRODUCTION LINE:', 70, 460);
+                PLAN.forEach((p, i) => {
+                    const col = i < 15 ? 0 : 1; const row = i % 15;
+                    const x = 70 + (col * 450); const y = 510 + (row * 55);
+                    ctx.fillStyle = state[p.d].c ? '#22C55E' : '#444';
+                    ctx.font = 'bold 18px Inter'; ctx.fillText(`D${p.d}`, x, y);
+                    ctx.fillStyle = state[p.d].c ? '#FFF' : '#333';
+                    ctx.font = '14px Inter'; ctx.fillText(`${p.t.toUpperCase()}`, x + 50, y);
+                    if(state[p.d].c) ctx.fillText('✓', x + 380, y);
+                });
+                const l = document.createElement('a'); l.download = 'Hammer_Circuit_Report.png'; l.href = c.toDataURL(); l.click();
+            };
+
+            const cur = PLAN.find(d => d.d === activeDay) || PLAN[0];
+
+            return (
+                <div className="min-h-screen">
+                    <div className="engine-room">
+                        <RealisticGear size="400" top="-100px" left="-100px" speed="40" />
+                        <RealisticGear size="250" top="200px" left="250px" speed="25" rev />
+                        <RealisticGear size="600" bottom="-150px" right="-100px" speed="60" />
+                        <RealisticGear size="180" top="45%" right="15%" speed="20" />
+                    </div>
+
+                    <nav className="sidebar-panel">
+                        <div className="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center shadow-xl mb-12 active:scale-95 transition-all cursor-pointer core-active" onClick={() => {playSound('click'); exportFinalSnapshot();}}>
+                            <Icon name="zap" size={32} className="text-white" active />
+                        </div>
+                        <div className="flex flex-col gap-10">
+                            <NavIcon name="dash" active={view==='dashboard'} label="DASH" onClick={()=>{playSound('click'); setView('dashboard');}} />
+                            <NavIcon name="cal" active={view==='day-view'} label="OBRA" onClick={()=>{playSound('click'); setView('day-view');}} />
+                            <NavIcon name="log" active={view==='history'} label="LOGS" onClick={()=>{playSound('click'); setView('history');}} />
+                            <NavIcon name="stat" active={view==='stats'} label="METR" onClick={()=>{playSound('click'); setView('stats');}} />
+                        </div>
+                        <button onClick={() => {playSound('click'); setFocus(!focus);}} className={`mt-auto p-4 transition-all hover:scale-125 ${focus ? 'text-red-500' : 'text-gray-600'}`}>
+                            <Icon name="target" size={32} active={focus} />
+                        </button>
+                    </nav>
+
+                    <main className={`main-stage transition-all duration-500 ${focus ? 'opacity-10 blur-md pointer-events-none' : 'opacity-100'}`}>
+                        <div className="max-w-6xl mx-auto space-y-10">
+                            
+                            <header className="flex flex-col md:flex-row justify-between items-center gap-6 bg-[#0c0c0c] p-8 rounded-3xl panel-machine border-l-4 border-red-600">
+                                <div>
+                                    <h1 className="text-4xl font-black italic uppercase tracking-tighter leading-none mb-2">HAMMER & <span className="text-red-600">CIRCUIT</span></h1>
+                                    <div className="flex gap-4">
+                                        <span className="bg-red-600/10 text-red-500 border border-red-500/20 px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest">NVL {stats.lvl} OPERATOR</span>
+                                        <span className="bg-white/5 text-gray-500 px-3 py-1 rounded text-[10px] font-black uppercase italic tracking-widest">{stats.h} HORAS LOG</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-8">
+                                    <div className="text-right">
+                                        <div className="text-[10px] font-black text-gray-700 uppercase tracking-widest leading-none mb-1">PROGRESO</div>
+                                        <div className="text-4xl font-black italic text-white leading-none">{stats.p}%</div>
+                                    </div>
+                                    <div className="w-16 h-16 relative cursor-pointer active:scale-90 transition-all hover:scale-110" onClick={exportFinalSnapshot}>
+                                        <svg className="w-full h-full -rotate-90">
+                                            <circle cx="32" cy="32" r="28" stroke="#1a1a1a" strokeWidth="6" fill="transparent" />
+                                            <circle cx="32" cy="32" r="28" stroke="#C1272D" strokeWidth="6" fill="transparent" 
+                                                    strokeDasharray="176" strokeDashoffset={176 - (176 * stats.p / 100)} strokeLinecap="round" className="transition-all duration-1000" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </header>
+
+                            {view === 'dashboard' && (
+                                <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                                    <div className="md:col-span-8 panel-machine p-8 rounded-[2.5rem] relative overflow-hidden">
+                                        <h3 className="text-xl font-bold uppercase tracking-[0.4em] mb-12 flex items-center gap-4 text-red-600"><Icon name="hammer" size={20} /> Línea de Montaje</h3>
+                                        <div className="grid grid-cols-5 md:grid-cols-10 gap-5">
+                                            {PLAN.map(d => (
+                                                <button key={d.d} onClick={()=>{setActiveDay(d.d); setView('day-view'); playSound('click');}}
+                                                        className={`aspect-square rounded-xl border-b-4 flex items-center justify-center transition-all transform hover:scale-115 active:translate-y-1 active:border-b-0 ${state[d.d].c ? 'bg-red-600 border-red-900 text-white' : activeDay === d.d ? 'bg-white text-black border-gray-400 shadow-xl' : 'bg-black border-white/5 text-gray-600'}`}>
+                                                    <span className="text-base font-black italic">{d.d}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="md:col-span-4 space-y-8">
+                                        <button onClick={exportFinalSnapshot} className="w-full btn-industrial p-12 rounded-[2.5rem] flex flex-col items-center gap-4 group">
+                                            <Icon name="share" size={36} className="text-white" active />
+                                            <div className="text-center">
+                                                <span className="text-sm font-black uppercase tracking-widest block">SNAPSHOT INDUSTRIAL</span>
+                                                <p className="text-[10px] font-bold text-black/50 uppercase mt-1 italic tracking-widest text-black/60">Descarga Auto PNG</p>
+                                            </div>
+                                        </button>
+                                        <div className="panel-machine p-8 rounded-[2.5rem] text-center border-t-2 border-red-600/20 shadow-2xl">
+                                            <div className="text-5xl font-black italic text-red-600 tracking-tighter leading-none">$5,000</div>
+                                            <p className="text-[10px] font-bold text-gray-600 mt-2 uppercase tracking-widest">CUOTA SEMANAL LIBRE</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {view === 'day-view' && (
+                                <div className="flex flex-col lg:flex-row gap-8">
+                                    <div className="lg:w-1/4 panel-machine p-6 rounded-[2rem] max-h-[70vh] overflow-y-auto custom-scrollbar space-y-2">
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-red-600 mb-8 px-4 italic opacity-60 border-b border-white/5 pb-6">Turnos de Obra</h3>
+                                        {PLAN.map(day => (
+                                            <button key={day.d} onClick={() => {setActiveDay(day.d); playSound('click');}}
+                                                    className={`w-full text-left p-4 rounded-xl transition-all border-l-4 flex items-center justify-between shadow-md ${activeDay === day.d ? 'bg-red-600/10 border-red-600 text-white scale-[1.03]' : 'border-transparent bg-black/40 hover:bg-black/60'}`}>
+                                                <span className="text-[11px] font-bold uppercase truncate">{day.d}. {day.t}</span>
+                                                {state[day.d].c && <Icon name="check" size={14} className="text-green-500" />}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="flex-1 space-y-8">
+                                        <div className="panel-machine p-10 rounded-[3rem] border-b-[10px] border-red-950 relative shadow-2xl overflow-hidden group">
+                                            <div className="flex flex-col md:flex-row md:items-center gap-8 mb-12 relative z-10">
+                                                <div className="w-18 h-18 bg-red-600 rounded-2xl flex items-center justify-center text-4xl font-black italic shadow-xl transform -rotate-3 transition-transform group-hover:rotate-0">{activeDay}</div>
+                                                <div>
+                                                    <div className="text-red-600 font-bold uppercase text-[11px] tracking-[0.5em] mb-1 italic">{cur.p}</div>
+                                                    <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none">{cur.t}</h2>
+                                                </div>
+                                            </div>
+                                            <div className="space-y-4 relative z-10">
+                                                {state[activeDay].k.map(task => (
+                                                    <div key={task.id} className={`p-6 rounded-2xl border transition-all flex items-center justify-between group ${task.s==='completed' ? 'bg-green-600/5 border-green-600/20 shadow-inner' : task.s==='cancelled' ? 'bg-red-900/10 border-red-900/20 opacity-40 grayscale blur-[0.5px]' : 'bg-black border-white/5 hover:border-red-600/30 shadow-xl'}`}>
+                                                        <div className="flex items-center gap-5 flex-1">
+                                                            <button onClick={()=>updateTask(task.id, task.s==='completed'?'pending':'completed')} 
+                                                                    className={`w-9 h-9 rounded-xl border-2 flex items-center justify-center transition-all ${task.s==='completed' ? 'bg-green-500 border-green-500 shadow-xl' : 'border-white/10'}`}>
+                                                                {task.s==='completed' && <Icon name="check" size={20} className="text-black" />}
+                                                            </button>
+                                                            {editing === task.id ? (
+                                                                <input autoFocus className="bg-black border border-red-600 rounded-xl p-2 text-sm w-full outline-none" defaultValue={task.text} onBlur={(e)=>{setState(p=>{const d={...p[activeDay]}; d.k=d.k.map(x=>x.id===task.id?{...x, text:e.target.value}:x); return {...p, [activeDay]:d}}); setEditing(null);}} onKeyDown={(e)=>e.key==='Enter'&&e.target.blur()} />
+                                                            ) : (
+                                                                <span className={`text-base font-semibold leading-tight ${task.s==='completed' ? 'line-through opacity-30 italic' : task.s==='cancelled' ? 'line-through text-red-600' : ''}`}>{task.text}</span>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                            <button onClick={()=>updateTask(task.id, task.s==='cancelled'?'pending':'cancelled')} className="p-2 text-gray-500 hover:text-red-500" title="Cancelar Tarea"><Icon name="x" size={18} /></button>
+                                                            <button onClick={()=>setEditing(task.id)} className="p-2 text-gray-500 hover:text-yellow-500" title="Editar"><Icon name="edit" size={18} /></button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                            <div className="panel-machine p-10 rounded-[2.5rem]">
+                                                <h4 className="text-[11px] font-black uppercase text-red-600 mb-8 tracking-widest italic opacity-60 leading-none">Bitácora Técnica</h4>
+                                                <textarea value={state[activeDay].n} onChange={(e)=>setState(p=>({...p, [activeDay]:{...p[activeDay], n:e.target.value}}))} className="w-full bg-black/40 border border-white/5 rounded-[1.5rem] p-8 text-sm italic font-medium focus:border-red-600 outline-none min-h-[160px] leading-relaxed shadow-inner" placeholder="Reporte de turno..." />
+                                            </div>
+                                            <div className="panel-machine p-10 rounded-[2.5rem] flex flex-col justify-center text-center">
+                                                <div className="text-[7rem] font-black italic text-red-600 leading-none drop-shadow-2xl">{state[activeDay].h}</div>
+                                                <div className="text-[10px] font-black text-gray-500 mt-6 uppercase tracking-[0.3em] opacity-40">Mano de Obra (Hrs)</div>
+                                                <input type="range" min="0" max="12" step="0.5" value={state[activeDay].h} onChange={(e)=>{playSound('click'); setState(p=>({...p, [activeDay]:{...p[activeDay], h:e.target.value}}));}} className="mt-12 accent-red-600 w-full" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {view === 'stats' && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="panel-machine p-12 rounded-[4rem] space-y-12">
+                                        <h3 className="text-3xl font-black italic uppercase text-red-600 mb-4 tracking-tighter">Machine Escalability</h3>
+                                        <StatMetric l="Fase 1 - Payback (S4)" p={stats.p} t={25} v="$250 USD" />
+                                        <StatMetric l="Fase 2 - Scaling (S8)" p={stats.p} t={60} v="$1,500 USD" />
+                                        <StatMetric l="Fase 3 - Master (S12)" p={stats.p} t={100} v="$4,500 USD" />
+                                    </div>
+                                    <div className="bg-red-600 p-12 rounded-[4rem] shadow-2xl border-b-[20px] border-red-950 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:rotate-x-1 transition-transform">
+                                        <div className="absolute top-0 right-0 p-4 opacity-10 rotate-12 group-hover:scale-125 transition-all"><Icon name="hammer" size={150} /></div>
+                                        <div className="text-[11px] font-black uppercase tracking-widest text-black/60 mb-2 leading-none">Power Efficiency Index</div>
+                                        <div className="text-[12rem] font-black italic leading-none text-white drop-shadow-2xl">{Math.round((stats.d / (stats.h || 1)) * 10)}</div>
+                                        <div className="text-xs font-black uppercase text-black/40 mt-4 tracking-[0.5em] italic leading-none opacity-60">Puntos / Hora</div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {view === 'history' && (
+                                <div className="space-y-10 pb-32">
+                                    <h2 className="text-5xl font-black italic uppercase text-red-600 tracking-tighter mb-4 leading-none drop-shadow-xl">Historial Maestro</h2>
+                                    {Object.entries(state).reverse().filter(([_, d]) => d.c || d.n).map(([day, d]) => (
+                                        <div key={day} className="panel-machine p-10 rounded-[3.5rem] border-l-8 border-red-600 flex flex-col lg:flex-row gap-10 items-start relative overflow-hidden group hover:bg-black transition-all shadow-2xl">
+                                            <div className="text-8xl font-black italic text-red-600/10 select-none absolute -right-6 -bottom-6">D{day}</div>
+                                            <div className="flex-1 relative z-10">
+                                                <div className="text-red-600 font-bold uppercase text-xs italic tracking-[0.4em] mb-3 leading-none opacity-60">Fase Operativa: {PLAN[day-1].p}</div>
+                                                <h4 className="text-4xl font-black uppercase italic leading-none mb-8 tracking-tighter drop-shadow-lg">{PLAN[day-1].t}</h4>
+                                                <div className="p-10 bg-white/5 rounded-[2.5rem] border-l-4 border-red-600 shadow-inner">
+                                                    <p className="text-white/60 italic text-xl leading-relaxed">"{d.n || "Turno operado sin incidencias."}"</p>
+                                                </div>
+                                                <div className="flex gap-8 mt-12 font-black text-xs">
+                                                    <span className="bg-black/60 px-6 py-2 rounded-xl border border-white/5 text-gray-500 shadow-xl">{d.h} HRS OPERADAS</span>
+                                                    <span className={`px-6 py-2 rounded-xl shadow-2xl ${d.c ? 'bg-green-600/20 text-green-500 border border-green-600/30' : 'bg-red-600/20 text-red-500 border border-red-600/30'}`}>
+                                                        {d.c ? 'CICLO CERRADO' : 'INCOMPLETO'}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </main>
+
+                    {toast.show && (
+                        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[1000] animate-toast">
+                            <div className="bg-white text-black px-6 py-4 rounded-2xl shadow-2xl border-l-[10px] border-red-600 flex items-center gap-4">
+                                <Icon name="award" className="text-red-600 w-8 h-8 animate-bounce" active />
+                                <span className="font-black uppercase text-sm italic tracking-tight">{toast.msg}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    <canvas ref={canvasRef} className="hidden" />
+                </div>
+            );
+        }
+
+        function StatMetric({ l, p, t, v }) {
+            const progress = Math.min(100, (p/t)*100);
+            return (
+                <div className="space-y-4">
+                    <div className="flex justify-between items-end">
+                        <span className={`text-[10px] font-black uppercase tracking-widest ${p>=t?'text-white':'text-white/30'}`}>{l}</span>
+                        <span className={`text-2xl font-black italic ${p>=t?'text-red-500':'text-white/10'}`}>{v}</span>
+                    </div>
+                    <div className="h-4 bg-black rounded-full border border-white/5 shadow-inner overflow-hidden p-0.5">
+                        <div className={`h-full rounded-full transition-all duration-[3s] ${p>=t?'bg-red-600 shadow-[0_0_15px_#C1272D]':'bg-red-900/30'}`} style={{ width: progress + '%' }}></div>
+                    </div>
+                </div>
+            );
+        }
+
+        function NavIcon({ name, active, label, onClick }) {
+            return (
+                <button onClick={onClick} className={`p-4 rounded-2xl transition-all transform hover:scale-115 active:scale-95 relative group border-b-4 active:translate-y-1 active:border-b-0 ${active ? 'bg-red-600 border-red-900 text-white shadow-2xl' : 'text-gray-600 border-transparent hover:text-white'}`}>
+                    <Icon name={name} size={36} active={active} />
+                    <span className="absolute left-24 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity uppercase italic shadow-2xl z-[200] pointer-events-none tracking-widest whitespace-nowrap">{label}</span>
+                    {active && <div className="absolute right-[-28px] top-1/2 -translate-y-1/2 w-4 h-16 bg-red-600 rounded-l-2xl shadow-[0_0_30px_#C1272D]"></div>}
+                </button>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+</html>
