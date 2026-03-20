@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO AVANZADO -->
+    <title>Mike's Garza Plumbing | Licensed Austin TX Plumber — Same Day Service</title>
+    <meta name="description" content="Top-rated Austin plumbers since 2009. We specialize in leak repairs, water heaters, and drain cleaning. Licensed, insured, and 24/7 emergency service.">
+    <link rel="canonical" href="https://mikesgarzaplumbing.com/">
+    
+    <!-- Fuentes con display=swap para optimizar PageSpeed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLOR SCHEME: PLUMBER ORANGE */
+            --primary: #FF6B00;
+            --primary-dark: #E05A00;
+            --accent: #0055FF;
+            --dark: #0F0F0F;
+            --light: #F3F4F6;
+            --white: #FFFFFF;
+            --success: #22C55E;
+            --font-heading: 'Barlow Condensed', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font-body); 
+            background: var(--white); 
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Animaciones Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navegación SPA */
+        .page-section {
+            display: none !important;
+            min-height: calc(100vh - 80px);
+        }
+        .page-section.active {
+            display: block !important;
+            animation: fadeInPage 0.4s ease forwards;
+        }
+        @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Nav & Language Selector */
+        nav { 
+            position: sticky; top: 0; z-index: 2000; 
+            background: var(--dark); border-bottom: 3px solid var(--primary); 
+            height: 80px; color: white;
+        }
+        nav .container { 
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center; height: 100%; 
+        }
+        .logo { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; display: flex; align-items: center; gap: 8px; text-transform: uppercase; cursor: pointer; }
+        .nav-links { display: none; gap: 20px; text-transform: uppercase; font-weight: 700; font-size: 0.8rem; }
+        .nav-links a { color: white; text-decoration: none; cursor: pointer; transition: 0.2s; }
+        .nav-links a:hover, .nav-links a.active-link { color: var(--primary); }
+        
+        /* Language Selector Fix */
+        .lang-switcher {
+            background: #1a1a1a; 
+            border: 1px solid #333;
+            color: white; 
+            padding: 8px 12px; 
+            border-radius: 4px; 
+            font-size: 0.75rem;
+            cursor: pointer;
+            outline: none;
+            font-weight: 700;
+        }
+        .lang-switcher option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Hero & Headers */
+        .hero { 
+            position: relative; height: calc(100vh - 80px); 
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white; 
+        }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; background-color: #222; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)); z-index: -1; }
+        
+        .page-header-banner {
+            position: relative;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            background-color: var(--primary);
+        }
+        .page-header-banner h2 { font-family: var(--font-heading); font-size: 4rem; text-transform: uppercase; z-index: 1; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+        /* Stats */
+        .stats-section { padding: 80px 0; background: var(--white); border-bottom: 1px solid #eee; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: center; }
+        @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+        .stat-item { padding: 20px; }
+        .stat-number { font-family: var(--font-heading); font-size: 4.5rem; color: var(--primary); line-height: 1; display: block; font-weight: 900; }
+        .stat-label { font-weight: 800; text-transform: uppercase; font-size: 0.85rem; color: #4b5563; margin-top: 10px; display: block; }
+
+        /* Testimonials */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+        .testimonial-card { background: var(--light); padding: 40px; border-radius: 12px; transition: 0.3s; border: 1px solid transparent; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); background: white; border-color: #eee; }
+        .testimonial-card .stars { color: #FBBF24; margin-bottom: 15px; font-size: 1.4rem; }
+
+        /* Buttons & Cards */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 35px; border-radius: 6px; font-family: var(--font-heading); font-weight: 900; text-transform: uppercase; font-size: 1.2rem; cursor: pointer; transition: 0.3s; text-decoration: none; border: none; }
+        .btn-primary { background: var(--success); color: white; box-shadow: 0 10px 20px -10px rgba(34, 197, 94, 0.5); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -10px rgba(34, 197, 94, 0.6); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 45px 35px; border-radius: 12px; border: 1px solid #eee; border-top: 6px solid var(--primary); transition: 0.3s; text-align: center; }
+        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow); border-color: var(--primary); }
+        .card-icon { width: 70px; height: 70px; background: rgba(255, 107, 0, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; color: var(--primary); transition: 0.3s; }
+        .card:hover .card-icon { background: var(--primary); color: white; }
+        .card h3 { font-family: var(--font-heading); font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; }
+
+        /* Mobile CTA */
+        .mobile-cta { position: fixed; bottom: 0; left: 0; width: 100%; height: 75px; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; gap: 10px; z-index: 5000; font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; text-transform: uppercase; text-decoration: none; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
+        @media (min-width: 768px) { .mobile-cta { display: none; } body { padding-bottom: 0; } }
+        body { padding-bottom: 75px; }
+
+        /* Mobile Menu */
+        .menu-toggle { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 2001; padding: 10px; }
+        .menu-toggle span { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .mobile-menu-overlay { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--dark); z-index: 1900; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .mobile-menu-overlay.open { right: 0; }
+        .mobile-menu-overlay a { color: white; font-family: var(--font-heading); font-size: 2.5rem; text-transform: uppercase; font-weight: 900; text-decoration: none; transition: 0.3s; }
+        .mobile-menu-overlay a:hover { color: var(--primary); transform: scale(1.1); }
+
+        /* Contact Visuals */
+        .contact-box { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: stretch; }
+        @media (min-width: 1024px) { .contact-box { grid-template-columns: 1fr 1fr; } }
+        .contact-image-wrapper { border-radius: 12px; overflow: hidden; position: relative; min-height: 300px; background-color: #333; }
+        .contact-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; color: #555; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 8px; font-family: var(--font-body); font-size: 1rem; transition: 0.3s; background: white; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1); }
+
+        footer { background: #080808; color: #9ca3af; padding: 80px 0 40px; text-align: center; border-top: 6px solid var(--primary); }
+        @media (min-width: 1024px) { .nav-links { display: flex; } .menu-toggle { display: none; } }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    </style>
+</head>
+<body onload="initApp()">
+
+    <!-- STICKY MOBILE CALL -->
+    <a href="tel:+15124458832" class="mobile-cta" id="sticky-call-text">
+        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.27 11.72 11.72 0 0 0 3.58.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A16 16 0 0 1 3 4a1 1 0 0 1 1-1h3.43a1 1 0 0 1 1 1 11.72 11.72 0 0 0 .57 3.58 1 1 0 0 1-.27 1.11z"/></svg>
+        Call — Free Estimate
+    </a>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav aria-label="Main Navigation">
+            <div class="container">
+                <div class="logo" onclick="navigateTo('home')">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6-3.8 3.8L10 10.6a1 1 0 0 0-1.4 0L4.3 15a1 1 0 0 0 1.4 1.4l3.6-3.6 2.5 2.5a1 1 0 0 0 1.4 0l4.5-4.5 1.6 1.6a1 1 0 0 0 1.4-1.4l-3-3a1 1 0 0 0-1.4 0z"/></svg>
+                    <span>Mike's Plumbing</span>
+                </div>
+                <div class="nav-right">
+                    <ul class="nav-links">
+                        <li><a onclick="navigateTo('home')" id="link-home" data-i18n="nav-home">Home</a></li>
+                        <li><a onclick="navigateTo('services')" id="link-services" data-i18n="nav-services">Services</a></li>
+                        <li><a onclick="navigateTo('about')" id="link-about" data-i18n="nav-about">About</a></li>
+                        <li><a onclick="navigateTo('contact')" id="link-contact" data-i18n="nav-contact">Contact</a></li>
+                    </ul>
+                    <select class="lang-switcher" onchange="changeLanguage(this.value)" aria-label="Select Language">
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                        <option value="zh">ZH</option>
+                    </select>
+                    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Open Menu"><span></span><span></span><span></span></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <a onclick="navigateTo('home')" data-i18n="nav-home">Home</a>
+        <a onclick="navigateTo('services')" data-i18n="nav-services">Services</a>
+        <a onclick="navigateTo('about')" data-i18n="nav-about">About</a>
+        <a onclick="navigateTo('contact')" data-i18n="nav-contact">Contact</a>
+    </div>
+
+    <main>
+        <!-- PÁGINA: HOME -->
+        <div id="home" class="page-section">
+            <section class="hero">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1600" alt="Austin Plumbing" class="hero-bg">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <div style="color:#FBBF24; margin-bottom:15px; font-weight:800; font-size: 1.2rem;">★★★★★ <span data-i18n="hero-tag">Trusted Austin Plumbers</span></div>
+                    <h1 data-i18n="hero-title">Austin's #1 Plumbing Expert</h1>
+                    <p data-i18n="hero-desc">Fast, licensed, and reliable. We fix leaks, heaters, and drains while you relax. Same-day availability.</p>
+                    <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap">
+                        <a href="tel:+15124458832" class="btn btn-primary" data-i18n="cta-call">Call Now</a>
+                        <button onclick="navigateTo('contact')" class="btn" style="background:white; color:var(--dark); box-shadow: 0 10px 20px rgba(0,0,0,0.2);">Get a Quote</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATS SECTION -->
+            <section class="stats-section reveal">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="15" data-suffix="+">0+</span>
+                            <span class="stat-label" data-i18n="stat-years">Years in Austin</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="500" data-suffix="+">0+</span>
+                            <span class="stat-label" data-i18n="stat-jobs">Jobs Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="4" data-decimal="8" data-suffix="★">0.0★</span>
+                            <span class="stat-label" data-i18n="stat-rating">Google Rating</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="100" data-suffix="%">0%</span>
+                            <span class="stat-label" data-i18n="stat-warranty">Work Warranty</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TESTIMONIALS SECTION -->
+            <section class="container" style="padding:100px 0">
+                <div style="text-align:center; margin-bottom:50px">
+                    <h2 data-i18n="reviews-title" style="font-family:var(--font-heading); font-size:3.5rem; text-transform:uppercase">What Austin Says</h2>
+                    <div style="width:60px; height:6px; background:var(--primary); margin:15px auto; border-radius:5px"></div>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card reveal">
+                        <div class="stars">★★★★★</div>
+                        <p>"Best service in Austin! Mike fixed our burst pipe in under an hour. Professional and very fair pricing."</p>
+                        <strong style="text-transform:uppercase; font-size:0.9rem;">— Sarah Jenkins</strong>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="stars">★★★★★</div>
+                        <p>"Excellent emergency service. They arrived late at night and solved our water heater issue immediately."</p>
+                        <strong style="text-transform:uppercase; font-size:0.9rem;">— David Miller</strong>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="stars">★★★★★</div>
+                        <p>"Reliable and honest. I've used Mike's Plumbing for years and they never disappoint. The best team in TX!"</p>
+                        <strong style="text-transform:uppercase; font-size:0.9rem;">— Elena G.</strong>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: SERVICES -->
+        <div id="services" class="page-section">
+            <div class="page-header-banner">
+                <!-- IMAGEN ESTABLE DE SERVICIOS -->
+                <img src="https://images.unsplash.com/photo-1542013936693-8846383242e2?auto=format&fit=crop&q=80&w=1600" 
+                     alt="Professional Plumbing Tools" 
+                     class="hero-bg" 
+                     style="filter: brightness(0.4);"
+                     onerror="this.src='https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1600'">
+                <h2 data-i18n="nav-services">Our Services</h2>
+            </div>
+            <div class="container" style="padding:100px 0">
+                <div class="grid">
+                    <div class="card reveal">
+                        <div class="card-icon"><svg width="35" height="35" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 2c2.76 0 5 2.24 5 5 0 2.88-3.03 7.18-5 9.39-1.97-2.21-5-6.51-5-9.39 0-2.76 2.24-5 5-5z"/></svg></div>
+                        <h3 data-i18n="s1-name">Leak Repair</h3>
+                        <p data-i18n="s1-desc">Full professional diagnosis and repair for all pipe leaks, fixtures, and underground slab leaks.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon"><svg width="35" height="35" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg></div>
+                        <h3 data-i18n="s2-name">Water Heaters</h3>
+                        <p data-i18n="s2-desc">Installation, maintenance and repair of traditional gas/electric and modern tankless heaters.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon"><svg width="35" height="35" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zM11 7h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg></div>
+                        <h3 data-i18n="s3-name">Drain Cleaning</h3>
+                        <p data-i18n="s3-desc">High-pressure hydro-jetting and rooter services to clear the most stubborn blockages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA: ABOUT -->
+        <div id="about" class="page-section">
+            <div class="page-header-banner" style="height:250px">
+                <div class="hero-overlay" style="background:var(--primary); opacity:0.85"></div>
+                <h2 data-i18n="nav-about">About Us</h2>
+            </div>
+            <div class="container" style="padding:100px 0">
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:60px; align-items:center">
+                    <div class="reveal">
+                        <p style="font-size:1.5rem; font-weight:600; margin-bottom:25px; color:var(--primary-dark);" data-i18n="about-text">Family-owned since 2009. We serve Austin with integrity and master craftsmanship.</p>
+                        <p style="margin-bottom:20px; color:#555;">We are a fully licensed and insured team dedicated to keeping your home safe and functional. We treat every customer like family.</p>
+                        <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-weight:700; text-transform:uppercase; font-size:0.85rem;">
+                            <li style="display:flex; align-items:center; gap:10px;"><svg width="20" height="20" fill="var(--success)" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Master Licensed Plumbers</li>
+                            <li style="display:flex; align-items:center; gap:10px;"><svg width="20" height="20" fill="var(--success)" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> 15+ Years Service in Austin</li>
+                        </ul>
+                    </div>
+                    <div class="reveal" style="box-shadow: var(--shadow); border-radius:15px; overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&q=80&w=800" alt="Expert Plumber Working" style="width:100%; display:block;" onerror="this.src='https://images.unsplash.com/photo-1581244276891-6bc618f3a693?q=80&w=800&auto=format&fit=crop'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA: CONTACT -->
+        <div id="contact" class="page-section">
+            <div class="page-header-banner" style="height:200px">
+                <div class="hero-overlay" style="background:var(--dark); opacity:0.9"></div>
+                <h2 data-i18n="nav-contact">Contact Us</h2>
+            </div>
+            <div class="container" style="padding:100px 0">
+                <div class="contact-box reveal">
+                    <!-- Column 1: Form -->
+                    <div style="background: var(--light); padding: 40px; border-radius: 12px; border: 1px solid #eee;">
+                        <h3 style="margin-bottom:30px; font-family:var(--font-heading); font-size:2.8rem; text-transform:uppercase; line-height: 1;" data-i18n="form-title">Request Service</h3>
+                        <form onsubmit="event.preventDefault(); sendSMS();">
+                            <div class="form-group">
+                                <label data-i18n="f-name">Your Name</label>
+                                <input type="text" id="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="f-service">Service Needed</label>
+                                <select id="service">
+                                    <option value="Leak">Leak Repair</option>
+                                    <option value="Heater">Water Heater</option>
+                                    <option value="Drain">Drain Cleaning</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="f-msg">Issue Details</label>
+                                <textarea id="msg" rows="4" placeholder="Describe your plumbing problem..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="f-btn">
+                                <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" style="margin-right:5px;"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                                Send SMS Request
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Column 2: Info & Image -->
+                    <div style="display: flex; flex-direction: column; gap: 30px;">
+                        <div class="contact-image-wrapper" style="box-shadow: var(--shadow);">
+                            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800" alt="Emergency Plumbing Van" onerror="this.src='https://images.unsplash.com/photo-1590231575459-0bc9a924346e?q=80&w=800&auto=format&fit=crop'">
+                            <div style="position:absolute; bottom:20px; left:20px; background:var(--primary); color:white; padding:10px 20px; border-radius:5px; font-weight:900; font-family:var(--font-heading); text-transform:uppercase;">
+                                Serving All Austin
+                            </div>
+                        </div>
+                        <div style="background:var(--dark); color:white; padding:40px; border-radius:12px; border-top: 6px solid var(--primary);">
+                            <h4 style="color:var(--primary); font-family:var(--font-heading); font-size:1.8rem; text-transform:uppercase; margin-bottom:15px;">Direct Line</h4>
+                            <p style="font-size:2.2rem; font-weight:900; color:white; line-height:1;">(512) 445-8832</p>
+                            <p style="margin-top:25px; font-weight:700; opacity:0.9;">📍 Austin, Texas Metro Area</p>
+                            <p data-i18n="hours" style="opacity:0.8;">Mon - Fri: 7am - 7pm</p>
+                            <div style="margin-top:20px; color:var(--success); font-weight:900; text-transform:uppercase; display:flex; align-items:center; gap:8px;">
+                                <span style="width:12px; height:12px; background:var(--success); border-radius:50%; display:inline-block; animation: pulse 2s infinite;"></span>
+                                🚨 24/7 Emergency Line
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h4 style="color:white; font-family:var(--font-heading); font-size:1.8rem; margin-bottom:10px; text-transform:uppercase;">Mike's Garza Plumbing</h4>
+            <p style="max-width:600px; margin:0 auto 20px; font-size:0.9rem;">Providing Austin with professional, licensed plumbing solutions since 2009. We treat your home with the care it deserves.</p>
+            <p>&copy; 2026 Mike's Garza Plumbing · Austin, TX</p>
+            <p style="margin-top:20px; font-size:0.75rem; opacity:0.6">Powered by <a href="https://hammercircuit.com/" target="_blank" style="color:white; text-decoration:underline">Hammer & Circuit Web Labs</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-about": "About", "nav-contact": "Contact",
+                "hero-tag": "Trusted Austin Plumbers", "hero-title": "Austin's #1 Plumbing Expert",
+                "hero-desc": "Fast, licensed, and reliable. We fix leaks, heaters, and drains while you relax.",
+                "cta-call": "Call Now", "cta-quote": "Get a Quote", "s1-name": "Leak Repair",
+                "s1-desc": "Professional diagnosis and repair for all pipe leaks.", "s2-name": "Water Heaters",
+                "s2-desc": "Expert installation and repair of all heaters.", "s3-name": "Drain Cleaning",
+                "s3-desc": "Clearing stubborn clogs for lasting results.",
+                "about-text": "Family-owned and operated since 2009. Serving Austin with integrity.",
+                "form-title": "Request Service", "f-name": "Your Name", "f-service": "Service Needed", "f-msg": "Issue Details",
+                "f-btn": "Send SMS Request", "hours": "Mon - Fri: 7am - 7pm", "sticky-call": "Call — Free Estimate",
+                "reviews-title": "What Austin Says", "stat-years": "Years in Austin", "stat-jobs": "Jobs Completed",
+                "stat-rating": "Google Rating", "stat-warranty": "Work Warranty"
+            },
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-about": "Nosotros", "nav-contact": "Contacto",
+                "hero-tag": "Plomeros Confiables en Austin", "hero-title": "El Experto #1 en Austin",
+                "hero-desc": "Rápido, con licencia y confiable. Reparamos fugas, calentadores y drenajes.",
+                "cta-call": "Llamar Ahora", "cta-quote": "Presupuesto", "s1-name": "Fugas",
+                "s1-desc": "Diagnóstico y reparación profesional de fugas.", "s2-name": "Calentadores",
+                "s2-desc": "Instalación y reparación de calentadores.", "s3-name": "Drenajes",
+                "s3-desc": "Limpieza de obstrucciones difíciles.",
+                "about-text": "Empresa familiar desde 2009. Sirviendo a Austin con integridad.",
+                "form-title": "Solicitar Servicio", "f-name": "Tu Nombre", "f-service": "Servicio", "f-msg": "Detalles",
+                "f-btn": "Enviar SMS", "hours": "Lun - Vie: 7am - 7pm", "sticky-call": "Llamar — Presupuesto Gratis",
+                "reviews-title": "Lo que Austin dice", "stat-years": "Años en Austin", "stat-jobs": "Trabajos Hechos",
+                "stat-rating": "Calificación Google", "stat-warranty": "Garantía de Obra"
+            },
+            zh: {
+                "nav-home": "首页", "nav-services": "服务项目", "nav-about": "关于我们", "nav-contact": "联系我们",
+                "hero-tag": "奥斯汀顶级专家", "hero-title": "奥斯汀第一管道专家",
+                "hero-desc": "快速、持证且可靠。解决漏水、热水器和排水管问题。",
+                "cta-call": "立即致电", "cta-quote": "获取报价", "s1-name": "漏水修理",
+                "s1-desc": "专业诊断与维修。", "s2-name": "热水器",
+                "s2-desc": "安装与维修。", "s3-name": "下水道",
+                "s3-desc": "疏通与维护。",
+                "about-text": "自2009年起家庭经营。诚信服务。",
+                "form-title": "请求服务", "f-name": "姓名", "f-service": "服务类型", "f-msg": "信息",
+                "f-btn": "发送短信", "hours": "周一至周五: 7am - 7pm", "sticky-call": "点击致电 — 免费估价",
+                "reviews-title": "客户评价", "stat-years": "奥斯汀服务年限", "stat-jobs": "完成工作量",
+                "stat-rating": "谷歌评分", "stat-warranty": "工作保修"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+            document.getElementById('sticky-call-text').childNodes[2].nodeValue = " " + translations[lang]['sticky-call'];
+        }
+
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+        function navigateTo(sectionId) {
+            document.getElementById('mobileMenu').classList.remove('open');
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+
+            const target = document.getElementById(sectionId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0,0);
+                history.pushState(null, null, `#${sectionId}`);
+                initReveal(); 
+            }
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active-link');
+                if(link.id === `link-${sectionId}`) link.classList.add('active-link');
+            });
+        }
+
+        function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        if (entry.target.querySelector('.stat-number')) {
+                            startCounters();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(r => observer.observe(r));
+        }
+
+        function startCounters() {
+            document.querySelectorAll('.stat-number').forEach(el => {
+                if (el.dataset.started) return;
+                el.dataset.started = "true";
+                const target = parseFloat(el.getAttribute('data-count'));
+                const suffix = el.getAttribute('data-suffix') || '';
+                const decimal = el.getAttribute('data-decimal') || null;
+                let current = 0;
+                const duration = 2000;
+                const increment = target / (duration / 16);
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        el.textContent = (decimal ? target + "." + decimal : Math.floor(target)) + suffix;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = (decimal ? Math.floor(current) + "." + (Math.floor((current % 1) * 10)) : Math.floor(current)) + suffix;
+                    }
+                }, 16);
+            });
+        }
+
+        function initApp() {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+        }
+
+        function sendSMS() {
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const msg = document.getElementById('msg').value;
+            const phone = "+15124458832";
+            const body = `Hi Mike! My name is ${name}. I need: ${service}. ${msg}`;
+            window.location.href = `sms:${phone}${window.navigator.userAgent.match(/iPhone/i) ? '&' : '?'}body=${encodeURIComponent(body)}`;
+        }
+
+        window.onpopstate = () => {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+        };
+    </script>
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+        }
+    </style>
+</body>
+</html>
