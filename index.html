@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hammer & Circuit | Fast Websites for Tradespeople in 48 Hours</title>
     <meta name="description" content="High-performance websites for plumbers, electricians, HVAC and contractors in 48 hours. $199 one-time build. Fast, mobile-ready, no bloat.">
+    
+    <!-- Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -13,48 +15,48 @@
       "url": "https://hammercircuit.com",
       "logo": "https://hammercircuit.com/hammer-circuit-logo.png",
       "description": "High-performance websites for tradespeople in 48 hours.",
-      "email": "hammerandcircuit@gmail.com",
+      "email": "ferranasmodeus@hammercircuit.com",
       "areaServed": "US",
       "serviceType": "Web Design for Contractors and Tradespeople"
     }
     </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            'tool-red': '#E30613',
-                            'tool-dark': '#0F0F0F',
-                            'tool-gray': '#1E1E1E',
-                            'tool-silver': '#C0C0C0',
-                        },
-                        fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
-                            heading: ['Barlow Condensed', 'sans-serif'],
-                            mono: ['JetBrains Mono', 'monospace'],
-                        }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tool-red': '#E30613',
+                        'tool-dark': '#0F0F0F',
+                        'tool-gray': '#1E1E1E',
+                        'tool-silver': '#C0C0C0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         :root { --accent: #E30613; }
         body { background-color: #0A0A0A; color: #FFFFFF; height: 100vh; overflow: hidden; }
+        
         .carbon-bg {
             background-color: #0A0A0A;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             background-blend-mode: overlay;
-            opacity: 0.95;
         }
+
         .shutter-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--accent); z-index: 100;
@@ -62,257 +64,354 @@
             transition: transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
         }
         .shutter-active { transform: translateY(0); }
+
         .crt-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
             background-size: 100% 3px, 3px 100%;
             pointer-events: none; z-index: 50;
         }
+
         .page-entry { animation: contentSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes contentSlideUp {
-            from { opacity: 0; transform: translateY(10px); filter: contrast(1.2) brightness(1.2); }
-            to { opacity: 1; transform: translateY(0); filter: contrast(1) brightness(1); }
+            from { opacity: 0; transform: translateY(15px); filter: brightness(1.5); }
+            to { opacity: 1; transform: translateY(0); filter: brightness(1); }
         }
-        .switch-btn { position: relative; transition: all 0.2s; border-left: 0px solid var(--accent); }
+
+        .switch-btn { transition: all 0.3s ease; border-left: 0px solid var(--accent); }
         .switch-active {
             background: linear-gradient(90deg, rgba(227, 6, 19, 0.15) 0%, transparent 100%);
-            border-left-width: 8px !important;
+            border-left-width: 6px !important;
             color: white !important;
-            box-shadow: inset 10px 0 20px -10px rgba(227, 6, 19, 0.4);
         }
+
         .logo-frame {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 220px;
-            height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            width: 140px; height: 40px;
         }
-        .logo-frame img {
-            width: 100%;
-            height: auto;
-            max-height: 60px;
-            object-fit: contain;
-            display: block;
-        }
-        @media (min-width: 768px) {
-            .logo-frame {
-                width: 360px;
-                height: 96px;
-            }
-            .logo-frame img {
-                max-height: 82px;
-            }
-        }
+        @media (min-width: 768px) { .logo-frame { width: 280px; height: 80px; } }
+        
+        .logo-frame img { width: 100%; height: 100%; object-fit: contain; }
+
+        #content-area::-webkit-scrollbar { width: 4px; }
+        #content-area::-webkit-scrollbar-track { background: transparent; }
+        #content-area::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
         .loading-bar {
             height: 3px; background: var(--accent); width: 0;
             position: absolute; bottom: -3px; left: 0;
             transition: width 0.4s ease;
             box-shadow: 0 0 10px var(--accent);
         }
-        .btn-primary-red {
-            background-color: #E30613 !important;
-            color: white !important;
-        }
+
+        /* Hide scrollbar for nav on mobile */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="font-sans carbon-bg">
     <div class="crt-overlay"></div>
     <div id="shutter" class="shutter-overlay"></div>
+
     <div class="h-screen flex flex-col relative z-10">
-        <header class="bg-tool-dark border-b-4 border-tool-red p-4 md:px-8 flex justify-between items-center shadow-2xl relative">
+        <!-- HEADER -->
+        <header class="bg-tool-dark border-b-4 border-tool-red p-3 px-4 md:px-8 flex justify-between items-center shadow-2xl relative shrink-0">
             <div class="flex items-center cursor-pointer" onclick="changePage('home')">
                 <div class="logo-frame">
-                    <img src="/hammer-circuit-logo.png" alt="Hammer & Circuit Web Lab">
+                    <img src="/hammer-circuit-logo.png" alt="Hammer & Circuit" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <span class="hidden font-heading text-xl italic font-black tracking-tighter">HAMMER & CIRCUIT</span>
                 </div>
             </div>
-            <div class="hidden md:flex bg-black/60 border border-white/5 p-1 rounded-sm">
-                <button onclick="setLanguage('en')" class="lang-btn px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-tool-red transition-all" id="lang-en">EN</button>
-                <button onclick="setLanguage('es')" class="lang-btn px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-tool-red transition-all" id="lang-es">ES</button>
-                <button onclick="setLanguage('zh')" class="lang-btn px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-tool-red transition-all" id="lang-zh">ZH</button>
+
+            <div class="flex items-center space-x-2">
+                <span class="hidden lg:block font-mono text-[10px] text-gray-500 uppercase tracking-tighter">Translate_Protocol:</span>
+                <div class="flex bg-black/80 border border-white/10 p-1 rounded-sm shadow-inner">
+                    <button onclick="setLanguage('en')" class="lang-btn px-2.5 md:px-4 py-1 text-[9px] md:text-[10px] font-bold uppercase transition-all" id="lang-en">EN</button>
+                    <button onclick="setLanguage('es')" class="lang-btn px-2.5 md:px-4 py-1 text-[9px] md:text-[10px] font-bold uppercase transition-all border-l border-white/5" id="lang-es">ES</button>
+                    <button onclick="setLanguage('zh')" class="lang-btn px-2.5 md:px-4 py-1 text-[9px] md:text-[10px] font-bold uppercase transition-all border-l border-white/5" id="lang-zh">ZH</button>
+                </div>
             </div>
+            
             <div id="loader" class="loading-bar"></div>
         </header>
+
         <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
-            <nav class="w-full md:w-72 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0">
-                <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_home">Home</span>
+            <!-- SIDEBAR NAV -->
+            <nav class="w-full md:w-64 lg:w-72 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0 overflow-x-auto no-scrollbar md:overflow-y-auto">
+                <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_home">Home</span>
                 </button>
-                <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_solutions">The Advantage</span>
+                <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_solutions">Advantage</span>
                 </button>
-                <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group bg-tool-red/5">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter text-tool-red" data-i18n="nav_protocol">48h Protocol</span>
+                <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_protocol">48h Protocol</span>
                 </button>
-                <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_pricing">Pricing</span>
+                <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_pricing">Pricing</span>
                 </button>
-                <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_portfolio">Portfolio</span>
+                <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_portfolio">Portfolio</span>
                 </button>
-                <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
-                    <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_contact">Contact</span>
+                <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-b border-white/5 group shrink-0">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_contact">Contact</span>
                 </button>
+
                 <div class="hidden md:block mt-auto p-8 bg-black/40 border-t border-white/5">
                     <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 bg-tool-red rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-mono font-bold text-white uppercase italic">AUSTIN_TEXAS_OPERATIONAL</span>
+                        <div class="w-2 h-2 bg-tool-red rounded-full animate-pulse shadow-[0_0_8px_var(--accent)]"></div>
+                        <span class="text-[9px] font-mono font-bold text-white uppercase italic tracking-widest">OPS_SIGNAL: AUSTIN_TX</span>
                     </div>
                 </div>
             </nav>
-            <div id="content-area" class="flex-grow p-8 md:p-20 overflow-y-auto page-entry"></div>
+
+            <!-- CONTENT -->
+            <div id="content-area" class="flex-grow p-5 md:p-12 lg:p-20 overflow-y-auto page-entry relative">
+            </div>
         </main>
-        <footer class="bg-black text-[10px] font-mono text-gray-600 px-8 py-4 flex flex-col md:flex-row justify-between items-center border-t border-white/5">
-            <div class="font-bold tracking-widest uppercase">Hammer & Circuit Web Labs™</div>
-            <div class="text-center italic uppercase tracking-[0.2em] my-2 md:my-0">Precision Engineering for the Trades</div>
+
+        <footer class="bg-black text-[9px] md:text-[10px] font-mono text-gray-500 px-8 py-3 flex flex-col md:flex-row justify-between items-center border-t border-white/5 shrink-0">
+            <div class="font-bold tracking-widest uppercase mb-1 md:mb-0">Hammer & Circuit Web Labs™</div>
+            <div class="text-center italic uppercase tracking-[0.2em] hidden sm:block">Precision Engineering for the Trades</div>
             <div>© 2026 Hammer and Circuit Web Labs LLC</div>
         </footer>
     </div>
+
     <script>
         const translations = {
             en: {
-                nav_home: "Home", nav_solutions: "Why Us", nav_protocol: "48h Protocol", nav_pricing: "Clear Pricing",
+                nav_home: "Home", nav_solutions: "Why Us", nav_protocol: "48h Protocol", nav_pricing: "Pricing",
                 nav_portfolio: "Portfolio", nav_contact: "Contact",
                 hero_title: "INDUSTRIAL STRENGTH + DIGITAL PRECISION.",
                 hero_desc: "We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.",
-                hero_cta: "Launch My 48-Hour Site – $199",
+                hero_cta: "Launch My 48h Site – $199",
                 protocol_title: "THE 48-HOUR CLOCK",
-                protocol_sub: "To ensure a high-quality launch in 48 hours, the following protocol must be met.",
-                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via PayPal is required to book your production spot.",
-                p_item_2_t: "02. The Information Kit (Tally Form)", p_item_2_d: "Complete your business data form. NOTE: Missing photos or info pauses the delivery clock.",
-                p_item_3_t: "03. Style Selection", p_item_3_d: "Choose your master template. We use optimized structures to ensure sub-1s load times.",
-                p_item_4_t: "04. Domain Access", p_item_4_d: "Provide DNS access if you own a domain, or we'll manage a new one for you instantly.",
-                protocol_summary: "Summary: You pay and fill the form today; I deliver your fast, professional site in max 2 business days.",
+                protocol_sub: "To ensure a high-quality launch, the following protocol must be met.",
+                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via PayPal is required to book your spot.",
+                p_item_2_t: "02. The Information Kit", p_item_2_d: "Complete your business data form. Missing info pauses the delivery clock.",
+                p_item_3_t: "03. Style Selection", p_item_3_d: "Choose your master template. Optimized for sub-1s load times.",
+                p_item_4_t: "04. Domain Access", p_item_4_d: "Provide DNS access or we'll manage a new one for you instantly.",
+                protocol_summary: "You pay and fill the form today; we deliver in max 2 business days.",
                 sol_title: "THE TRADE ADVANTAGE",
-                sol_desc: "Most agencies build slow, bloated websites. We use pure code to make sure your business is the fastest in your area.",
-                sol_item_1_t: "Faster Than Your Tools", sol_item_1_d: "Our sites load instantly so customers don't hang up and call the next guy.",
-                sol_item_2_t: "Built Tough, Not Bloated", sol_item_2_d: "No heavy software that breaks. We build with pure code for 100% reliability on any phone.",
-                sol_item_3_t: "Ready to Work", sol_item_3_d: "Optimized specifically to show up on Google and turn visitors into actual jobs.",
+                sol_desc: "Most agencies build slow, bloated websites. We use pure code to ensure you're the fastest in town.",
+                sol_item_1_t: "Faster Than Tools", sol_item_1_d: "Instant loading means customers don't hang up to call the next guy.",
+                sol_item_2_t: "Built Tough", sol_item_2_d: "Pure code construction for 100% reliability on any mobile device.",
+                sol_item_3_t: "Ready to Work", sol_item_3_d: "Specifically optimized to convert local visitors into paying jobs.",
                 price_title: "THE $199 BLUEPRINT",
                 p_build_title: "One-Time Build: $199",
-                p_item_1: "Complete Site Engineering (Code & Layout)", p_item_2: "Sub-1s Phone Loading Speed", p_item_3: "Ready for Launch in 48h",
-                p_maint_title: "Protection & Hosting: $29/mo",
-                p_m_item_1: "Secure Hosting + Site Protection (SSL)", p_m_item_2: "Professional Domain Management", p_m_item_3: "Minor Edits & Tech Support (Text/Photo)",
-                contact_title: "CONTACT THE LAB"
+                p_item_1: ".com Domain Registration", p_item_2: "Site Dev (Selected Template)", p_item_3: "Initial Setup & Deployment",
+                p_gift: "🎁 FREE BONUS: First 3 Months Included!",
+                p_maint_title: "Service & Hosting: $29/mo",
+                p_m_item_1: "Secure Hosting + SSL Protection", p_m_item_2: "Professional Domain Management", p_m_item_3: "Performance Reporting + Support",
+                p_m_savings: "[SAVINGS: $80 / 3mo · $300 / year]",
+                p_specs_title: "TECHNICAL SPECS & LIMITS",
+                p_specs_maint: "Maintenance includes: 1-4 photo updates and 1 page of text edits per month. Full section modifications or additions are excluded.",
+                p_specs_report: "Plus: Every month, we send a performance report including visitor count and 'Click-to-Call' metrics.",
+                contact_title: "CONTACT THE LAB",
+                contact_lead: "Ferran | Tech Lead",
+                contact_email: "ferranasmodeus@hammercircuit.com"
             },
             es: {
-                nav_home: "Inicio", nav_solutions: "Por Qué Funciona", nav_protocol: "Protocolo 48h", nav_pricing: "Precios Claros",
+                nav_home: "Inicio", nav_solutions: "Por Qué", nav_protocol: "Protocolo 48h", nav_pricing: "Precios",
                 nav_portfolio: "Portfolio", nav_contact: "Contacto",
                 hero_title: "FUERZA INDUSTRIAL + PRECISIÓN DIGITAL.",
-                hero_desc: "Creamos sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos de marketing, solo más llamadas para tu negocio.",
-                hero_cta: "Iniciar Web en 48 Horas – $199",
-                protocol_title: "EL RELOJ DE LAS 48 HORAS",
-                protocol_sub: "Para garantizar una entrega de alta calidad en 48 horas, debemos cumplir con este protocolo.",
-                p_item_1_t: "01. Pago de Despliegue Inicial", p_item_1_d: "Se requiere el pago único de $199 USD vía PayPal para apartar tu lugar en producción.",
-                p_item_2_t: "02. El Kit de Información (Formulario Tally)", p_item_2_d: "Completa los datos de tu negocio. NOTA: Si faltan fotos o datos, el reloj de entrega se pausa.",
-                p_item_3_t: "03. Elección de Estilo", p_item_3_d: "Eliges uno de nuestros 3 estilos maestros optimizados para cargar en menos de 1 segundo.",
-                p_item_4_t: "04. Llaves del Dominio", p_item_4_d: "Danos acceso a tu dominio actual o nosotros gestionamos uno nuevo para evitar demoras.",
-                protocol_summary: "Resumen: Tú pagas y llenas el formulario hoy; yo te entrego tu sitio web profesional y ultra rápido en máximo 2 días hábiles.",
-                sol_title: "LA VENTAJA PARA TU OFICIO",
-                sol_desc: "La mayoría de las agencias crean sitios lentos. Usamos código puro para asegurar que seas el más rápido de tu zona.",
-                sol_item_1_t: "Más rápido que tus herramientas", sol_item_1_d: "Tu web carga al instante para que los clientes no cuelguen y llamen a otro.",
-                sol_item_2_t: "Construcción sólida, sin basura", sol_item_2_d: "Sin programas pesados que fallan. Usamos código puro para una fiabilidad del 100%.",
-                sol_item_3_t: "Lista para trabajar", sol_item_3_d: "Optimizada para aparecer en Google y convertir visitas en trabajos reales.",
+                hero_desc: "Sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos, solo más llamadas para tu negocio.",
+                hero_cta: "Iniciar Mi Web en 48h – $199",
+                protocol_title: "EL RELOJ DE 48 HORAS",
+                protocol_sub: "Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
+                p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía PayPal para apartar tu lugar en producción.",
+                p_item_2_t: "02. Kit de Información", p_item_2_d: "Completa el formulario de negocio. La falta de datos pausa el reloj.",
+                p_item_3_t: "03. Selección de Estilo", p_item_3_d: "Elige una de nuestras plantillas maestras optimizadas para velocidad.",
+                p_item_4_t: "04. Acceso a Dominio", p_item_4_d: "Danos acceso a tu DNS o gestionamos uno nuevo al instante.",
+                protocol_summary: "Pagas y llenas el formulario hoy; entregamos en máximo 2 días hábiles.",
+                sol_title: "VENTAJA DEL OFICIO",
+                sol_desc: "La mayoría crea sitios lentos. Usamos código puro para que seas el más rápido de tu zona.",
+                sol_item_1_t: "Más rápido que tus herramientas", sol_item_1_d: "Carga instantánea para que el cliente no llame a la competencia.",
+                sol_item_2_t: "Construcción Sólida", sol_item_2_d: "Código puro para fiabilidad del 100% en cualquier celular.",
+                sol_item_3_t: "Lista para Trabajar", sol_item_3_d: "Optimizada para convertir visitas locales en trabajos reales.",
                 price_title: "EL PLAN DE $199",
                 p_build_title: "Construcción Única: $199",
-                p_item_1: "Ingeniería Completa del Sitio (Código y Layout)", p_item_2: "Carga en celular en menos de 1s", p_item_3: "En vivo y lista en 48 horas",
-                p_maint_title: "Seguro de Protección y Hosting: $29/mes",
-                p_m_item_1: "Hosting Seguro + Protección (SSL)", p_m_item_2: "Gestión de Dominio Profesional", p_m_item_3: "Cambios Menores y Soporte (Texto/Fotos)",
-                contact_title: "CONTACTA AL LAB"
+                p_item_1: "Dominio .com Incluido", p_item_2: "Desarrollo (Plantilla Elegida)", p_item_3: "Puesta a Punto y Despliegue",
+                p_gift: "🎁 REGALO: ¡Primeros 3 Meses Incluidos!",
+                p_maint_title: "Servicio y Hosting: $29/mes",
+                p_m_item_1: "Hosting Seguro + Protección SSL", p_m_item_2: "Gestión Profesional de Dominio", p_m_item_3: "Reporte de Desempeño + Soporte",
+                p_m_savings: "[MODO_AHORRO: $80 / 3meses · $300 / año]",
+                p_specs_title: "DETALLES TÉCNICOS Y LÍMITES",
+                p_specs_maint: "Mantenimiento incluye: 1-4 fotos (quitar/poner) y 1 cuartilla de texto al mes. No incluye secciones completas.",
+                p_specs_report: "Plus: Recibirás un reporte mensual de desempeño con datos de visitantes y clics en tu teléfono.",
+                contact_title: "CONTACTA AL LAB",
+                contact_lead: "Ferran | Tech Lead",
+                contact_email: "ferranasmodeus@hammercircuit.com"
             },
             zh: {
-                nav_home: "首页", nav_solutions: "行业优势", nav_protocol: "48小时协议", nav_pricing: "透明定价",
-                nav_portfolio: "案例展示", nav_contact: "联系",
+                nav_home: "首页", nav_solutions: "行业优势", nav_protocol: "48小时协议", nav_pricing: "定价",
+                nav_portfolio: "案例", nav_contact: "联系",
                 hero_title: "工业实力 + 数字精度。",
-                hero_desc: "我们在 48 小时内为技工构建高性能网站。拒绝营销噱头，只为您的业务带来更多致电。",
+                hero_desc: "我们在 48 小时内为技工构建高性能网站。只为您的业务带来更多致电。",
                 hero_cta: "启动 48 小时网站 – $199",
                 protocol_title: "48 小时倒计时",
-                protocol_sub: "为确保在 48 小时内高质量交付，必须遵守以下协议。",
-                p_item_1_t: "01. 初始部署付款", p_item_1_d: "需通过 PayPal 支付 199 美元的一次性费用以预留生产位置。",
-                p_item_2_t: "02. 信息包（Tally 表单）", p_item_2_d: "填写您的业务数据。注意：缺少照片或信息将暂停交付计时。",
-                p_item_3_t: "03. 风格选择", p_item_3_d: "选择您的主模板。我们使用优化结构以确保加载时间低于 1 秒。",
-                p_item_4_t: "04. 域名权限", p_item_4_d: "如果您已有域名，请提供 DNS 访问权限，或者由我们为您即时管理新域名。",
-                protocol_summary: "总结：您今天付款并填写表单；我将在最多 2 个工作日内交付您的专业、超快速网站。",
+                protocol_sub: "为确保高质量交付，必须遵守以下协议。",
+                p_item_1_t: "01. 初始部署付款", p_item_1_d: "通过 PayPal 支付 199 美元一次性费用以预留位置。",
+                p_item_2_t: "02. 信息包", p_item_2_d: "填写业务数据表。信息缺失将暂停计时。",
+                p_item_3_t: "03. 风格选择", p_item_3_d: "选择我们的主模板，确保极速加载。",
+                p_item_4_t: "04. 域名权限", p_item_4_d: "提供 DNS 权限或我们为您即时管理。",
+                protocol_summary: "今天付款填表；2 个工作日内交付。",
                 sol_title: "行业优势",
-                sol_desc: "大多数机构构建的网站运行缓慢。我们使用纯代码确保您的业务是当地最快的。",
-                sol_item_1_t: "比工具更快", sol_item_1_d: "我们的网站即时加载，让客户不会挂断电话去打给下一个人。",
-                sol_item_2_t: "坚固构建，拒绝臃肿", sol_item_2_d: "没有笨重易碎的软件。我们使用纯代码构建，确保在任何手机上 100% 可靠。",
-                sol_item_3_t: "随时待命", sol_item_3_d: "专门针对 Google 搜索进行优化，将访问者转化为实际业务。",
+                sol_desc: "我们使用纯代码确保您的业务是当地最快的。",
+                sol_item_1_t: "比工具更快", sol_item_1_d: "即时加载，留住每一位客户。",
+                sol_item_2_t: "坚固构建", sol_item_2_d: "纯代码确保 100% 手机端可靠性。",
+                sol_item_3_t: "随时待命", sol_item_3_d: "专门优化以将访问者转化为业务订单。",
                 price_title: "$199 计划",
                 p_build_title: "一次性建造：$199",
-                p_item_1: "完整的网站工程（代码和布局）", p_item_2: "手机加载速度低于 1 秒", p_item_3: "48 小时内上线就绪",
-                p_maint_title: "保护与托管：$29/月",
-                p_m_item_1: "安全托管 + 网站保护 (SSL)", p_m_item_2: "专业域名管理", p_m_item_3: "包含微调（文字/照片）",
-                contact_title: "联系实验室"
+                p_item_1: "包含 .com 域名", p_item_2: "网站开发 (基于模板)", p_item_3: "初始设置与上线",
+                p_gift: "🎁 额外奖励：前 3 个月免费！",
+                p_maint_title: "托管与服务：$29/月",
+                p_m_item_1: "安全托管 + SSL 保护", p_m_item_2: "专业域名管理", p_m_item_3: "每月绩效报告 + 支持",
+                p_m_savings: "[预付优惠: $80 / 3月 · $300 / 年]",
+                p_specs_title: "服务详情与限制",
+                p_specs_maint: "维护包含：每月 1-4 张图片更新及 1 页文字修改。不含版块增删或大改。",
+                p_specs_report: "附加值：每月发送绩效报告，包含访问量及拨号点击统计。",
+                contact_title: "联系实验室",
+                contact_lead: "Ferran | 技术主管",
+                contact_email: "ferranasmodeus@hammercircuit.com"
             }
         };
+
         let currentLang = 'en';
+        let currentPage = 'home';
+
         async function changePage(page) {
+            if (page === currentPage && document.getElementById('content-area').innerHTML !== "") return;
             const loader = document.getElementById('loader');
             const shutter = document.getElementById('shutter');
             loader.style.width = '100%';
             shutter.classList.add('shutter-active');
             await new Promise(r => setTimeout(r, 450));
+            currentPage = page;
             renderPage(page);
             updateNav(page);
             shutter.classList.remove('shutter-active');
-            loader.style.width = '0%';
+            setTimeout(() => { loader.style.width = '0%'; }, 100);
+            document.getElementById('content-area').scrollTop = 0;
         }
+
         function renderPage(page) {
             const content = document.getElementById('content-area');
             const t = translations[currentLang] || translations['en'];
             content.classList.remove('page-entry');
             void content.offsetWidth;
             content.classList.add('page-entry');
+
             switch(page) {
                 case 'home':
                     content.innerHTML = `
                         <div class="max-w-4xl">
-                            <h2 class="text-6xl md:text-9xl font-heading uppercase italic leading-[0.8] mb-10">${t.hero_title}</h2>
-                            <p class="text-gray-400 text-xl md:text-3xl mb-12 max-w-2xl font-light italic leading-relaxed">${t.hero_desc}</p>
+                            <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-heading uppercase italic leading-[0.85] mb-8">${t.hero_title}</h2>
+                            <p class="text-gray-400 text-base md:text-2xl lg:text-3xl mb-10 max-w-2xl font-light italic leading-relaxed border-l-2 border-tool-red pl-5 sm:pl-6">${t.hero_desc}</p>
                             <div class="flex flex-wrap gap-4">
-                                <button onclick="changePage('protocol')" class="btn-primary-red text-white px-12 py-6 font-heading text-3xl uppercase italic tracking-tighter hover:scale-105 transition-transform shadow-[0_15px_40px_rgba(227,6,19,0.3)]">${t.hero_cta}</button>
+                                <button onclick="changePage('protocol')" class="bg-tool-red text-white px-7 py-4 md:px-12 md:py-6 font-heading text-lg md:text-3xl uppercase italic tracking-tighter hover:scale-105 transition-transform shadow-[0_15px_40px_rgba(227,6,19,0.4)]">
+                                    ${t.hero_cta}
+                                </button>
                             </div>
                         </div>
                     `;
                     break;
                 case 'protocol':
                     content.innerHTML = `
-                        <h2 class="text-6xl font-heading uppercase italic mb-4">${t.protocol_title}</h2>
-                        <p class="text-gray-500 font-mono text-xs mb-12 uppercase tracking-widest">${t.protocol_sub}</p>
-                        <div class="grid md:grid-cols-2 gap-6 max-w-6xl">
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-tool-red"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_1_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_1_d}</p></div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_2_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_2_d}</p></div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_3_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_3_d}</p></div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_4_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_4_d}</p></div>
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl font-heading uppercase italic mb-2">${t.protocol_title}</h2>
+                        <p class="text-gray-500 font-mono text-[9px] mb-8 uppercase tracking-widest">${t.protocol_sub}</p>
+                        <div class="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-6xl">
+                            <div class="p-5 md:p-8 bg-tool-gray/30 border-l-4 border-tool-red hover:bg-tool-gray/50 transition-colors">
+                                <h4 class="text-xl md:text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_1_t}</h4>
+                                <p class="text-gray-500 text-sm italic leading-snug">${t.p_item_1_d}</p>
+                            </div>
+                            <div class="p-5 md:p-8 bg-tool-gray/30 border-l-4 border-white/10">
+                                <h4 class="text-xl md:text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_2_t}</h4>
+                                <p class="text-gray-500 text-sm italic leading-snug">${t.p_item_2_d}</p>
+                            </div>
+                            <div class="p-5 md:p-8 bg-tool-gray/30 border-l-4 border-white/10">
+                                <h4 class="text-xl md:text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_3_t}</h4>
+                                <p class="text-gray-500 text-sm italic leading-snug">${t.p_item_3_d}</p>
+                            </div>
+                            <div class="p-5 md:p-8 bg-tool-gray/30 border-l-4 border-white/10">
+                                <h4 class="text-xl md:text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_4_t}</h4>
+                                <p class="text-gray-500 text-sm italic leading-snug">${t.p_item_4_d}</p>
+                            </div>
                         </div>
-                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30"><p class="text-xl md:text-2xl font-heading uppercase italic text-white text-center">${t.protocol_summary}</p></div>
+                        <div class="mt-8 p-6 bg-tool-red/10 border border-tool-red/30">
+                            <p class="text-base md:text-2xl font-heading uppercase italic text-white text-center">${t.protocol_summary}</p>
+                        </div>
                     `;
                     break;
                 case 'solutions':
                     content.innerHTML = `
-                        <h2 class="text-6xl font-heading uppercase italic mb-10">${t.sol_title}</h2>
-                        <div class="p-10 bg-tool-gray/30 border-l-8 border-tool-red mb-12 italic text-gray-300 text-2xl md:text-4xl leading-tight">${t.sol_desc}</div>
+                        <h2 class="text-4xl md:text-6xl font-heading uppercase italic mb-8">${t.sol_title}</h2>
+                        <div class="p-6 md:p-10 bg-tool-gray/30 border-l-8 border-tool-red mb-10 italic text-gray-300 text-lg md:text-3xl leading-tight">
+                            "${t.sol_desc}"
+                        </div>
                         <div class="grid md:grid-cols-3 gap-8">
-                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_1_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_1_d}</p></div>
-                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_2_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_2_d}</p></div>
-                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_3_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_3_d}</p></div>
+                            <div class="space-y-3">
+                                <div class="text-tool-red font-heading text-xl md:text-2xl italic uppercase leading-none">${t.sol_item_1_t}</div>
+                                <p class="text-gray-500 text-sm italic">${t.sol_item_1_d}</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="text-tool-red font-heading text-xl md:text-2xl italic uppercase leading-none">${t.sol_item_2_t}</div>
+                                <p class="text-gray-500 text-sm italic">${t.sol_item_2_d}</p>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="text-tool-red font-heading text-xl md:text-2xl italic uppercase leading-none">${t.sol_item_3_t}</div>
+                                <p class="text-gray-500 text-sm italic">${t.sol_item_3_d}</p>
+                            </div>
                         </div>
                     `;
                     break;
                 case 'pricing':
                     content.innerHTML = `
                         <div class="max-w-6xl mx-auto">
-                            <h2 class="text-7xl font-heading uppercase italic text-center mb-16">${t.price_title}</h2>
-                            <div class="grid md:grid-cols-2 gap-10 items-stretch">
-                                <div class="bg-tool-gray p-12 border-t-8 border-white/10 flex flex-col hover:border-white/30 transition-all">
-                                    <div class="text-5xl font-heading font-black italic mb-8 uppercase text-white leading-none">${t.p_build_title}</div>
-                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-500 flex-grow mb-12"><li>[+] ${t.p_item_1}</li><li>[+] ${t.p_item_2}</li><li>[+] ${t.p_item_3}</li></ul>
-                                    <button onclick="changePage('protocol')" class="text-tool-red text-xs font-mono uppercase italic underline text-left">View Activation Protocol</button>
+                            <h2 class="text-4xl sm:text-5xl md:text-7xl font-heading uppercase italic text-center mb-10">${t.price_title}</h2>
+                            <div class="grid lg:grid-cols-2 gap-6 items-stretch mb-12">
+                                <div class="bg-tool-gray p-6 md:p-12 border-t-8 border-white/10 flex flex-col hover:border-white/30 transition-all">
+                                    <div class="text-3xl md:text-5xl font-heading font-black italic mb-6 uppercase text-white leading-none">${t.p_build_title}</div>
+                                    <ul class="space-y-3 text-xs md:text-sm font-mono uppercase text-gray-500 flex-grow mb-6">
+                                        <li>[+] ${t.p_item_1}</li>
+                                        <li>[+] ${t.p_item_2}</li>
+                                        <li>[+] ${t.p_item_3}</li>
+                                    </ul>
+                                    <div class="text-tool-red font-mono text-[10px] sm:text-xs uppercase italic mb-6 font-bold">${t.p_gift}</div>
+                                    <button onclick="changePage('protocol')" class="text-white/40 text-[9px] font-mono uppercase italic underline text-left hover:text-white transition-colors">Activation_Protocol</button>
                                 </div>
-                                <div class="bg-tool-gray p-12 border-t-8 border-tool-red flex flex-col shadow-[0_0_60px_rgba(227,6,19,0.15)]">
-                                    <div class="text-4xl font-heading font-black italic mb-8 uppercase text-white leading-[0.95]">${t.p_maint_title}</div>
-                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-300 flex-grow mb-12"><li>[+] ${t.p_m_item_1}</li><li>[+] ${t.p_m_item_2}</li><li>[+] ${t.p_m_item_3}</li></ul>
+                                <div class="bg-tool-gray p-6 md:p-12 border-t-8 border-tool-red flex flex-col shadow-[0_20px_60px_rgba(227,6,19,0.15)] transform lg:scale-105 z-10">
+                                    <div class="text-2xl md:text-4xl font-heading font-black italic mb-6 uppercase text-white leading-tight">${t.p_maint_title}</div>
+                                    <ul class="space-y-3 text-xs md:text-sm font-mono uppercase text-gray-200 flex-grow mb-8">
+                                        <li>[+] ${t.p_m_item_1}</li>
+                                        <li>[+] ${t.p_m_item_2}</li>
+                                        <li>[+] ${t.p_m_item_3}</li>
+                                    </ul>
+                                    <div class="mb-6 p-3 bg-black/40 border-l-2 border-tool-red/40">
+                                        <p class="text-[9px] md:text-[11px] font-mono text-tool-red uppercase italic tracking-wider animate-pulse">
+                                            ${t.p_m_savings}
+                                        </p>
+                                    </div>
+                                    <span class="text-[9px] font-mono text-gray-500 uppercase italic">Status: Priority_Active</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-black/60 border border-white/5 p-6 md:p-10 font-mono">
+                                <h3 class="text-tool-red text-lg md:text-xl font-heading uppercase italic mb-6 tracking-widest border-b border-tool-red/20 pb-2">${t.p_specs_title}</h3>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div class="space-y-3">
+                                        <div class="text-[9px] text-gray-600 uppercase tracking-tighter italic font-bold">Policy:</div>
+                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">
+                                            ${t.p_specs_maint}
+                                        </p>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="text-[9px] text-gray-600 uppercase tracking-tighter italic font-bold">Metrics:</div>
+                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">
+                                            ${t.p_specs_report}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -320,46 +419,67 @@
                     break;
                 case 'portfolio':
                     content.innerHTML = `
-                        <h2 class="text-7xl font-heading uppercase italic mb-4">FIELD DEPLOYMENTS</h2>
-                        <p class="text-gray-500 font-mono text-xs mb-12 uppercase tracking-widest">Live client sites — Load times verified</p>
-                        <div class="grid md:grid-cols-3 gap-8 max-w-6xl">
-                            <div class="bg-tool-gray border-t-4 border-tool-red p-8 flex flex-col"><div class="text-tool-red font-mono text-xs uppercase mb-4 tracking-widest">Plumbing · Austin TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">Mike's Garza Plumbing</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.7s</div><div>📱 Mobile: 96/100</div><div>🔍 SEO: 97/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
-                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all"><div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">HVAC · Houston TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">TechCool HVAC</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.8s</div><div>📱 Mobile: 94/100</div><div>🔍 SEO: 95/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
-                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all"><div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">Electrician · Dallas TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">PowerGrid Electric</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.6s</div><div>📱 Mobile: 98/100</div><div>🔍 SEO: 96/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
+                        <h2 class="text-4xl md:text-7xl font-heading uppercase italic mb-2">FIELD DEPLOYMENTS</h2>
+                        <p class="text-gray-500 font-mono text-[9px] mb-10 uppercase tracking-widest">Network status — Load times verified</p>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl">
+                            <div class="bg-tool-gray border-t-4 border-tool-red p-6 flex flex-col">
+                                <div class="text-tool-red font-mono text-[9px] uppercase mb-4 tracking-widest">Trade: Plumbing · Austin TX</div>
+                                <h3 class="text-2xl font-heading uppercase italic mb-4 leading-none">Mike Garza Plumbing</h3>
+                                <div class="bg-black/60 p-4 font-mono text-[9px] text-green-400 mb-6 space-y-1 border border-white/5">
+                                    <div>⚡ SPEED_INDEX: 0.7s</div>
+                                    <div>📱 MOBILE: 96%</div>
+                                    <div>🔍 SEO: 97%</div>
+                                </div>
+                                <span class="mt-auto text-gray-600 font-mono text-[9px] uppercase tracking-widest">STATUS: ACTIVE_NODE</span>
+                            </div>
                         </div>
-                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30 max-w-6xl"><p class="text-center font-heading text-xl uppercase italic text-white">Your business, next in the deployment queue. → <button onclick="changePage('protocol')" class="text-tool-red underline ml-2">Start Now</button></p></div>
                     `;
                     break;
                 case 'contact':
                     content.innerHTML = `
-                        <h2 class="text-6xl font-heading uppercase italic mb-10">${t.contact_title}</h2>
-                        <div class="grid md:grid-cols-2 gap-12 max-w-5xl">
-                            <div class="p-10 bg-tool-gray border-l-8 border-tool-red"><div class="text-[11px] font-mono text-gray-600 uppercase mb-4 tracking-widest italic font-black">Operator_Signal:</div><h4 class="text-3xl font-heading uppercase italic mb-2 text-white">Alex | Tech Lead</h4><p class="text-tool-red font-mono text-lg font-black italic">hammerandcircuit@gmail.com</p></div>
-                            <div class="flex flex-col justify-center border border-white/5 p-10 bg-black/40 shadow-inner"><p class="text-3xl italic text-gray-300 leading-tight font-heading uppercase">"WE HANDLE THE UPDATES, YOU HANDLE THE JOBS. <span class='text-white font-bold'>PAYPAL_READY.</span>"</p></div>
+                        <h2 class="text-4xl md:text-6xl font-heading uppercase italic mb-10">${t.contact_title}</h2>
+                        <div class="grid md:grid-cols-2 gap-6 max-w-5xl">
+                            <div class="p-8 md:p-10 bg-tool-gray border-l-8 border-tool-red">
+                                <div class="text-[9px] font-mono text-gray-600 uppercase mb-4 tracking-widest italic font-black">Operator:</div>
+                                <h4 class="text-2xl md:text-4xl font-heading uppercase italic mb-2 text-white">${t.contact_lead}</h4>
+                                <p class="text-tool-red font-mono text-base md:text-xl font-black italic break-all">${t.contact_email}</p>
+                            </div>
+                            <div class="flex flex-col justify-center border border-white/5 p-8 bg-black/40 shadow-inner">
+                                <p class="text-xl md:text-3xl italic text-gray-400 leading-tight font-heading uppercase">
+                                    "WE HANDLE THE <span class="text-white">UPDATES</span>, YOU HANDLE THE <span class="text-white">JOBS</span>."
+                                </p>
+                            </div>
                         </div>
                     `;
                     break;
             }
         }
+
         function updateNav(page) {
             document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('switch-active'));
             const activeBtn = document.getElementById(`nav-${page}`);
             if (activeBtn) activeBtn.classList.add('switch-active');
         }
+
         function setLanguage(lang) {
             currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('bg-tool-red', 'text-white'));
-            const langBtn = document.getElementById(`lang-${lang}`);
-            if (langBtn) langBtn.classList.add('bg-tool-red', 'text-white');
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const isActive = btn.id === `lang-${lang}`;
+                btn.classList.toggle('bg-tool-red', isActive);
+                btn.classList.toggle('text-white', isActive);
+                btn.classList.toggle('text-gray-500', !isActive);
+            });
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
             });
-            const activeNav = document.querySelector('.switch-active');
-            const activePage = activeNav ? activeNav.id.replace('nav-', '') : 'home';
-            renderPage(activePage);
+            renderPage(currentPage);
         }
-        window.onload = () => { setLanguage('en'); };
+
+        window.onload = () => { 
+            setLanguage('en');
+            changePage('home');
+        };
     </script>
 </body>
 </html>
