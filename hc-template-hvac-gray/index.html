@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Pro Houston | AC Repair & Heating Service — 24/7 Emergency</title>
+    <meta name="description" content="Houston's trusted HVAC experts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" fetchpriority="high">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #17A2B8;
+            --primary-dark: #0F7A8A;
+            --bg-base: #0D1117;
+            --bg-card: #161B22;
+            --bg-elevated: #21262D;
+            --border-subtle: #30363D;
+            --accent-cold: #00D4FF;
+            --accent-heat: #E05C2C;
+            --accent-emergency: #E74C3C;
+            --success: #1ABC9C;
+            --text-primary: #E6EDF3;
+            --text-secondary: #8B949E;
+            --text-muted: #484F58;
+            --font-heading: 'DM Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-zh: 'Noto Sans SC', sans-serif;
+            --shadow-cold: 0 10px 40px rgba(23,162,184,0.15);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* SPA & ANIMATIONS */
+        .page-section { display: none; min-height: calc(100vh - 70px); opacity: 0; }
+        .page-section.active {
+            display: block; opacity: 1;
+            animation: sectionIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes sectionIn { 
+            from { transform: translateY(20px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+
+        /* NAV */
+        nav {
+            position: sticky; top: 0; z-index: 3000;
+            background: rgba(13,17,23,0.85);
+            border-bottom: 1px solid var(--border-subtle);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            height: 70px;
+            transition: var(--transition-smooth);
+        }
+        nav .container {
+            max-width: 1300px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center; height: 100%;
+        }
+        .logo-wrap { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
+        .logo {
+            font-family: var(--font-heading); font-size: 1.6rem;
+            font-weight: 800; color: var(--text-primary);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .logo span { color: var(--primary); }
+        .logo-tagline { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1.5px; margin-top: -2px; }
+
+        .nav-links { display: none; gap: 24px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition-smooth); cursor: pointer; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-contact-btn {
+            border: 1.5px solid var(--primary) !important;
+            color: var(--primary) !important;
+            padding: 8px 18px !important;
+            border-radius: 20px !important;
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle { display: flex; flex-direction: column; gap: 6px; cursor: pointer; padding: 10px; }
+        .menu-toggle span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; }
+        @media (min-width: 1024px) { .menu-toggle { display: none; } .nav-links { display: flex; } }
+
+        #mobileMenu {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: var(--bg-base); z-index: 3050;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            gap: 24px; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobileMenu.open { right: 0; }
+        #mobileMenu a { color: var(--text-primary); font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; text-decoration: none; }
+
+        /* EMERGENCY MOBILE BAR */
+        .sticky-emergency {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+            background: var(--accent-emergency); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+            text-decoration: none; z-index: 4000;
+            box-shadow: 0 -4px 20px rgba(231,76,60,0.3);
+            animation: pulseEmergency 2s infinite;
+        }
+        @keyframes pulseEmergency { 0%, 100% { background-color: var(--accent-emergency); } 50% { background-color: #f33b28; } }
+        @media (min-width: 1024px) { .sticky-emergency { display: none; } }
+
+        /* HERO */
+        .hero-split { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 70px); }
+        @media (min-width: 1024px) { .hero-split { grid-template-columns: 1fr 1fr; } }
+        .hero-left { display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 8vw, 80px) clamp(20px, 5vw, 60px); }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(26,188,156,0.1); border: 1px solid rgba(26,188,156,0.2);
+            color: var(--success); padding: 5px 12px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 700; font-family: var(--font-mono); margin-bottom: 20px; width: fit-content;
+        }
+        .hero-badge span { width: 6px; height: 6px; background: var(--success); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+        .hero-left h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; margin-bottom: 20px; }
+        .hero-left h1 em { font-style: normal; color: var(--primary); }
+        .hero-left p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
+        .hero-right { position: relative; overflow: hidden; min-height: 350px; }
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--bg-base) 0%, transparent 40%, transparent 60%, var(--bg-base) 100%); }
+
+        /* TICKER */
+        .ticker-wrap { background: var(--bg-card); border-y: 1px solid var(--border-subtle); padding: 12px 0; overflow: hidden; }
+        .ticker-track { display: flex; gap: 50px; animation: ticker 40s linear infinite; width: max-content; }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .ticker-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+
+        /* STATS */
+        .stats-section { padding: 60px 0; background: var(--bg-base); }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+        .stat-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-subtle); text-align: center; transition: var(--transition-smooth); }
+        .stat-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--shadow-cold); }
+        .stat-number { display: block; font-size: 3rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading); }
+
+        /* SECTION HEADER */
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+        .section-header p { color: var(--text-secondary); }
+
+        /* REVIEWS / PORTFOLIO */
+        .reviews-section { padding: 80px 0; background: var(--bg-elevated); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .review-card {
+            background: var(--bg-card); padding: 35px; border-radius: 12px;
+            border: 1px solid var(--border-subtle); border-left: 4px solid var(--primary);
+            transition: var(--transition-smooth);
+        }
+        .review-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-cold); border-color: var(--primary); }
+        .stars { color: #F1C40F; margin-bottom: 15px; display: block; font-size: 1.1rem; }
+        .review-text { font-style: italic; color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.7; }
+        .review-meta { border-top: 1px solid var(--border-subtle); padding-top: 15px; }
+        .review-author { display: block; font-weight: 800; color: var(--text-primary); font-size: 0.9rem; }
+        .review-loc { display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px; }
+
+        /* SERVICES */
+        .services-section { padding: 80px 0; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .service-card { 
+            background: var(--bg-card); padding: 40px; border-radius: 20px; 
+            border: 1px solid var(--border-subtle); transition: var(--transition-smooth); 
+            border-top: 4px solid transparent;
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--primary); border-top-color: var(--primary); box-shadow: var(--shadow-cold); }
+        .s-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .service-card h3 { font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.4rem; }
+        .service-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* CONTACT FORM */
+        .form-box { background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border-subtle); max-width: 700px; margin: 0 auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px; background: var(--bg-elevated); border: 1.5px solid var(--border-subtle); border-radius: 12px; color: white; outline: none;
+        }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 30px; font-weight: 700; cursor: pointer; text-decoration: none; border: none; font-family: var(--font-heading); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; width: 100%; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* FOOTER */
+        footer { padding: 60px 0 100px; background: #060A0D; border-top: 1px solid var(--border-subtle); text-align: center; }
+        @media (min-width: 1024px) { footer { padding-bottom: 60px; } }
+        .footer-logo { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; }
+        .footer-logo span { color: var(--primary); }
+        .footer-sub { color: var(--text-muted); font-size: 0.8rem; }
+        .footer-powered { margin-top: 30px; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        .footer-powered a { color: var(--primary); text-decoration: none; font-weight: 700; }
+    </style>
+</head>
+<body onload="initApp()">
+
+    <a href="tel:+17135559832" class="sticky-emergency">
+        <span data-i18n="sticky-call">CALL 24/7 EMERGENCY — FREE ESTIMATE</span>
+    </a>
+
+    <nav>
+        <div class="container">
+            <div class="logo-wrap" onclick="navigateTo('home')" role="button" tabindex="0" aria-label="Go to home page">
+                <div class="logo">❄️ HVAC<span>Pro</span></div>
+                <div class="logo-tagline" data-i18n="nav-tagline">SERVING HOUSTON 24/7</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px;">
+                <ul class="nav-links">
+                    <li><a onclick="navigateTo('home')" data-i18n="nav-home">Home</a></li>
+                    <li><a onclick="navigateTo('services')" data-i18n="nav-services">Services</a></li>
+                    <li><a onclick="navigateTo('portfolio')" data-i18n="nav-portfolio">Reviews</a></li>
+                    <li><a onclick="navigateTo('contact')" class="nav-contact-btn" data-i18n="nav-contact">Contact</a></li>
+                </ul>
+                <select class="lang-switcher" onchange="changeLanguage(this.value)" aria-label="Select Language">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="zh">中文</option>
+                </select>
+                <div class="menu-toggle" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileMenu">
+        <a onclick="navigateTo('home')" data-i18n="nav-home">Home</a>
+        <a onclick="navigateTo('services')" data-i18n="nav-services">Services</a>
+        <a onclick="navigateTo('portfolio')" data-i18n="nav-portfolio">Reviews</a>
+        <a onclick="navigateTo('contact')" data-i18n="nav-contact">Contact</a>
+    </div>
+
+    <main>
+        <!-- HOME SECTION -->
+        <div id="home" class="page-section active">
+            <section class="hero-split">
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <span></span>
+                        <div data-i18n="badge-available">AVAILABLE NOW</div>
+                    </div>
+                    <h1 data-i18n="hero-title">Houston's <em>Climate Control</em> Experts</h1>
+                    <p data-i18n="hero-desc">AC repair, heating service and full installation. On budget, on time, guaranteed. Trusted by Houston homeowners since 2012.</p>
+                    <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                        <button onclick="navigateTo('contact')" class="btn btn-primary" data-i18n="cta-schedule">Schedule Service</button>
+                        <a href="tel:+17135559832" class="btn btn-primary" style="background:var(--accent-cold)" data-i18n="cta-call">📞 Call Now</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician working" width="1200" height="800" fetchpriority="high" decoding="async">
+                    <div class="hero-right-overlay"></div>
+                </div>
+            </section>
+
+            <div class="ticker-wrap">
+                <div class="ticker-track">
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t1">24/7 Emergency Response</div></div>
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t2">EPA Certified Technicians</div></div>
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t3">⭐ 4.9 Google Rating</div></div>
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t1">24/7 Emergency Response</div></div>
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t2">EPA Certified Technicians</div></div>
+                    <div class="ticker-item"><span>●</span> <div data-i18n="t3">⭐ 4.9 Google Rating</div></div>
+                </div>
+            </div>
+
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-card reveal">
+                            <span class="stat-number" data-count="2500" data-suffix="+">0</span>
+                            <span class="stat-label" data-i18n="stat-systems">Systems Fixed</span>
+                        </div>
+                        <div class="stat-card reveal">
+                            <span class="stat-number" data-count="12" data-suffix="+">0</span>
+                            <span class="stat-label" data-i18n="stat-years">Years Exp.</span>
+                        </div>
+                        <div class="stat-card reveal">
+                            <span class="stat-number" data-count="4.9" data-suffix="★">0</span>
+                            <span class="stat-label" data-i18n="stat-rating">Google Stars</span>
+                        </div>
+                        <div class="stat-card reveal">
+                            <span class="stat-number" data-count="2" data-suffix="h">0</span>
+                            <span class="stat-label" data-i18n="stat-response">Response Time</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SERVICES SECTION -->
+        <div id="services" class="page-section">
+            <div class="section-header reveal">
+                <h2 data-i18n="nav-services">Our Services</h2>
+                <p data-i18n="services-sub">Complete HVAC solutions for Houston homes</p>
+            </div>
+            <section class="services-section">
+                <div class="container">
+                    <div class="services-grid">
+                        <div class="service-card reveal">
+                            <span class="s-icon">❄️</span>
+                            <h3 data-i18n="s1-name">AC Repair</h3>
+                            <p data-i18n="s1-desc">Compressor issues, refrigerant leaks, electrical faults diagnosed same day.</p>
+                        </div>
+                        <div class="service-card reveal">
+                            <span class="s-icon">🔥</span>
+                            <h3 data-i18n="s2-name">Heating Service</h3>
+                            <p data-i18n="s2-desc">Furnace repair, ignition problems, heat pump service. Winter-ready.</p>
+                        </div>
+                        <div class="service-card reveal">
+                            <span class="s-icon">🏗️</span>
+                            <h3 data-i18n="s3-name">Installation</h3>
+                            <p data-i18n="s3-desc">New unit install with ductwork assessment and energy optimization.</p>
+                        </div>
+                        <div class="service-card reveal">
+                            <span class="s-icon">🛡️</span>
+                            <h3 data-i18n="s4-name">Maintenance Plans</h3>
+                            <p data-i18n="s4-desc">Quarterly filter changes, inspections and tune-ups. Save 10% on repairs.</p>
+                        </div>
+                        <div class="service-card reveal">
+                            <span class="s-icon">🚨</span>
+                            <h3 data-i18n="s5-name">Emergency Service</h3>
+                            <p data-i18n="s5-desc">24/7 dispatch, 2-hour guaranteed arrival. No surprise holiday fees.</p>
+                        </div>
+                        <div class="service-card reveal">
+                            <span class="s-icon">💨</span>
+                            <h3 data-i18n="s6-name">Air Quality</h3>
+                            <p data-i18n="s6-desc">Duct cleaning, air purifiers, humidity control and thermal audits.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- REVIEWS SECTION -->
+        <div id="portfolio" class="page-section">
+            <div class="section-header reveal">
+                <h2 data-i18n="nav-portfolio">Customer Reviews</h2>
+                <p data-i18n="reviews-sub">Real Houston homeowners — real results</p>
+            </div>
+            <section class="reviews-section">
+                <div class="container">
+                    <div class="reviews-grid">
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r1-text">"Called at 11 PM in July. AC completely out. Arrived in 90 min, running by 1 AM. Professional, fair price."</p>
+                            <div class="review-meta">
+                                <span class="review-author">Maria Rodriguez</span>
+                                <span class="review-loc">Houston, TX · AC Repair</span>
+                            </div>
+                        </div>
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r2-text">"Installed a new Carrier system in one day. Handled permits, old unit removal — everything."</p>
+                            <div class="review-meta">
+                                <span class="review-author">Carlos Mendoza</span>
+                                <span class="review-loc">Katy, TX · Installation</span>
+                            </div>
+                        </div>
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r3-text">"Signed up for the maintenance plan. Saved $400+ in discounts. System runs better than ever."</p>
+                            <div class="review-meta">
+                                <span class="review-author">Jennifer Thompson</span>
+                                <span class="review-loc">Sugar Land, TX · Maintenance</span>
+                            </div>
+                        </div>
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r4-text">"Heater stopped in December. Same-day fix, cracked heat exchanger. Honest, fast, fair price."</p>
+                            <div class="review-meta">
+                                <span class="review-author">Robert Kim</span>
+                                <span class="review-loc">The Woodlands, TX · Heating</span>
+                            </div>
+                        </div>
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r5-text">"Duct cleaning + UV purifier after renovation. Difference was immediate. Highly recommend."</p>
+                            <div class="review-meta">
+                                <span class="review-author">Sandra Flores</span>
+                                <span class="review-loc">Spring, TX · Air Quality</span>
+                            </div>
+                        </div>
+                        <div class="review-card reveal">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <p class="review-text" data-i18n="r6-text">"Explained everything, showed old parts. Total transparency. Will use again for sure."</p>
+                            <div class="review-meta">
+                                <span class="review-author">David Nguyen</span>
+                                <span class="review-loc">Cypress, TX · AC Repair</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <div id="contact" class="page-section">
+            <section class="contact-section">
+                <div class="container">
+                    <div class="form-box reveal">
+                        <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;" data-i18n="form-title">Request Free Quote</h3>
+                        <form onsubmit="event.preventDefault(); sendSMS();">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name" data-i18n="f-name">Full Name</label>
+                                    <input type="text" id="name" name="name" required data-i18n-ph="ph-name" autocomplete="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" data-i18n="f-phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required data-i18n-ph="ph-phone" autocomplete="tel">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="service" data-i18n="f-service">Service Type</label>
+                                <select id="service" name="service">
+                                    <option value="AC Repair" data-i18n="s1-name">AC Repair</option>
+                                    <option value="Heating" data-i18n="s2-name">Heating Service</option>
+                                    <option value="Installation" data-i18n="s3-name">Installation</option>
+                                    <option value="Maintenance" data-i18n="s4-name">Maintenance Plan</option>
+                                    <option value="Emergency" data-i18n="s5-name">Emergency Service</option>
+                                    <option value="Air Quality" data-i18n="s6-name">Air Quality</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="issue" data-i18n="f-issue">Describe Your Issue</label>
+                                <textarea id="issue" name="issue" rows="4" data-i18n-ph="ph-issue"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success" data-i18n="f-btn">Send SMS Request →</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">❄️ HVAC<span>Pro</span> Houston</div>
+            <p class="footer-sub" data-i18n="footer-sub">Serving Houston Metro Area since 2012 · Licensed · Insured</p>
+            <div class="footer-powered">
+                Powered by <a href="https://hammercircuit.com" target="_blank" rel="noopener noreferrer">Hammer & Circuit Web Labs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                "nav-home":"Home", "nav-services":"Services", "nav-portfolio":"Reviews", "nav-contact":"Contact", "nav-tagline":"SERVING HOUSTON 24/7",
+                "badge-available":"AVAILABLE NOW", "hero-title":"Houston's Climate Control Experts",
+                "hero-desc":"AC repair, heating service and full installation. On budget, on time, guaranteed.",
+                "cta-schedule":"Schedule Service", "cta-call":"📞 Call Now", "temp-label":"OPTIMAL COMFORT",
+                "t1":"24/7 Emergency Response", "t2":"EPA Certified Technicians", "t3":"⭐ 4.9 Google Rating",
+                "stat-systems":"Systems Fixed", "stat-years":"Years Exp.", "stat-rating":"Google Stars", "stat-response":"Response Time",
+                "services-sub":"Complete HVAC solutions for Houston homes",
+                "reviews-sub":"Real Houston homeowners — real results",
+                "s1-name":"AC Repair", "s2-name":"Heating Service", "s3-name":"Installation",
+                "s4-name":"Maintenance Plans", "s5-name":"Emergency Service", "s6-name":"Air Quality",
+                "s1-desc":"Compressor issues, refrigerant leaks, electrical faults diagnosed same day.",
+                "s2-desc":"Furnace repair, ignition problems, heat pump service. Winter-ready.",
+                "s3-desc":"New unit install with ductwork assessment and energy optimization.",
+                "s4-desc":"Quarterly filter changes, inspections and tune-ups. Save 10% on repairs.",
+                "s5-desc":"24/7 dispatch, 2-hour guaranteed arrival. No surprise holiday fees.",
+                "s6-desc":"Duct cleaning, air purifiers, humidity control and thermal audits.",
+                "r1-text":"\"Called at 11 PM in July. AC completely out. Arrived in 90 min, running by 1 AM. Professional, fair price.\"",
+                "r2-text":"\"Installed a new Carrier system in one day. Handled permits, old unit removal — everything.\"",
+                "r3-text":"\"Signed up for the maintenance plan. Saved $400+ in discounts. System runs better than ever.\"",
+                "r4-text":"\"Heater stopped in December. Same-day fix, cracked heat exchanger. Honest, fast, fair price.\"",
+                "r5-text":"\"Duct cleaning + UV purifier after renovation. Difference was immediate. Highly recommend.\"",
+                "r6-text":"\"Explained everything, showed old parts. Total transparency. Will use again for sure.\"",
+                "form-title":"Request Free Quote", "f-name":"Full Name", "f-phone":"Phone Number", "f-service":"Service Type", "f-issue":"Describe Your Issue", "f-btn":"Send SMS Request →",
+                "ph-name":"John Doe", "ph-phone":"(713) 000-0000", "ph-issue":"Tell us what's happening...",
+                "footer-sub":"Serving Houston Metro Area since 2012", "sticky-call":"CALL 24/7 EMERGENCY — FREE ESTIMATE"
+            },
+            es: {
+                "nav-home":"Inicio", "nav-services":"Servicios", "nav-portfolio":"Reseñas", "nav-contact":"Contacto", "nav-tagline":"SIRVIENDO HOUSTON 24/7",
+                "badge-available":"DISPONIBLE AHORA", "hero-title":"Expertos en Clima de Houston",
+                "hero-desc":"Reparación de AC, calefacción e instalación completa. A presupuesto y a tiempo.",
+                "cta-schedule":"Agendar Servicio", "cta-call":"📞 Llamar", "temp-label":"CONFORT ÓPTIMO",
+                "t1":"Respuesta 24/7", "t2":"Técnicos Certificados EPA", "t3":"⭐ 4.9 en Google",
+                "stat-systems":"Sistemas Reparados", "stat-years":"Años de Exp.", "stat-rating":"Estrellas Google", "stat-response":"Tiempo de Respuesta",
+                "services-sub":"Soluciones HVAC completas para Houston",
+                "reviews-sub":"Propietarios reales de Houston — resultados reales",
+                "s1-name":"Reparación AC", "s2-name":"Calefacción", "s3-name":"Instalación",
+                "s4-name":"Planes de Mantenimiento", "s5-name":"Servicio de Emergencia", "s6-name":"Calidad del Aire",
+                "s1-desc":"Compresores, fugas de refrigerante y fallas eléctricas reparadas hoy mismo.",
+                "s2-desc":"Reparación de hornos y bombas de calor. Listo para el invierno.",
+                "s3-desc":"Instalación de unidades nuevas con optimización de ductos.",
+                "s4-desc":"Cambios de filtro, inspecciones y puestas a punto. Ahorra 10% en reparaciones.",
+                "s5-desc":"Despacho 24/7, llegada garantizada en 2 horas. Sin cargos extra en festivos.",
+                "s6-desc":"Limpieza de ductos, purificadores de aire, control de humedad y auditorías térmicas.",
+                "r1-text":"\"Llamé a las 11 PM en julio. AC apagado. Llegaron en 90 minutos. Profesionales y precio justo.\"",
+                "r2-text":"\"Instalaron un sistema Carrier en un día. Manejaron permisos y retiro de unidad vieja.\"",
+                "r3-text":"\"Me inscribí al plan de mantenimiento. Ahorré $400+ en descuentos. El sistema nunca corrió mejor.\"",
+                "r4-text":"\"Calefactor apagado en diciembre. Lo repararon el mismo día. Diagnóstico honesto y precio justo.\"",
+                "r5-text":"\"Limpieza de ductos y purificador UV tras remodelación. La diferencia fue inmediata.\"",
+                "r6-text":"\"Explicaron todo y mostraron las piezas viejas. Total transparencia. Los volveré a usar.\"",
+                "form-title":"Solicitar Presupuesto Gratis", "f-name":"Nombre Completo", "f-phone":"Teléfono", "f-service":"Servicio", "f-issue":"Problema", "f-btn":"Enviar SMS →",
+                "ph-name":"Juan Pérez", "ph-phone":"(713) 000-0000", "ph-issue":"Cuéntanos qué sucede...",
+                "footer-sub":"Sirviendo Houston desde 2012", "sticky-call":"EMERGENCIA 24/7 — ESTIMADO GRATIS"
+            },
+            zh: {
+                "nav-home":"首页", "nav-services":"服务", "nav-portfolio":"评价", "nav-contact":"联系", "nav-tagline":"全天候服务休斯顿",
+                "badge-available":"现在可用", "hero-title":"休斯顿空调暖通专家",
+                "hero-desc":"空调维修、供暖服务和整机安装。按时按预算，提供保证。",
+                "cta-schedule":"预约服务", "cta-call":"📞 立即拨打", "temp-label":"最佳舒适度",
+                "t1":"24/7 紧急响应", "t2":"EPA 认证技术员", "t3":"⭐ 谷歌 4.9 星级",
+                "stat-systems":"系统维修量", "stat-years":"多年经验", "stat-rating":"谷歌星级", "stat-response":"响应时间",
+                "services-sub":"为休斯顿家庭提供全面暖通解决方案",
+                "reviews-sub":"真实房主反馈 — 真实效果",
+                "s1-name":"空调维修", "s2-name":"供暖服务", "s3-name":"安装服务",
+                "s4-name":"维护计划", "s5-name":"紧急服务", "s6-name":"空气质量",
+                "s1-desc":"压缩机问题、制冷剂泄漏、电路故障，当天解决。",
+                "s2-desc":"炉灶维修、点火问题、热泵服务。冬季就绪。",
+                "s3-desc":"新设备安装，包含风管评估与节能优化。",
+                "s4-desc":"季度滤网更换、检查和调优。维修享九折优惠。",
+                "s5-desc":"24/7 调度，保证2小时内到达。节假日无额外费用。",
+                "s6-desc":"风管清洁、空气净化器、湿度控制和热力审计。",
+                "r1-text":"\"7月晚上11点致电，空调停机。90分钟到场，凌晨1点修好。专业且价格公道。\"",
+                "r2-text":"\"一天内完成新系统安装。办理许可证、拆除旧机，一站式服务。\"",
+                "r3-text":"\"加入了维护计划，节省了400多美元。系统运行状态极佳。\"",
+                "r4-text":"\"12月暖气故障，当天修好。诊断诚实，速度快。\"",
+                "r5-text":"\"装修后做了风管清洁和UV净化。效果立竿见影。\"",
+                "r6-text":"\"解释清晰，展示旧零件。完全透明，值得再次光顾。\"",
+                "form-title":"获取免费报价", "f-name":"姓名", "f-phone":"电话", "f-service":"服务类型", "f-issue":"问题描述", "f-btn":"发送短信申请 →",
+                "ph-name":"张三", "ph-phone":"(713) 000-0000", "ph-issue":"请描述您的问题...",
+                "footer-sub":"自2012年起服务休斯顿地区", "sticky-call":"24/7 紧急热线 — 免费估价"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const d = translations[lang] || translations.en;
+            document.body.style.fontFamily = lang === 'zh' ? "var(--font-zh)" : "var(--font-body)";
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (d[key]) el.textContent = d[key];
+            });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (d[key]) el.placeholder = d[key];
+            });
+        }
+
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+        function navigateTo(id) {
+            document.getElementById('mobileMenu').classList.remove('open');
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                initReveal();
+            }
+        }
+
+        function initReveal() {
+            const obs = new IntersectionObserver((ents) => {
+                ents.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('active');
+                        if (e.target.querySelector('.stat-number')) startCounters();
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+        }
+
+        function startCounters() {
+            document.querySelectorAll('.stat-number').forEach(el => {
+                if (el.dataset.started) return;
+                el.dataset.started = "true";
+                const target = parseFloat(el.getAttribute('data-count'));
+                const suffix = el.getAttribute('data-suffix') || '';
+                let current = 0;
+                const step = target / 50;
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) { el.textContent = target + suffix; clearInterval(timer); }
+                    else { el.textContent = (target % 1 === 0 ? Math.floor(current) : current.toFixed(1)) + suffix; }
+                }, 20);
+            });
+        }
+
+        function sendSMS() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const issue = document.getElementById('issue').value;
+            const body = `HVAC PRO: ${name} (${phone}) - Service: ${service}. Issue: ${issue}`;
+            window.location.href = `sms:+17135559832${/iPhone/i.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(body)}`;
+        }
+
+        function initApp() { initReveal(); changeLanguage('en'); }
+    </script>
+</body>
+</html>
