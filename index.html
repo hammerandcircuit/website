@@ -21,16 +21,12 @@
     }
     </script>
 
-    <!-- ✅ FIX 1: Fuentes sin bloquear render -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
-          rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- ✅ FIX 2: Config PRIMERO, CDN DESPUÉS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -50,7 +46,6 @@
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         :root { --accent: #E30613; }
@@ -91,6 +86,14 @@
             color: white !important;
         }
 
+        .logo-frame {
+            display: flex; align-items: center; justify-content: center;
+            width: 140px; height: 40px;
+        }
+        @media (min-width: 768px) { .logo-frame { width: 280px; height: 80px; } }
+        
+        .logo-frame img { width: 100%; height: 100%; object-fit: contain; }
+
         #content-area::-webkit-scrollbar { width: 4px; }
         #content-area::-webkit-scrollbar-track { background: transparent; }
         #content-area::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
@@ -102,6 +105,7 @@
             box-shadow: 0 0 10px var(--accent);
         }
 
+        /* Hide scrollbar for nav on mobile */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -113,20 +117,10 @@
     <div class="h-screen flex flex-col relative z-10">
         <!-- HEADER -->
         <header class="bg-tool-dark border-b-4 border-tool-red p-3 px-4 md:px-8 flex justify-between items-center shadow-2xl relative shrink-0">
-            
-            <!-- ✅ FIX 3: Logo SVG inline — elimina imagen externa que causaba LCP 7.6s -->
-            <div class="flex items-center cursor-pointer gap-2 md:gap-3" onclick="changePage('home')">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="#E30613"
-                     xmlns="http://www.w3.org/2000/svg" class="shrink-0 md:w-10 md:h-10">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-                <div class="flex flex-col">
-                    <span class="font-heading text-lg md:text-4xl uppercase italic tracking-tighter leading-none text-white">
-                        Hammer & <span class="text-tool-silver">Circuit</span>
-                    </span>
-                    <span class="font-heading text-[8px] md:text-sm text-tool-red font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] italic">
-                        Web Labs
-                    </span>
+            <div class="flex items-center cursor-pointer" onclick="changePage('home')">
+                <div class="logo-frame">
+                    <img src="/hammer-circuit-logo.png" alt="Hammer & Circuit" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <span class="hidden font-heading text-xl italic font-black tracking-tighter">HAMMER & CIRCUIT</span>
                 </div>
             </div>
 
@@ -402,16 +396,21 @@
                                     <span class="text-[9px] font-mono text-gray-500 uppercase italic">Status: Priority_Active</span>
                                 </div>
                             </div>
+                            
                             <div class="bg-black/60 border border-white/5 p-6 md:p-10 font-mono">
                                 <h3 class="text-tool-red text-lg md:text-xl font-heading uppercase italic mb-6 tracking-widest border-b border-tool-red/20 pb-2">${t.p_specs_title}</h3>
                                 <div class="grid md:grid-cols-2 gap-8">
                                     <div class="space-y-3">
                                         <div class="text-[9px] text-gray-600 uppercase tracking-tighter italic font-bold">Policy:</div>
-                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">${t.p_specs_maint}</p>
+                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">
+                                            ${t.p_specs_maint}
+                                        </p>
                                     </div>
                                     <div class="space-y-3">
                                         <div class="text-[9px] text-gray-600 uppercase tracking-tighter italic font-bold">Metrics:</div>
-                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">${t.p_specs_report}</p>
+                                        <p class="text-[11px] text-gray-400 italic leading-relaxed border-l border-white/10 pl-4">
+                                            ${t.p_specs_report}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -477,7 +476,7 @@
             renderPage(currentPage);
         }
 
-        window.onload = () => {
+        window.onload = () => { 
             setLanguage('en');
             changePage('home');
         };
