@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hammer & Circuit | Fast Websites for Tradespeople in 48 Hours</title>
-    
+
     <!-- META DESCRIPCIÓN (SEO) -->
     <meta name="description" content="High-performance websites for plumbers, electricians, HVAC and contractors in 48 hours. $199 one-time build. Fast, mobile-ready, no bloat.">
-    
+
     <!-- SCHEMA ORGANIZATION -->
     <script type="application/ld+json">
     {
@@ -15,7 +15,7 @@
       "@type": "Organization",
       "name": "Hammer & Circuit Web Labs",
       "url": "https://hammercircuit.com",
-      "logo": "https://hammercircuit.com/logo.png",
+      "logo": "https://hammercircuit.com/assets/hammer_circuit_logo_embed.svg",
       "description": "High-performance websites for tradespeople in 48 hours.",
       "email": "hammerandcircuit@gmail.com",
       "areaServed": "US",
@@ -26,7 +26,7 @@
     <!-- PRECONNECT A GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <!-- FUENTES SIN BLOQUEAR RENDER -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" 
           rel="stylesheet" media="print" onload="this.media='all'">
@@ -124,23 +124,17 @@
     <div id="shutter" class="shutter-overlay"></div>
 
     <div class="h-screen flex flex-col relative z-10">
-        
+
         <!-- Header -->
         <header class="bg-tool-dark border-b-4 border-tool-red p-4 md:px-8 flex justify-between items-center shadow-2xl relative">
-            <div class="flex items-center gap-6 cursor-pointer" onclick="changePage('home')">
-                <div class="logo-box p-1 relative group flex items-center justify-center min-w-[70px] min-h-[70px] md:min-w-[90px] md:min-h-[90px]">
+            <div class="flex items-center cursor-pointer" onclick="changePage('home')">
+                <div class="logo-box px-3 py-2 relative group flex items-center justify-center w-[260px] h-[72px] md:w-[430px] md:h-[110px] overflow-hidden">
                     <div class="absolute inset-0 border border-tool-red/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <svg width="50" height="50" viewBox="0 0 24 24" fill="#E30613" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <div class="flex flex-col text-white">
-                    <h1 class="text-3xl md:text-6xl font-heading uppercase italic tracking-tighter leading-none">
-                        Hammer & <span class="text-tool-silver">Circuit</span>
-                    </h1>
-                    <p class="text-xs md:text-lg font-heading text-tool-red font-bold uppercase tracking-[0.5em] mt-1 italic">
-                        Web Labs
-                    </p>
+                    <img 
+                        src="./hammer_circuit_logo_embed.svg"
+                        alt="Hammer & Circuit Web Lab"
+                        class="relative z-10 w-full h-full object-contain group-hover:scale-[1.02] transition-transform"
+                    >
                 </div>
             </div>
 
@@ -162,15 +156,15 @@
                 <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_solutions">The Advantage</span>
                 </button>
-                
+
                 <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group bg-tool-red/5">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter text-tool-red" data-i18n="nav_protocol">48h Protocol</span>
                 </button>
-                
+
                 <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_pricing">Pricing</span>
                 </button>
-                
+
                 <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_portfolio">Portfolio</span>
                 </button>
