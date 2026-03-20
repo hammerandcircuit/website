@@ -4,37 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hammer & Circuit | Fast Websites for Tradespeople in 48 Hours</title>
-
-    <!-- META DESCRIPCIÓN (SEO) -->
     <meta name="description" content="High-performance websites for plumbers, electricians, HVAC and contractors in 48 hours. $199 one-time build. Fast, mobile-ready, no bloat.">
-
-    <!-- SCHEMA ORGANIZATION -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Hammer & Circuit Web Labs",
       "url": "https://hammercircuit.com",
-      "logo": "https://hammercircuit.com/assets/hammer_circuit_logo_embed.svg",
+      "logo": "https://hammercircuit.com/hammer-circuit-logo.png",
       "description": "High-performance websites for tradespeople in 48 hours.",
       "email": "hammerandcircuit@gmail.com",
       "areaServed": "US",
       "serviceType": "Web Design for Contractors and Tradespeople"
     }
     </script>
-
-    <!-- PRECONNECT A GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- FUENTES SIN BLOQUEAR RENDER -->
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" 
-          rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
         <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     </noscript>
-
-    <!-- TAILWIND CONFIG → PRIMERO la configuración, LUEGO el CDN -->
     <script>
         tailwind = {
             config: {
@@ -57,18 +46,15 @@
         }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
         :root { --accent: #E30613; }
         body { background-color: #0A0A0A; color: #FFFFFF; height: 100vh; overflow: hidden; }
-
         .carbon-bg {
             background-color: #0A0A0A;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             background-blend-mode: overlay;
             opacity: 0.95;
         }
-
         .shutter-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--accent); z-index: 100;
@@ -76,7 +62,6 @@
             transition: transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
         }
         .shutter-active { transform: translateY(0); }
-
         .crt-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), 
@@ -84,34 +69,47 @@
             background-size: 100% 3px, 3px 100%;
             pointer-events: none; z-index: 50;
         }
-
         .page-entry { animation: contentSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes contentSlideUp {
             from { opacity: 0; transform: translateY(10px); filter: contrast(1.2) brightness(1.2); }
             to { opacity: 1; transform: translateY(0); filter: contrast(1) brightness(1); }
         }
-
         .switch-btn { position: relative; transition: all 0.2s; border-left: 0px solid var(--accent); }
         .switch-active {
             background: linear-gradient(90deg, rgba(227, 6, 19, 0.15) 0%, transparent 100%);
-            border-left-width: 8px !important; 
+            border-left-width: 8px !important;
             color: white !important;
             box-shadow: inset 10px 0 20px -10px rgba(227, 6, 19, 0.4);
         }
-
-        .logo-box {
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        .logo-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 220px;
+            height: 70px;
         }
-
+        .logo-frame img {
+            width: 100%;
+            height: auto;
+            max-height: 60px;
+            object-fit: contain;
+            display: block;
+        }
+        @media (min-width: 768px) {
+            .logo-frame {
+                width: 360px;
+                height: 96px;
+            }
+            .logo-frame img {
+                max-height: 82px;
+            }
+        }
         .loading-bar {
             height: 3px; background: var(--accent); width: 0;
             position: absolute; bottom: -3px; left: 0;
             transition: width 0.4s ease;
             box-shadow: 0 0 10px var(--accent);
         }
-
         .btn-primary-red {
             background-color: #E30613 !important;
             color: white !important;
@@ -119,26 +117,15 @@
     </style>
 </head>
 <body class="font-sans carbon-bg">
-
     <div class="crt-overlay"></div>
     <div id="shutter" class="shutter-overlay"></div>
-
     <div class="h-screen flex flex-col relative z-10">
-
-        <!-- Header -->
         <header class="bg-tool-dark border-b-4 border-tool-red p-4 md:px-8 flex justify-between items-center shadow-2xl relative">
             <div class="flex items-center cursor-pointer" onclick="changePage('home')">
-                <div class="logo-box px-3 py-2 relative group flex items-center justify-center w-[260px] h-[72px] md:w-[430px] md:h-[110px] overflow-hidden">
-                    <div class="absolute inset-0 border border-tool-red/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <img 
-                        src="./hammer_circuit_logo_embed.svg"
-                        alt="Hammer & Circuit Web Lab"
-                        class="relative z-10 w-full h-full object-contain group-hover:scale-[1.02] transition-transform"
-                    >
+                <div class="logo-frame">
+                    <img src="/hammer-circuit-logo.png" alt="Hammer & Circuit Web Lab">
                 </div>
             </div>
-
-            <!-- Idiomas -->
             <div class="hidden md:flex bg-black/60 border border-white/5 p-1 rounded-sm">
                 <button onclick="setLanguage('en')" class="lang-btn px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-tool-red transition-all" id="lang-en">EN</button>
                 <button onclick="setLanguage('es')" class="lang-btn px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-tool-red transition-all" id="lang-es">ES</button>
@@ -146,8 +133,6 @@
             </div>
             <div id="loader" class="loading-bar"></div>
         </header>
-
-        <!-- Navegación Lateral -->
         <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
             <nav class="w-full md:w-72 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0">
                 <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
@@ -156,24 +141,18 @@
                 <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_solutions">The Advantage</span>
                 </button>
-
                 <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group bg-tool-red/5">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter text-tool-red" data-i18n="nav_protocol">48h Protocol</span>
                 </button>
-
                 <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_pricing">Pricing</span>
                 </button>
-
                 <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_portfolio">Portfolio</span>
                 </button>
-
                 <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-8 hover:bg-white/5 border-b border-white/5 group">
                     <span class="font-heading text-xl md:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_contact">Contact</span>
                 </button>
-
-                <!-- Panel de Estado -->
                 <div class="hidden md:block mt-auto p-8 bg-black/40 border-t border-white/5">
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 bg-tool-red rounded-full animate-pulse"></div>
@@ -181,22 +160,18 @@
                     </div>
                 </div>
             </nav>
-
-            <div id="content-area" class="flex-grow p-8 md:p-20 overflow-y-auto page-entry">
-            </div>
+            <div id="content-area" class="flex-grow p-8 md:p-20 overflow-y-auto page-entry"></div>
         </main>
-
         <footer class="bg-black text-[10px] font-mono text-gray-600 px-8 py-4 flex flex-col md:flex-row justify-between items-center border-t border-white/5">
             <div class="font-bold tracking-widest uppercase">Hammer & Circuit Web Labs™</div>
             <div class="text-center italic uppercase tracking-[0.2em] my-2 md:my-0">Precision Engineering for the Trades</div>
             <div>© 2026 Hammer and Circuit Web Labs LLC</div>
         </footer>
     </div>
-
     <script>
         const translations = {
             en: {
-                nav_home: "Home", nav_solutions: "Why Us", nav_protocol: "48h Protocol", nav_pricing: "Clear Pricing", 
+                nav_home: "Home", nav_solutions: "Why Us", nav_protocol: "48h Protocol", nav_pricing: "Clear Pricing",
                 nav_portfolio: "Portfolio", nav_contact: "Contact",
                 hero_title: "INDUSTRIAL STRENGTH + DIGITAL PRECISION.",
                 hero_desc: "We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.",
@@ -218,11 +193,10 @@
                 p_item_1: "Complete Site Engineering (Code & Layout)", p_item_2: "Sub-1s Phone Loading Speed", p_item_3: "Ready for Launch in 48h",
                 p_maint_title: "Protection & Hosting: $29/mo",
                 p_m_item_1: "Secure Hosting + Site Protection (SSL)", p_m_item_2: "Professional Domain Management", p_m_item_3: "Minor Edits & Tech Support (Text/Photo)",
-                contact_title: "CONTACT THE LAB",
-                contact_desc: "Alex is available for new technical deployments via PayPal confirmed signals."
+                contact_title: "CONTACT THE LAB"
             },
             es: {
-                nav_home: "Inicio", nav_solutions: "Por Qué Funciona", nav_protocol: "Protocolo 48h", nav_pricing: "Precios Claros", 
+                nav_home: "Inicio", nav_solutions: "Por Qué Funciona", nav_protocol: "Protocolo 48h", nav_pricing: "Precios Claros",
                 nav_portfolio: "Portfolio", nav_contact: "Contacto",
                 hero_title: "FUERZA INDUSTRIAL + PRECISIÓN DIGITAL.",
                 hero_desc: "Creamos sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos de marketing, solo más llamadas para tu negocio.",
@@ -244,11 +218,10 @@
                 p_item_1: "Ingeniería Completa del Sitio (Código y Layout)", p_item_2: "Carga en celular en menos de 1s", p_item_3: "En vivo y lista en 48 horas",
                 p_maint_title: "Seguro de Protección y Hosting: $29/mes",
                 p_m_item_1: "Hosting Seguro + Protección (SSL)", p_m_item_2: "Gestión de Dominio Profesional", p_m_item_3: "Cambios Menores y Soporte (Texto/Fotos)",
-                contact_title: "CONTACTA AL LAB",
-                contact_desc: "Alex está disponible para nuevos despliegues técnicos confirmados por PayPal."
+                contact_title: "CONTACTA AL LAB"
             },
             zh: {
-                nav_home: "首页", nav_solutions: "行业优势", nav_protocol: "48小时协议", nav_pricing: "透明定价", 
+                nav_home: "首页", nav_solutions: "行业优势", nav_protocol: "48小时协议", nav_pricing: "透明定价",
                 nav_portfolio: "案例展示", nav_contact: "联系",
                 hero_title: "工业实力 + 数字精度。",
                 hero_desc: "我们在 48 小时内为技工构建高性能网站。拒绝营销噱头，只为您的业务带来更多致电。",
@@ -270,13 +243,10 @@
                 p_item_1: "完整的网站工程（代码和布局）", p_item_2: "手机加载速度低于 1 秒", p_item_3: "48 小时内上线就绪",
                 p_maint_title: "保护与托管：$29/月",
                 p_m_item_1: "安全托管 + 网站保护 (SSL)", p_m_item_2: "专业域名管理", p_m_item_3: "包含微调（文字/照片）",
-                contact_title: "联系实验室",
-                contact_desc: "Alex 正在待命，准备通过 PayPal 确认的新技术部署。"
+                contact_title: "联系实验室"
             }
         };
-
         let currentLang = 'en';
-
         async function changePage(page) {
             const loader = document.getElementById('loader');
             const shutter = document.getElementById('shutter');
@@ -288,14 +258,12 @@
             shutter.classList.remove('shutter-active');
             loader.style.width = '0%';
         }
-
         function renderPage(page) {
             const content = document.getElementById('content-area');
             const t = translations[currentLang] || translations['en'];
             content.classList.remove('page-entry');
             void content.offsetWidth;
             content.classList.add('page-entry');
-
             switch(page) {
                 case 'home':
                     content.innerHTML = `
@@ -313,26 +281,12 @@
                         <h2 class="text-6xl font-heading uppercase italic mb-4">${t.protocol_title}</h2>
                         <p class="text-gray-500 font-mono text-xs mb-12 uppercase tracking-widest">${t.protocol_sub}</p>
                         <div class="grid md:grid-cols-2 gap-6 max-w-6xl">
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-tool-red">
-                                <h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_1_t}</h4>
-                                <p class="text-gray-500 text-sm italic">${t.p_item_1_d}</p>
-                            </div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10">
-                                <h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_2_t}</h4>
-                                <p class="text-gray-500 text-sm italic">${t.p_item_2_d}</p>
-                            </div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10">
-                                <h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_3_t}</h4>
-                                <p class="text-gray-500 text-sm italic">${t.p_item_3_d}</p>
-                            </div>
-                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10">
-                                <h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_4_t}</h4>
-                                <p class="text-gray-500 text-sm italic">${t.p_item_4_d}</p>
-                            </div>
+                            <div class="p-8 bg-tool-gray/30 border-l-4 border-tool-red"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_1_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_1_d}</p></div>
+                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_2_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_2_d}</p></div>
+                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_3_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_3_d}</p></div>
+                            <div class="p-8 bg-tool-gray/30 border-l-4 border-white/10"><h4 class="text-2xl font-heading uppercase italic text-white mb-2">${t.p_item_4_t}</h4><p class="text-gray-500 text-sm italic">${t.p_item_4_d}</p></div>
                         </div>
-                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30">
-                            <p class="text-xl md:text-2xl font-heading uppercase italic text-white text-center">${t.protocol_summary}</p>
-                        </div>
+                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30"><p class="text-xl md:text-2xl font-heading uppercase italic text-white text-center">${t.protocol_summary}</p></div>
                     `;
                     break;
                 case 'solutions':
@@ -340,18 +294,9 @@
                         <h2 class="text-6xl font-heading uppercase italic mb-10">${t.sol_title}</h2>
                         <div class="p-10 bg-tool-gray/30 border-l-8 border-tool-red mb-12 italic text-gray-300 text-2xl md:text-4xl leading-tight">${t.sol_desc}</div>
                         <div class="grid md:grid-cols-3 gap-8">
-                            <div class="space-y-4">
-                                <div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_1_t}</div>
-                                <p class="text-gray-500 text-sm italic">${t.sol_item_1_d}</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_2_t}</div>
-                                <p class="text-gray-500 text-sm italic">${t.sol_item_2_d}</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_3_t}</div>
-                                <p class="text-gray-500 text-sm italic">${t.sol_item_3_d}</p>
-                            </div>
+                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_1_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_1_d}</p></div>
+                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_2_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_2_d}</p></div>
+                            <div class="space-y-4"><div class="text-tool-red font-heading text-3xl italic uppercase leading-none">${t.sol_item_3_t}</div><p class="text-gray-500 text-sm italic">${t.sol_item_3_d}</p></div>
                         </div>
                     `;
                     break;
@@ -362,20 +307,12 @@
                             <div class="grid md:grid-cols-2 gap-10 items-stretch">
                                 <div class="bg-tool-gray p-12 border-t-8 border-white/10 flex flex-col hover:border-white/30 transition-all">
                                     <div class="text-5xl font-heading font-black italic mb-8 uppercase text-white leading-none">${t.p_build_title}</div>
-                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-500 flex-grow mb-12">
-                                        <li>[+] ${t.p_item_1}</li>
-                                        <li>[+] ${t.p_item_2}</li>
-                                        <li>[+] ${t.p_item_3}</li>
-                                    </ul>
+                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-500 flex-grow mb-12"><li>[+] ${t.p_item_1}</li><li>[+] ${t.p_item_2}</li><li>[+] ${t.p_item_3}</li></ul>
                                     <button onclick="changePage('protocol')" class="text-tool-red text-xs font-mono uppercase italic underline text-left">View Activation Protocol</button>
                                 </div>
                                 <div class="bg-tool-gray p-12 border-t-8 border-tool-red flex flex-col shadow-[0_0_60px_rgba(227,6,19,0.15)]">
                                     <div class="text-4xl font-heading font-black italic mb-8 uppercase text-white leading-[0.95]">${t.p_maint_title}</div>
-                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-300 flex-grow mb-12">
-                                        <li>[+] ${t.p_m_item_1}</li>
-                                        <li>[+] ${t.p_m_item_2}</li>
-                                        <li>[+] ${t.p_m_item_3}</li>
-                                    </ul>
+                                    <ul class="space-y-5 text-sm font-mono uppercase text-gray-300 flex-grow mb-12"><li>[+] ${t.p_m_item_1}</li><li>[+] ${t.p_m_item_2}</li><li>[+] ${t.p_m_item_3}</li></ul>
                                 </div>
                             </div>
                         </div>
@@ -386,77 +323,29 @@
                         <h2 class="text-7xl font-heading uppercase italic mb-4">FIELD DEPLOYMENTS</h2>
                         <p class="text-gray-500 font-mono text-xs mb-12 uppercase tracking-widest">Live client sites — Load times verified</p>
                         <div class="grid md:grid-cols-3 gap-8 max-w-6xl">
-                            <div class="bg-tool-gray border-t-4 border-tool-red p-8 flex flex-col">
-                                <div class="text-tool-red font-mono text-xs uppercase mb-4 tracking-widest">Plumbing · Austin TX</div>
-                                <h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">Mike's Garza Plumbing</h3>
-                                <div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1">
-                                    <div>⚡ Load: 0.7s</div>
-                                    <div>📱 Mobile: 96/100</div>
-                                    <div>🔍 SEO: 97/100</div>
-                                </div>
-                                <span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">
-                                    DEPLOYING SOON · D10
-                                </span>
-                            </div>
-                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all">
-                                <div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">HVAC · Houston TX</div>
-                                <h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">TechCool HVAC</h3>
-                                <div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1">
-                                    <div>⚡ Load: 0.8s</div>
-                                    <div>📱 Mobile: 94/100</div>
-                                    <div>🔍 SEO: 95/100</div>
-                                </div>
-                                <span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">
-                                    DEPLOYING SOON · D10
-                                </span>
-                            </div>
-                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all">
-                                <div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">Electrician · Dallas TX</div>
-                                <h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">PowerGrid Electric</h3>
-                                <div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1">
-                                    <div>⚡ Load: 0.6s</div>
-                                    <div>📱 Mobile: 98/100</div>
-                                    <div>🔍 SEO: 96/100</div>
-                                </div>
-                                <span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">
-                                    DEPLOYING SOON · D10
-                                </span>
-                            </div>
+                            <div class="bg-tool-gray border-t-4 border-tool-red p-8 flex flex-col"><div class="text-tool-red font-mono text-xs uppercase mb-4 tracking-widest">Plumbing · Austin TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">Mike's Garza Plumbing</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.7s</div><div>📱 Mobile: 96/100</div><div>🔍 SEO: 97/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
+                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all"><div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">HVAC · Houston TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">TechCool HVAC</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.8s</div><div>📱 Mobile: 94/100</div><div>🔍 SEO: 95/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
+                            <div class="bg-tool-gray border-t-4 border-white/10 p-8 flex flex-col hover:border-tool-red transition-all"><div class="text-gray-500 font-mono text-xs uppercase mb-4 tracking-widest">Electrician · Dallas TX</div><h3 class="text-3xl font-heading uppercase italic mb-4 leading-none">PowerGrid Electric</h3><div class="bg-black/60 p-4 font-mono text-xs text-green-400 mb-6 space-y-1"><div>⚡ Load: 0.6s</div><div>📱 Mobile: 98/100</div><div>🔍 SEO: 96/100</div></div><span class="mt-auto text-gray-600 font-mono text-xs uppercase tracking-widest">DEPLOYING SOON · D10</span></div>
                         </div>
-                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30 max-w-6xl">
-                            <p class="text-center font-heading text-xl uppercase italic text-white">
-                                Your business, next in the deployment queue. →
-                                <button onclick="changePage('protocol')" class="text-tool-red underline ml-2">Start Now</button>
-                            </p>
-                        </div>
+                        <div class="mt-12 p-6 bg-tool-red/10 border border-tool-red/30 max-w-6xl"><p class="text-center font-heading text-xl uppercase italic text-white">Your business, next in the deployment queue. → <button onclick="changePage('protocol')" class="text-tool-red underline ml-2">Start Now</button></p></div>
                     `;
                     break;
                 case 'contact':
                     content.innerHTML = `
                         <h2 class="text-6xl font-heading uppercase italic mb-10">${t.contact_title}</h2>
                         <div class="grid md:grid-cols-2 gap-12 max-w-5xl">
-                            <div class="p-10 bg-tool-gray border-l-8 border-tool-red">
-                                <div class="text-[11px] font-mono text-gray-600 uppercase mb-4 tracking-widest italic font-black">Operator_Signal:</div>
-                                <h4 class="text-3xl font-heading uppercase italic mb-2 text-white">Alex | Tech Lead</h4>
-                                <p class="text-tool-red font-mono text-lg font-black italic">hammerandcircuit@gmail.com</p>
-                            </div>
-                            <div class="flex flex-col justify-center border border-white/5 p-10 bg-black/40 shadow-inner">
-                                <p class="text-3xl italic text-gray-300 leading-tight font-heading uppercase">
-                                    "WE HANDLE THE UPDATES, YOU HANDLE THE JOBS. <span class='text-white font-bold'>PAYPAL_READY.</span>"
-                                </p>
-                            </div>
+                            <div class="p-10 bg-tool-gray border-l-8 border-tool-red"><div class="text-[11px] font-mono text-gray-600 uppercase mb-4 tracking-widest italic font-black">Operator_Signal:</div><h4 class="text-3xl font-heading uppercase italic mb-2 text-white">Alex | Tech Lead</h4><p class="text-tool-red font-mono text-lg font-black italic">hammerandcircuit@gmail.com</p></div>
+                            <div class="flex flex-col justify-center border border-white/5 p-10 bg-black/40 shadow-inner"><p class="text-3xl italic text-gray-300 leading-tight font-heading uppercase">"WE HANDLE THE UPDATES, YOU HANDLE THE JOBS. <span class='text-white font-bold'>PAYPAL_READY.</span>"</p></div>
                         </div>
                     `;
                     break;
             }
         }
-
         function updateNav(page) {
             document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('switch-active'));
             const activeBtn = document.getElementById(`nav-${page}`);
             if (activeBtn) activeBtn.classList.add('switch-active');
         }
-
         function setLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('bg-tool-red', 'text-white'));
@@ -470,10 +359,7 @@
             const activePage = activeNav ? activeNav.id.replace('nav-', '') : 'home';
             renderPage(activePage);
         }
-
-        window.onload = () => {
-            setLanguage('en');
-        };
+        window.onload = () => { setLanguage('en'); };
     </script>
 </body>
 </html>
