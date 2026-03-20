@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer Circuit | Fast Websites for Tradespeople in 48 Hours</title>
+    <meta name="description" content="High-performance websites for plumbers, electricians, HVAC and contractors in 48 hours. $199 one-time build. Fast, mobile-ready, no bloat.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Hammer Circuit Web Labs","url":"https://hammercircuit.com","description":"High-performance websites for tradespeople in 48 hours.","email":"ferran@asmodeushammercircuit.com","areaServed":"US","serviceType":"Web Design for Contractors and Tradespeople"}</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #E30613;
+            --red-dim: rgba(227,6,19,0.15);
+            --bg: #0A0A0A;
+            --bg2: #111111;
+            --bg3: #1A1A1A;
+            --border: rgba(255,255,255,0.08);
+            --text: #FFFFFF;
+            --muted: #6B7280;
+            --font-h: 'Barlow Condensed', sans-serif;
+            --font-b: 'Inter', sans-serif;
+            --font-m: 'JetBrains Mono', monospace;
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-b); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        /* UTILS */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .mono { font-family: var(--font-m); }
+        .tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--font-m); font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
+            color: var(--red); border: 1px solid rgba(227,6,19,0.3);
+            padding: 4px 10px; border-radius: 2px;
+        }
+        .tag::before { content:''; width:6px; height:6px; background:var(--red); border-radius:50%; animation: blink 1.4s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10,10,10,0.92); border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            height: 68px;
+        }
+        nav .container { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: var(--font-h); font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; cursor: pointer; }
+        .nav-logo span { color: var(--red); }
+        .nav-links { display: none; gap: 28px; list-style: none; }
+        .nav-links a { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+        .lang-group { display: flex; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+        .lang-btn { background: transparent; border: none; color: var(--muted); font-family: var(--font-m); font-size: 0.7rem; font-weight: 700; padding: 6px 10px; cursor: pointer; transition: 0.2s; }
+        .lang-btn.active { background: var(--red); color: #fff; }
+        .nav-cta { display: none; background: var(--red); color: #fff; font-family: var(--font-h); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 9px 20px; border: none; cursor: pointer; transition: 0.2s; }
+        .nav-cta:hover { filter: brightness(1.15); }
+        .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; background: none; border: none; }
+        .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 1px; transition: 0.3s; display: block; }
+        @media (min-width: 900px) {
+            .nav-links { display: flex; }
+            .nav-cta { display: block; }
+            .hamburger { display: none; }
+        }
+
+        /* MOBILE MENU */
+        #mob-menu {
+            position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+            background: var(--bg); z-index: 999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        #mob-menu.open { transform: translateX(0); }
+        #mob-menu a { font-family: var(--font-h); font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; color: var(--muted); transition: color 0.2s; }
+        #mob-menu a:hover { color: var(--text); }
+
+        /* HERO */
+        .hero {
+            padding-top: 68px; min-height: 100vh;
+            display: grid; grid-template-columns: 1fr; align-items: center;
+            position: relative; overflow: hidden;
+        }
+        @media (min-width: 900px) { .hero { grid-template-columns: 1fr 1fr; } }
+
+        .hero-left { padding: clamp(50px, 10vw, 110px) clamp(24px,5vw,70px); position: relative; z-index: 2; }
+
+        .hero-eyebrow { margin-bottom: 22px; }
+        .hero-h1 {
+            font-family: var(--font-h); font-weight: 900; font-style: italic;
+            font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9;
+            text-transform: uppercase; letter-spacing: -1px; margin-bottom: 28px;
+        }
+        .hero-h1 em { color: var(--red); font-style: normal; display: block; }
+        .hero-desc {
+            font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--muted);
+            line-height: 1.65; max-width: 480px; margin-bottom: 38px;
+            border-left: 3px solid var(--red); padding-left: 18px;
+        }
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+        .btn-red {
+            background: var(--red); color: #fff;
+            font-family: var(--font-h); font-size: 1.2rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 14px 30px; border: none; cursor: pointer;
+            box-shadow: 0 6px 30px rgba(227,6,19,0.35);
+            transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-red:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(227,6,19,0.5); }
+        .btn-ghost {
+            background: transparent; color: var(--muted);
+            font-family: var(--font-h); font-size: 1.1rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 14px 30px; border: 1px solid var(--border); cursor: pointer;
+            transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+
+        .hero-proof { display: flex; gap: 28px; flex-wrap: wrap; }
+        .proof-item { text-align: center; }
+        .proof-num { font-family: var(--font-h); font-size: 2.2rem; font-weight: 900; color: var(--red); line-height: 1; display: block; }
+        .proof-label { font-family: var(--font-m); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; display: block; }
+
+        /* HERO RIGHT */
+        .hero-right {
+            position: relative; min-height: 500px; overflow: hidden;
+            background: var(--bg2); display: flex; align-items: center; justify-content: center;
+        }
+        .hero-grid-bg {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(227,6,19,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(227,6,19,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .hero-card-stack { position: relative; z-index: 2; padding: 40px; }
+        .hcard {
+            background: var(--bg3); border: 1px solid var(--border);
+            border-left: 3px solid var(--red); padding: 20px 24px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 16px;
+            animation: slideCard 0.5s ease both;
+        }
+        .hcard:nth-child(1){ animation-delay: 0.1s; }
+        .hcard:nth-child(2){ animation-delay: 0.25s; }
+        .hcard:nth-child(3){ animation-delay: 0.4s; }
+        .hcard:nth-child(4){ animation-delay: 0.55s; }
+        @keyframes slideCard { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+        .hcard-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .hcard-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .hcard-sub { font-family: var(--font-m); font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+        .hcard-check { margin-left: auto; color: #22c55e; font-size: 1.1rem; flex-shrink: 0; }
+
+        /* TICKER */
+        .ticker-wrap { background: var(--red); padding: 11px 0; overflow: hidden; }
+        .ticker-track { display: flex; gap: 55px; animation: ticker 32s linear infinite; width: max-content; }
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .ticker-item { font-family: var(--font-h); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; display: flex; align-items: center; gap: 14px; color: #fff; flex-shrink: 0; }
+        .ticker-item::after { content: '⚡'; }
+        .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+
+        /* SECTIONS */
+        section { padding: 90px 0; }
+        .section-label {
+            font-family: var(--font-m); font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px; color: var(--red);
+            margin-bottom: 14px; display: block;
+        }
+        .section-title {
+            font-family: var(--font-h); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900; font-style: italic; text-transform: uppercase;
+            line-height: 0.95; letter-spacing: -1px; margin-bottom: 18px;
+        }
+        .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 600px; margin-bottom: 55px; }
+
+        /* ADVANTAGES */
+        .adv-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .adv-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+        @media (min-width: 700px) { .adv-grid { grid-template-columns: repeat(3,1fr); } }
+        .adv-card {
+            padding: 44px 36px; border-right: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+        .adv-card:last-child { border-right: none; }
+        .adv-card:hover { background: var(--bg3); }
+        @media (max-width: 699px) { .adv-card { border-right: none; border-bottom: 1px solid var(--border); } }
+        .adv-num { font-family: var(--font-h); font-size: 4rem; font-weight: 900; color: rgba(227,6,19,0.15); line-height: 1; margin-bottom: 14px; }
+        .adv-title { font-family: var(--font-h); font-size: 1.6rem; font-weight: 700; text-transform: uppercase; font-style: italic; margin-bottom: 12px; color: var(--red); }
+        .adv-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+        /* PROTOCOL */
+        .protocol-section { background: var(--bg); }
+        .protocol-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+        @media (min-width: 768px) { .protocol-grid { grid-template-columns: repeat(2,1fr); } }
+        .protocol-item {
+            background: var(--bg2); padding: 36px 32px;
+            border-left: 4px solid var(--border); transition: border-color 0.3s, background 0.3s;
+            position: relative;
+        }
+        .protocol-item:hover { border-left-color: var(--red); background: var(--bg3); }
+        .protocol-num { font-family: var(--font-m); font-size: 0.65rem; color: var(--red); font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+        .protocol-title { font-family: var(--font-h); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; font-style: italic; margin-bottom: 10px; }
+        .protocol-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+        .protocol-summary {
+            margin-top: 2px; background: rgba(227,6,19,0.08); border: 1px solid rgba(227,6,19,0.25);
+            padding: 28px 32px; text-align: center;
+            font-family: var(--font-h); font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 700; font-style: italic; text-transform: uppercase; color: var(--text);
+        }
+        .protocol-summary span { color: var(--red); }
+
+        /* PRICING */
+        .pricing-section { background: var(--bg2); border-top: 1px solid var(--border); }
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(2,1fr); align-items: start; } }
+        .price-card {
+            background: var(--bg3); border: 1px solid var(--border);
+            padding: clamp(28px, 4vw, 44px);
+        }
+        .price-card.featured {
+            border-color: var(--red);
+            box-shadow: 0 0 40px rgba(227,6,19,0.12);
+            position: relative;
+        }
+        .price-badge {
+            position: absolute; top: -1px; right: 24px;
+            background: var(--red); color: #fff;
+            font-family: var(--font-m); font-size: 0.6rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px;
+        }
+        .price-title { font-family: var(--font-h); font-size: 1.8rem; font-weight: 900; text-transform: uppercase; font-style: italic; margin-bottom: 6px; }
+        .price-amount { font-family: var(--font-h); font-size: 4rem; font-weight: 900; color: var(--red); line-height: 1; margin: 14px 0; }
+        .price-amount sup { font-size: 1.8rem; vertical-align: top; margin-top: 10px; }
+        .price-amount sub { font-size: 1rem; color: var(--muted); }
+        .price-list { list-style: none; margin: 22px 0; space-y: 10px; }
+        .price-list li { font-family: var(--font-m); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+        .price-list li::before { content: '▸'; color: var(--red); flex-shrink: 0; }
+        .price-gift { font-family: var(--font-m); font-size: 0.65rem; color: var(--red); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin: 14px 0; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+        .specs-box {
+            margin-top: 40px; background: var(--bg3); border: 1px solid var(--border);
+            padding: 28px 32px; border-left: 4px solid rgba(227,6,19,0.4);
+        }
+        .specs-title { font-family: var(--font-m); font-size: 0.65rem; color: var(--red); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 14px; }
+        .specs-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+        .specs-text + .specs-text { margin-top: 10px; }
+
+        /* PORTFOLIO */
+        .portfolio-section { background: var(--bg); }
+        .portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 640px) { .portfolio-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (min-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(3,1fr); } }
+
+        .port-card {
+            background: var(--bg2); border: 1px solid var(--border);
+            transition: border-color 0.3s, transform 0.3s;
+            overflow: hidden;
+        }
+        .port-card:hover { border-color: rgba(227,6,19,0.5); transform: translateY(-4px); }
+        .port-thumb { position: relative; overflow: hidden; aspect-ratio: 16/10; background: var(--bg3); }
+        .port-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s, opacity 0.3s; }
+        .port-card:hover .port-thumb img { transform: scale(1.04); }
+        .port-verified { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; font-family: var(--font-m); font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 8px; }
+        .port-body { padding: 20px; }
+        .port-trade { font-family: var(--font-m); font-size: 0.58rem; color: var(--red); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 7px; }
+        .port-name { font-family: var(--font-h); font-size: 1.4rem; font-weight: 700; text-transform: uppercase; font-style: italic; margin-bottom: 12px; }
+        .port-stats { display: flex; gap: 16px; margin-bottom: 14px; }
+        .port-stat { font-family: var(--font-m); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .port-stat span { color: #22c55e; font-weight: 700; }
+        .port-variations { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .var-label { font-family: var(--font-m); font-size: 0.58rem; color: var(--muted); text-transform: uppercase; }
+        .color-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+        .color-dot:hover { transform: scale(1.2); }
+        .color-dot.active { border-color: var(--text); }
+        .port-link {
+            display: block; width: 100%; text-align: center;
+            font-family: var(--font-h); font-size: 1rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 12px; border: 1px solid var(--border); color: var(--muted);
+            transition: 0.2s;
+        }
+        .port-link:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+        /* CONTACT */
+        .contact-section { background: var(--bg2); border-top: 1px solid var(--border); }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+        .contact-card {
+            background: var(--bg3); border: 1px solid var(--border);
+            border-left: 4px solid var(--red); padding: 40px;
+        }
+        .contact-operator { font-family: var(--font-m); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .contact-name { font-family: var(--font-h); font-size: 2.5rem; font-weight: 900; text-transform: uppercase; font-style: italic; margin-bottom: 10px; }
+        .contact-email { font-family: var(--font-m); font-size: 1rem; color: var(--red); font-weight: 700; word-break: break-all; }
+        .contact-quote {
+            background: var(--bg); border: 1px solid var(--border);
+            padding: 40px; display: flex; align-items: center; justify-content: center;
+        }
+        .contact-quote p { font-family: var(--font-h); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; font-style: italic; text-transform: uppercase; line-height: 1.2; color: var(--muted); text-align: center; }
+        .contact-quote strong { color: var(--text); }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg); border-top: 1px solid var(--border);
+            padding: 36px 0; text-align: center;
+        }
+        .footer-logo { font-family: var(--font-h); font-size: 1.3rem; font-weight: 900; text-transform: uppercase; font-style: italic; margin-bottom: 8px; }
+        .footer-logo span { color: var(--red); }
+        .footer-sub { font-family: var(--font-m); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+        .footer-copy { font-family: var(--font-m); font-size: 0.6rem; color: rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">
+                HAMMER <span>CIRCUIT</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#advantage" data-i18n="navsolutions">Why Us</a></li>
+                <li><a href="#protocol" data-i18n="navprotocol">48h Protocol</a></li>
+                <li><a href="#pricing" data-i18n="navpricing">Pricing</a></li>
+                <li><a href="#portfolio" data-i18n="navportfolio">Portfolio</a></li>
+                <li><a href="#contact" data-i18n="navcontact">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="lang-group">
+                    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                    <button class="lang-btn" onclick="setLang('es')">ES</button>
+                    <button class="lang-btn" onclick="setLang('zh')">ZH</button>
+                </div>
+                <button class="nav-cta" onclick="document.getElementById('protocol').scrollIntoView({behavior:'smooth'})" data-i18n="herocta">Launch My 48h Site — $199</button>
+                <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mob-menu">
+        <a href="#advantage" onclick="toggleMenu()" data-i18n="navsolutions">Why Us</a>
+        <a href="#protocol" onclick="toggleMenu()" data-i18n="navprotocol">48h Protocol</a>
+        <a href="#pricing" onclick="toggleMenu()" data-i18n="navpricing">Pricing</a>
+        <a href="#portfolio" onclick="toggleMenu()" data-i18n="navportfolio">Portfolio</a>
+        <a href="#contact" onclick="toggleMenu()" data-i18n="navcontact">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <div class="hero-eyebrow">
+                <span class="tag" data-i18n="tagline1">Available Now — 48h Delivery</span>
+            </div>
+            <h1 class="hero-h1">
+                <span data-i18n="hero-line1">Industrial</span>
+                <em data-i18n="hero-line2">Strength</em>
+                <span data-i18n="hero-line3">Digital Precision.</span>
+            </h1>
+            <p class="hero-desc" data-i18n="herodesc">
+                We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.
+            </p>
+            <div class="hero-btns">
+                <button class="btn-red" onclick="document.getElementById('protocol').scrollIntoView({behavior:'smooth'})" data-i18n="herocta">
+                    ⚡ Launch My 48h Site — $199
+                </button>
+                <button class="btn-ghost" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})" data-i18n="viewtemplates">
+                    View Templates →
+                </button>
+            </div>
+            <div class="hero-proof">
+                <div class="proof-item">
+                    <span class="proof-num">48h</span>
+                    <span class="proof-label" data-i18n="proof1">Delivery</span>
+                </div>
+                <div class="proof-item" style="padding-left:28px;border-left:1px solid var(--border)">
+                    <span class="proof-num">&lt;1s</span>
+                    <span class="proof-label" data-i18n="proof2">Load Time</span>
+                </div>
+                <div class="proof-item" style="padding-left:28px;border-left:1px solid var(--border)">
+                    <span class="proof-num">$199</span>
+                    <span class="proof-label" data-i18n="proof3">One-Time Build</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-grid-bg"></div>
+            <div class="hero-card-stack">
+                <div class="hcard">
+                    <div class="hcard-icon">🔧</div>
+                    <div>
+                        <div class="hcard-title" data-i18n="hcard1t">Pure Code Build</div>
+                        <div class="hcard-sub" data-i18n="hcard1s">No WordPress bloat</div>
+                    </div>
+                    <div class="hcard-check">✓</div>
+                </div>
+                <div class="hcard">
+                    <div class="hcard-icon">📱</div>
+                    <div>
+                        <div class="hcard-title" data-i18n="hcard2t">Mobile-First</div>
+                        <div class="hcard-sub" data-i18n="hcard2s">Works on any device</div>
+                    </div>
+                    <div class="hcard-check">✓</div>
+                </div>
+                <div class="hcard">
+                    <div class="hcard-icon">⚡</div>
+                    <div>
+                        <div class="hcard-title" data-i18n="hcard3t">Sub-1s Load</div>
+                        <div class="hcard-sub" data-i18n="hcard3s">Google PageSpeed 99+</div>
+                    </div>
+                    <div class="hcard-check">✓</div>
+                </div>
+                <div class="hcard">
+                    <div class="hcard-icon">📞</div>
+                    <div>
+                        <div class="hcard-title" data-i18n="hcard4t">Click-to-Call Ready</div>
+                        <div class="hcard-sub" data-i18n="hcard4s">Converts visitors to jobs</div>
+                    </div>
+                    <div class="hcard-check">✓</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap" aria-hidden="true">
+        <div class="ticker-track">
+            <div class="ticker-item" data-i18n="t1">48-Hour Delivery</div>
+            <div class="ticker-item" data-i18n="t2">Pure HTML / CSS / JS</div>
+            <div class="ticker-item" data-i18n="t3">Sub-1s Load Time</div>
+            <div class="ticker-item" data-i18n="t4">$199 One-Time Build</div>
+            <div class="ticker-item" data-i18n="t5">Mobile-First Design</div>
+            <div class="ticker-item" data-i18n="t6">Click-to-Call Optimized</div>
+            <div class="ticker-item" data-i18n="t7">Free Domain Included</div>
+            <div class="ticker-item" data-i18n="t1">48-Hour Delivery</div>
+            <div class="ticker-item" data-i18n="t2">Pure HTML / CSS / JS</div>
+            <div class="ticker-item" data-i18n="t3">Sub-1s Load Time</div>
+            <div class="ticker-item" data-i18n="t4">$199 One-Time Build</div>
+            <div class="ticker-item" data-i18n="t5">Mobile-First Design</div>
+            <div class="ticker-item" data-i18n="t6">Click-to-Call Optimized</div>
+            <div class="ticker-item" data-i18n="t7">Free Domain Included</div>
+        </div>
+    </div>
+
+    <!-- ADVANTAGE -->
+    <section class="adv-section" id="advantage">
+        <div class="container">
+            <span class="section-label" data-i18n="navsolutions">Why Us</span>
+            <h2 class="section-title reveal" data-i18n="soltitle">The Trade Advantage</h2>
+            <p class="section-sub reveal" data-i18n="soldesc">Most agencies build slow, bloated websites. We use pure code to ensure you're the fastest in town.</p>
+        </div>
+        <div class="adv-grid">
+            <div class="adv-card reveal">
+                <div class="adv-num">01</div>
+                <div class="adv-title" data-i18n="solitem1t">Faster Than Your Tools</div>
+                <p class="adv-desc" data-i18n="solitem1d">Instant loading means customers don't hang up to call the next guy. Speed = more jobs.</p>
+            </div>
+            <div class="adv-card reveal">
+                <div class="adv-num">02</div>
+                <div class="adv-title" data-i18n="solitem2t">Built Tough</div>
+                <p class="adv-desc" data-i18n="solitem2d">Pure code construction for 100% reliability on any mobile device. No plugins to break.</p>
+            </div>
+            <div class="adv-card reveal">
+                <div class="adv-num">03</div>
+                <div class="adv-title" data-i18n="solitem3t">Ready to Work</div>
+                <p class="adv-desc" data-i18n="solitem3d">Specifically optimized to convert local visitors into paying jobs. Not just pretty — profitable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROTOCOL -->
+    <section class="protocol-section" id="protocol">
+        <div class="container">
+            <span class="section-label" data-i18n="navprotocol">48h Protocol</span>
+            <h2 class="section-title reveal" data-i18n="protocoltitle">The 48-Hour Clock</h2>
+            <p class="section-sub reveal" data-i18n="protocolsub">To ensure a high-quality launch, the following protocol must be met.</p>
+            <div class="protocol-grid">
+                <div class="protocol-item reveal">
+                    <div class="protocol-num" data-i18n="pitem1num">STEP 01</div>
+                    <div class="protocol-title" data-i18n="pitem1t">Initial Deployment Payment</div>
+                    <p class="protocol-desc" data-i18n="pitem1d">A one-time $199 USD payment via PayPal is required to book your spot in production.</p>
+                </div>
+                <div class="protocol-item reveal">
+                    <div class="protocol-num" data-i18n="pitem2num">STEP 02</div>
+                    <div class="protocol-title" data-i18n="pitem2t">The Information Kit</div>
+                    <p class="protocol-desc" data-i18n="pitem2d">Complete your business data form. Missing info pauses the delivery clock immediately.</p>
+                </div>
+                <div class="protocol-item reveal">
+                    <div class="protocol-num" data-i18n="pitem3num">STEP 03</div>
+                    <div class="protocol-title" data-i18n="pitem3t">Style Selection</div>
+                    <p class="protocol-desc" data-i18n="pitem3d">Choose your master template. All optimized for sub-1s load times and mobile conversion.</p>
+                </div>
+                <div class="protocol-item reveal">
+                    <div class="protocol-num" data-i18n="pitem4num">STEP 04</div>
+                    <div class="protocol-title" data-i18n="pitem4t">Domain Access</div>
+                    <p class="protocol-desc" data-i18n="pitem4d">Provide DNS access or we'll manage a new domain for you instantly at no extra cost.</p>
+                </div>
+            </div>
+            <div class="protocol-summary reveal">
+                <span data-i18n="psummary1">You pay & fill the form today —</span>
+                <span style="color:var(--red)" data-i18n="psummary2"> we deliver in max 2 business days.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <span class="section-label" data-i18n="navpricing">Pricing</span>
+            <h2 class="section-title reveal" data-i18n="pricetitle">The $199 Blueprint</h2>
+            <div class="pricing-grid">
+                <div class="price-card reveal">
+                    <div class="price-title" data-i18n="pbuildtitle">One-Time Build</div>
+                    <div class="price-amount"><sup>$</sup>199</div>
+                    <ul class="price-list">
+                        <li data-i18n="pitem1">.com Domain Registration</li>
+                        <li data-i18n="pitem2">Site Dev — Selected Template</li>
+                        <li data-i18n="pitem3">Initial Setup & Deployment</li>
+                    </ul>
+                    <div class="price-gift" data-i18n="pgift">🎁 FREE BONUS — First 3 Months Hosting Included!</div>
+                    <button class="btn-red" style="width:100%;justify-content:center;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="ctastart">
+                        ⚡ Start Now
+                    </button>
+                </div>
+                <div class="price-card featured reveal">
+                    <div class="price-badge" data-i18n="pricebadge">Recommended</div>
+                    <div class="price-title" data-i18n="pmainttitle">Service & Hosting</div>
+                    <div class="price-amount"><sup>$</sup>29<sub data-i18n="permonth">/mo</sub></div>
+                    <ul class="price-list">
+                        <li data-i18n="pmitem1">Secure Hosting + SSL Protection</li>
+                        <li data-i18n="pmitem2">Professional Domain Management</li>
+                        <li data-i18n="pmitem3">Performance Reporting + Support</li>
+                    </ul>
+                    <div class="price-gift" data-i18n="pmsavings">💰 SAVINGS MODE — $80/3mo — $300/year</div>
+                    <button class="btn-ghost" style="width:100%;justify-content:center;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="ctalearn">
+                        Learn More →
+                    </button>
+                </div>
+            </div>
+            <div class="specs-box reveal">
+                <div class="specs-title" data-i18n="pspecstitle">Technical Specs & Limits</div>
+                <p class="specs-text" data-i18n="pspecsmaint">Maintenance includes 1–4 photo updates and 1 page of text edits per month. Full section modifications or additions are excluded.</p>
+                <p class="specs-text" data-i18n="pspecsreport">Plus: Every month, we send a performance report including visitor count and Click-to-Call metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
+            <span class="section-label" data-i18n="navportfolio">Portfolio</span>
+            <h2 class="section-title reveal" data-i18n="porttitle">Master Blueprints</h2>
+            <p class="section-sub reveal" data-i18n="portsub">Network status: Sub-1s load times verified across all templates.</p>
+            <div class="portfolio-grid" id="portfolio-grid"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <span class="section-label" data-i18n="navcontact">Contact</span>
+            <h2 class="section-title reveal" data-i18n="contacttitle">Contact the Lab</h2>
+            <div class="contact-grid">
+                <div class="contact-card reveal">
+                    <div class="contact-operator" data-i18n="contactoperator">Operator // Tech Lead</div>
+                    <div class="contact-name" data-i18n="contactlead">Ferran</div>
+                    <a href="mailto:ferran@asmodeushammercircuit.com" class="contact-email" data-i18n="contactemail">ferran@asmodeushammercircuit.com</a>
+                </div>
+                <div class="contact-quote reveal">
+                    <p>
+                        <span data-i18n="cqline1">We handle the </span>
+                        <strong data-i18n="cqbold1">UPDATES,</strong>
+                        <span data-i18n="cqline2"> you handle the </span>
+                        <strong data-i18n="cqbold2">JOBS.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">HAMMER <span>CIRCUIT</span> WEB LABS</div>
+            <p class="footer-sub" data-i18n="footersub">Precision Engineering for the Trades</p>
+            <p class="footer-copy">© 2026 Hammer and Circuit Web Labs LLC</p>
+        </div>
+    </footer>
+
+    <script>
+    // ── TRANSLATIONS ──
+    const T = {
+        en: {
+            navsolutions:"Why Us", navprotocol:"48h Protocol", navpricing:"Pricing", navportfolio:"Portfolio", navcontact:"Contact",
+            tagline1:"Available Now — 48h Delivery",
+            "hero-line1":"Industrial","hero-line2":"Strength","hero-line3":"Digital Precision.",
+            herodesc:"We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.",
+            herocta:"⚡ Launch My 48h Site — $199", viewtemplates:"View Templates →",
+            proof1:"Delivery", proof2:"Load Time", proof3:"One-Time Build",
+            hcard1t:"Pure Code Build", hcard1s:"No WordPress bloat",
+            hcard2t:"Mobile-First", hcard2s:"Works on any device",
+            hcard3t:"Sub-1s Load", hcard3s:"Google PageSpeed 99+",
+            hcard4t:"Click-to-Call Ready", hcard4s:"Converts visitors to jobs",
+            t1:"48-Hour Delivery",t2:"Pure HTML / CSS / JS",t3:"Sub-1s Load Time",
+            t4:"$199 One-Time Build",t5:"Mobile-First Design",t6:"Click-to-Call Optimized",t7:"Free Domain Included",
+            soltitle:"The Trade Advantage",
+            soldesc:"Most agencies build slow, bloated websites. We use pure code to ensure you're the fastest in town.",
+            solitem1t:"Faster Than Your Tools",solitem1d:"Instant loading means customers don't hang up to call the next guy.",
+            solitem2t:"Built Tough",solitem2d:"Pure code construction for 100% reliability on any mobile device.",
+            solitem3t:"Ready to Work",solitem3d:"Specifically optimized to convert local visitors into paying jobs.",
+            protocoltitle:"The 48-Hour Clock",
+            protocolsub:"To ensure a high-quality launch, the following protocol must be met.",
+            pitem1num:"STEP 01",pitem1t:"Initial Deployment Payment",pitem1d:"A one-time $199 USD payment via PayPal is required to book your spot.",
+            pitem2num:"STEP 02",pitem2t:"The Information Kit",pitem2d:"Complete your business data form. Missing info pauses the delivery clock.",
+            pitem3num:"STEP 03",pitem3t:"Style Selection",pitem3d:"Choose your master template. Optimized for sub-1s load times.",
+            pitem4num:"STEP 04",pitem4t:"Domain Access",pitem4d:"Provide DNS access or we'll manage a new one for you instantly.",
+            psummary1:"You pay & fill the form today —", psummary2:" we deliver in max 2 business days.",
+            pricetitle:"The $199 Blueprint",
+            pbuildtitle:"One-Time Build",pitem1:".com Domain Registration",pitem2:"Site Dev — Selected Template",pitem3:"Initial Setup & Deployment",
+            pgift:"🎁 FREE BONUS — First 3 Months Hosting Included!",
+            pmainttitle:"Service & Hosting",pmitem1:"Secure Hosting + SSL Protection",pmitem2:"Professional Domain Management",pmitem3:"Performance Reporting + Support",
+            pmsavings:"💰 SAVINGS MODE — $80/3mo — $300/year",
+            pricebadge:"Recommended",permonth:"/mo",ctastart:"⚡ Start Now",ctalearn:"Learn More →",
+            pspecstitle:"Technical Specs & Limits",
+            pspecsmaint:"Maintenance includes 1–4 photo updates and 1 page of text edits per month. Full section modifications excluded.",
+            pspecsreport:"Plus: Every month, a performance report with visitor count and Click-to-Call metrics.",
+            porttitle:"Master Blueprints",portsub:"Network status: Sub-1s load times verified across all templates.",
+            portview:"Live Preview →",portswitch:"Switch Variation",
+            contacttitle:"Contact the Lab",contactoperator:"Operator // Tech Lead",contactlead:"Ferran",
+            contactemail:"ferran@asmodeushammercircuit.com",
+            cqline1:"We handle the ",cqbold1:"UPDATES,",cqline2:" you handle the ",cqbold2:"JOBS.",
+            footersub:"Precision Engineering for the Trades"
+        },
+        es: {
+            navsolutions:"Por Qué", navprotocol:"Protocolo 48h", navpricing:"Precios", navportfolio:"Portfolio", navcontact:"Contacto",
+            tagline1:"Disponible Ahora — Entrega 48h",
+            "hero-line1":"Fuerza","hero-line2":"Industrial","hero-line3":"Precisión Digital.",
+            herodesc:"Sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos, solo más llamadas para tu negocio.",
+            herocta:"⚡ Iniciar Mi Web en 48h — $199", viewtemplates:"Ver Plantillas →",
+            proof1:"Entrega", proof2:"Tiempo de Carga", proof3:"Pago Único",
+            hcard1t:"Código Puro",hcard1s:"Sin WordPress lento",
+            hcard2t:"Mobile-First",hcard2s:"Funciona en cualquier celular",
+            hcard3t:"Carga Sub-1s",hcard3s:"Google PageSpeed 99+",
+            hcard4t:"Clic para Llamar",hcard4s:"Convierte visitas en trabajos",
+            t1:"Entrega 48 Horas",t2:"HTML / CSS / JS Puro",t3:"Carga Sub-1 Segundo",
+            t4:"$199 Pago Único",t5:"Diseño Mobile-First",t6:"Optimizado Clic-para-Llamar",t7:"Dominio Gratis Incluido",
+            soltitle:"Ventaja del Oficio",
+            soldesc:"La mayoría crea sitios lentos. Usamos código puro para que seas el más rápido de tu zona.",
+            solitem1t:"Más Rápido que Tus Herramientas",solitem1d:"Carga instantánea para que el cliente no llame a la competencia.",
+            solitem2t:"Construcción Sólida",solitem2d:"Código puro para fiabilidad del 100% en cualquier celular.",
+            solitem3t:"Lista para Trabajar",solitem3d:"Optimizada para convertir visitas locales en trabajos reales.",
+            protocoltitle:"El Reloj de 48 Horas",
+            protocolsub:"Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
+            pitem1num:"PASO 01",pitem1t:"Pago de Despliegue",pitem1d:"Pago único de $199 USD vía PayPal para apartar tu lugar en producción.",
+            pitem2num:"PASO 02",pitem2t:"Kit de Información",pitem2d:"Completa el formulario de negocio. La falta de datos pausa el reloj.",
+            pitem3num:"PASO 03",pitem3t:"Selección de Estilo",pitem3d:"Elige una de nuestras plantillas maestras optimizadas para velocidad.",
+            pitem4num:"PASO 04",pitem4t:"Acceso a Dominio",pitem4d:"Danos acceso a tu DNS o gestionamos uno nuevo al instante.",
+            psummary1:"Pagas y llenas el formulario hoy —",psummary2:" entregamos en máximo 2 días hábiles.",
+            pricetitle:"El Plan de $199",
+            pbuildtitle:"Construcción Única",pitem1:"Dominio .com Incluido",pitem2:"Desarrollo — Plantilla Elegida",pitem3:"Puesta a Punto y Despliegue",
+            pgift:"🎁 REGALO — ¡Primeros 3 Meses de Hosting Incluidos!",
+            pmainttitle:"Servicio y Hosting",pmitem1:"Hosting Seguro + Protección SSL",pmitem2:"Gestión Profesional de Dominio",pmitem3:"Reporte de Desempeño + Soporte",
+            pmsavings:"💰 MODO AHORRO — $80/3 meses — $300/año",
+            pricebadge:"Recomendado",permonth:"/mes",ctastart:"⚡ Iniciar Ahora",ctalearn:"Más Info →",
+            pspecstitle:"Detalles Técnicos y Límites",
+            pspecsmaint:"Mantenimiento incluye 1–4 fotos quitar/poner y 1 cuartilla de texto al mes. No incluye secciones completas.",
+            pspecsreport:"Plus: Recibirás un reporte mensual de desempeño con datos de visitantes y clics en tu teléfono.",
+            porttitle:"Plantillas Maestras",portsub:"Status de Red: Velocidad de carga sub-1s verificada.",
+            portview:"Ver Demo en Vivo →",portswitch:"Cambiar Variación",
+            contacttitle:"Contacta al Lab",contactoperator:"Operador // Tech Lead",contactlead:"Ferran",
+            contactemail:"ferran@asmodeushammercircuit.com",
+            cqline1:"Nosotros manejamos las ",cqbold1:"ACTUALIZACIONES,",cqline2:" tú manejas los ",cqbold2:"TRABAJOS.",
+            footersub:"Ingeniería de Precisión para los Oficios"
+        },
+        zh: {
+            navsolutions:"优势", navprotocol:"48小时流程", navpricing:"价格", navportfolio:"作品集", navcontact:"联系",
+            tagline1:"现在可用 — 48小时交付",
+            "hero-line1":"工业级","hero-line2":"强度","hero-line3":"数字精准。",
+            herodesc:"我们在48小时内为工匠行业打造高性能网站。没有废话，只让您接到更多电话。",
+            herocta:"⚡ 48小时启动网站 — $199", viewtemplates:"查看模板 →",
+            proof1:"交付", proof2:"加载时间", proof3:"一次性付款",
+            hcard1t:"纯代码构建",hcard1s:"无WordPress臃肿",
+            hcard2t:"移动优先",hcard2s:"任何设备完美显示",
+            hcard3t:"亚秒加载",hcard3s:"Google PageSpeed 99+",
+            hcard4t:"一键拨号",hcard4s:"将访客转化为工作",
+            t1:"48小时交付",t2:"纯HTML/CSS/JS",t3:"亚秒加载速度",
+            t4:"$199一次性付款",t5:"移动优先设计",t6:"一键拨号优化",t7:"免费域名",
+            soltitle:"行业优势",
+            soldesc:"大多数机构建立缓慢臃肿的网站。我们使用纯代码确保您是同行中最快的。",
+            solitem1t:"比您的工具更快",solitem1d:"即时加载意味着客户不会挂断电话去找竞争对手。",
+            solitem2t:"坚固耐用",solitem2d:"纯代码构建，在任何手机上100%可靠运行。",
+            solitem3t:"随时可用",solitem3d:"专为将本地访客转化为实际工作而优化。",
+            protocoltitle:"48小时倒计时",
+            protocolsub:"为确保高质量交付，必须满足以下流程。",
+            pitem1num:"步骤 01",pitem1t:"初始部署付款",pitem1d:"通过PayPal一次性支付$199 USD以预订您的生产位置。",
+            pitem2num:"步骤 02",pitem2t:"信息包",pitem2d:"填写您的业务数据表。信息缺失将暂停交付倒计时。",
+            pitem3num:"步骤 03",pitem3t:"风格选择",pitem3d:"选择您的主模板，针对亚秒加载时间进行优化。",
+            pitem4num:"步骤 04",pitem4t:"域名访问",pitem4d:"提供DNS访问，或我们立即为您管理新域名。",
+            psummary1:"今天付款并填写表格 —",psummary2:" 最多2个工作日内交付。",
+            pricetitle:"$199方案",
+            pbuildtitle:"一次性构建",pitem1:".com域名注册",pitem2:"网站开发 — 所选模板",pitem3:"初始设置和部署",
+            pgift:"🎁 免费赠品 — 前3个月托管费用已包含！",
+            pmainttitle:"服务和托管",pmitem1:"安全托管 + SSL保护",pmitem2:"专业域名管理",pmitem3:"性能报告 + 支持",
+            pmsavings:"💰 省钱模式 — $80/3个月 — $300/年",
+            pricebadge:"推荐",permonth:"/月",ctastart:"⚡ 立即开始",ctalearn:"了解更多 →",
+            pspecstitle:"技术规格和限制",
+            pspecsmaint:"维护包括每月1–4张照片更换和1页文字编辑。不包括完整章节修改。",
+            pspecsreport:"此外：每月我们发送包含访客数量和拨号点击指标的性能报告。",
+            porttitle:"主模板",portsub:"网络状态：所有模板亚秒加载速度已验证。",
+            portview:"在线预览 →",portswitch:"切换变体",
+            contacttitle:"联系实验室",contactoperator:"运营商 // 技术负责人",contactlead:"Ferran",
+            contactemail:"ferran@asmodeushammercircuit.com",
+            cqline1:"我们负责",cqbold1:"更新，",cqline2:"您负责",cqbold2:"工作。",
+            footersub:"为行业工匠提供精密工程"
+        }
+    };
+
+    // ── PORTFOLIO DATA ──
+    const templates = [
+        { id:'contractor', name:'The Contractor Pro', trade:'General Contractor & Roofing', variations:[
+            { color:'#E30613', name:'Red',    img:'templatess/hc-template-contractor-red.jpg',    link:'https://hammercircuit.com/hc-template-contractor-red/' },
+            { color:'#FF7F00', name:'Orange', img:'templatess/hc-template-contractor-orange.jpg', link:'https://hammercircuit.com/hc-template-contractor-orange/' },
+            { color:'#1E6BB8', name:'Blue',   img:'templatess/hc-template-contractor-blue.jpg',   link:'https://hammercircuit.com/hc-template-contractor-blue/' }
+        ]},
+        { id:'hvac', name:'Climate Master', trade:'HVAC · Cooling & Heating', variations:[
+            { color:'#ffffff', name:'White',  img:'templatess/hc-template-hvac-white.jpg',    link:'https://hammercircuit.com/hc-template-hvac-white/' },
+            { color:'#4A4A4A', name:'Gray',   img:'templatess/hc-template-hvac-gray.jpg',     link:'https://hammercircuit.com/hc-template-hvac-gray/' },
+            { color:'#00FFFF', name:'Cyan',   img:'templatess/hc-template-hvac-electric.jpg', link:'https://hammercircuit.com/hc-template-hvac-electric/' },
+            { color:'#0047AB', name:'Blue',   img:'templatess/hc-template-hvac-blue.jpg',     link:'https://hammercircuit.com/hc-template-hvac-blue/' }
+        ]},
+        { id:'plumber', name:'Pipe Guardian', trade:'Plumbing & Drainage', variations:[
+            { color:'#1E90FF', name:'Blue',   img:'templatess/hc-template-plumber-blue.jpg',   link:'https://hammercircuit.com/hc-template-plumber-blue/' },
+            { color:'#252525', name:'Dark',   img:'templatess/hc-template-plumber-dark.jpg',   link:'https://hammercircuit.com/hc-template-plumber-dark/' },
+            { color:'#FF8C00', name:'Orange', img:'templatess/hc-template-plumber-orange.jpg', link:'https://hammercircuit.com/hc-template-plumber-orange/' }
+        ]}
+    ];
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
+        applyTranslations();
+    }
+
+    function applyTranslations() {
+        const d = T[currentLang] || T.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const k = el.getAttribute('data-i18n');
+            if (d[k] !== undefined) el.textContent = d[k];
+        });
+        renderPortfolio();
+    }
+
+    function renderPortfolio() {
+        const d = T[currentLang] || T.en;
+        const grid = document.getElementById('portfolio-grid');
+        grid.innerHTML = templates.map(t => `
+            <div class="port-card reveal">
+                <div class="port-thumb">
+                    <img id="img-${t.id}" src="${t.variations[0].img}" alt="${t.name}" loading="lazy">
+                    <div class="port-verified">Verified UX</div>
+                </div>
+                <div class="port-body">
+                    <div class="port-trade">${t.trade}</div>
+                    <div class="port-name">${t.name}</div>
+                    <div class="port-stats">
+                        <div class="port-stat">LOAD <span>0.8s</span></div>
+                        <div class="port-stat">VITALS <span>99</span></div>
+                    </div>
+                    <div class="port-variations">
+                        <span class="var-label">${d.portswitch}:</span>
+                        ${t.variations.map((v,i) => `
+                            <div class="color-dot ${i===0?'active':''} dot-${t.id}"
+                                 style="background:${v.color}"
+                                 title="${v.name}"
+                                 onclick="switchVariation('${t.id}',${i})">
+                            </div>`).join('')}
+                    </div>
+                    <a id="link-${t.id}" href="${t.variations[0].link}" target="_blank" rel="noopener" class="port-link">${d.portview}</a>
+                </div>
+            </div>
+        `).join('');
+        initReveal();
+    }
+
+    function switchVariation(id, index) {
+        const t = templates.find(x => x.id === id);
+        const v = t.variations[index];
+        const img = document.getElementById('img-' + id);
+        const link = document.getElementById('link-' + id);
+        img.style.opacity = '0';
+        setTimeout(() => { img.src = v.img; img.style.opacity = '1'; }, 180);
+        link.href = v.link;
+        document.querySelectorAll('.dot-' + id).forEach((d,i) => d.classList.toggle('active', i === index));
+    }
+
+    function toggleMenu() {
+        document.getElementById('mob-menu').classList.toggle('open');
+    }
+
+    function initReveal() {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+    }
+
+    // Smooth close mobile menu on link click
+    document.querySelectorAll('#mob-menu a').forEach(a => {
+        a.addEventListener('click', () => setTimeout(() => document.getElementById('mob-menu').classList.remove('open'), 300));
+    });
+
+    window.addEventListener('load', () => { applyTranslations(); initReveal(); });
+    </script>
+</body>
+</html>
