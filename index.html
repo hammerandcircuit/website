@@ -58,7 +58,7 @@
             --border-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Light Mode */
+        /* Modo Claro */
         body.theme-light {
             --bg-main: #F3F4F6;
             --bg-dark: #FFFFFF;
@@ -68,7 +68,7 @@
             --border-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* High Contrast Mode */
+        /* Modo Alto Contraste */
         body.theme-hc {
             --accent: #FFFF00; 
             --bg-main: #000000;
@@ -79,37 +79,63 @@
             --border-color: #FFFFFF;
         }
 
-        body { background-color: var(--bg-main); color: var(--text-primary); height: 100vh; overflow: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-primary); 
+            height: 100vh; 
+            overflow: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
         
-        /* Estilo de Video de Fondo con Oscurecimiento Reforzado */
-        #hero-video {
+        /* Contenedor de Video: Base negra pura para evitar fugas de luz */
+        .video-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -10;
-            opacity: 0.3; /* Aumentado a petición */
-            filter: brightness(0.3) contrast(1.2) grayscale(0.2); /* Reducido brillo para evitar fondo blanco */
+            background-color: #000; /* Base sólida */
+            overflow: hidden;
+        }
+
+        #hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5; /* Opacidad al 50% para PC */
+            filter: brightness(0.4) contrast(1.1) grayscale(0.2); 
             transition: opacity 0.5s ease;
         }
 
-        /* Capa Scrim: Oscurece el video uniformemente para legibilidad */
+        /* Capa Scrim Reforzada: Crucial para corregir el brillo en móviles */
         .video-scrim {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+            background: linear-gradient(to bottom, 
+                rgba(10, 10, 10, 0.6) 0%, 
+                rgba(10, 10, 10, 0.85) 100%);
             z-index: -9;
             pointer-events: none;
         }
 
+        /* Ajustes específicos para móviles (Smartphone Fix) */
+        @media (max-width: 768px) {
+            #hero-video {
+                opacity: 0.4; /* Un poco menos en móvil para evitar que lave el fondo */
+                filter: brightness(0.25) contrast(1.2); /* Mucho más oscuro para compensar pantallas de smartphones */
+            }
+            .video-scrim {
+                background: rgba(0, 0, 0, 0.85); /* Capa casi sólida en móviles */
+            }
+        }
+
         .theme-light #hero-video { opacity: 0.08; filter: brightness(1.2) grayscale(1); }
-        .theme-light .video-scrim { background: rgba(243, 244, 246, 0.6); }
-        .theme-hc #hero-video, .theme-hc .video-scrim { display: none; }
+        .theme-light .video-scrim { background: rgba(243, 244, 246, 0.7); }
+        .theme-hc .video-container, .theme-hc .video-scrim { display: none; }
 
         /* Capa de grano/ruido */
         .carbon-overlay {
@@ -194,10 +220,12 @@
     </style>
 </head>
 <body class="font-sans">
-    <!-- Video de Fondo -->
-    <video autoplay muted loop playsinline id="hero-video">
-        <source src="hero-bg.mp4" type="video/mp4">
-    </video>
+    <!-- Contenedor de Video de Fondo -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="hero-video">
+            <source src="hero-bg.mp4" type="video/mp4">
+        </video>
+    </div>
 
     <!-- Capa de oscurecimiento Scrim -->
     <div class="video-scrim"></div>
@@ -219,7 +247,7 @@
             </div>
 
             <div class="flex items-center space-x-2 md:space-x-4">
-                <!-- Selector de Temas -->
+                <!-- Selector de Visual Mode -->
                 <div class="flex items-center space-x-2">
                     <span class="hidden md:block font-mono text-[8px] text-gray-500 uppercase tracking-tighter">Visual_Mode:</span>
                     <div class="flex bg-black/80 border border-white/10 p-0.5 md:p-1 rounded-sm shadow-inner overflow-hidden">
@@ -278,7 +306,7 @@
                 </div>
             </nav>
 
-            <!-- ÁREA DE CONTENIDO -->
+            <!-- CONTENIDO DINÁMICO -->
             <div id="content-area" class="flex-grow p-5 md:p-12 lg:p-20 overflow-y-auto page-entry relative">
             </div>
         </main>
@@ -291,7 +319,7 @@
     </div>
 
     <script>
-        // Datos del Portfolio
+        // Configuración de Portfolio
         const templates = [
             {
                 id: 'contractor',
