@@ -81,7 +81,7 @@
 
         body { background-color: var(--bg-main); color: var(--text-primary); height: 100vh; overflow: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         
-        /* Estilo de Video de Fondo Oscurecido */
+        /* Estilo de Video de Fondo con Oscurecimiento Reforzado */
         #hero-video {
             position: fixed;
             top: 0;
@@ -90,15 +90,28 @@
             height: 100%;
             object-fit: cover;
             z-index: -10;
-            opacity: 0.18; /* Opacidad reducida para que sea mucho más oscuro */
-            filter: brightness(0.5) contrast(1.2) grayscale(0.3); /* Filtros para matar el "blanco" y hacerlo más industrial */
+            opacity: 0.3; /* Aumentado a petición */
+            filter: brightness(0.3) contrast(1.2) grayscale(0.2); /* Reducido brillo para evitar fondo blanco */
             transition: opacity 0.5s ease;
         }
 
-        .theme-light #hero-video { opacity: 0.08; filter: brightness(1.2) grayscale(1); }
-        .theme-hc #hero-video { display: none; }
+        /* Capa Scrim: Oscurece el video uniformemente para legibilidad */
+        .video-scrim {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+            z-index: -9;
+            pointer-events: none;
+        }
 
-        /* Capa de grano/ruido encima del video para textura */
+        .theme-light #hero-video { opacity: 0.08; filter: brightness(1.2) grayscale(1); }
+        .theme-light .video-scrim { background: rgba(243, 244, 246, 0.6); }
+        .theme-hc #hero-video, .theme-hc .video-scrim { display: none; }
+
+        /* Capa de grano/ruido */
         .carbon-overlay {
             position: fixed;
             top: 0;
@@ -185,6 +198,9 @@
     <video autoplay muted loop playsinline id="hero-video">
         <source src="hero-bg.mp4" type="video/mp4">
     </video>
+
+    <!-- Capa de oscurecimiento Scrim -->
+    <div class="video-scrim"></div>
 
     <!-- Capa de Textura Carbono -->
     <div class="carbon-overlay"></div>
