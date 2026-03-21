@@ -103,7 +103,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.5; /* Opacidad al 50% para PC */
+            opacity: 0.6; /* Un poco más de presencia en PC */
             filter: brightness(0.4) contrast(1.1) grayscale(0.2); 
             transition: opacity 0.5s ease;
         }
@@ -117,7 +117,8 @@
             height: 100%;
             background: linear-gradient(to bottom, 
                 rgba(10, 10, 10, 0.6) 0%, 
-                rgba(10, 10, 10, 0.85) 100%);
+                rgba(10, 10, 10, 0.8) 50%,
+                rgba(10, 10, 10, 0.95) 100%);
             z-index: -9;
             pointer-events: none;
         }
@@ -125,11 +126,13 @@
         /* Ajustes específicos para móviles (Smartphone Fix) */
         @media (max-width: 768px) {
             #hero-video {
-                opacity: 0.4; /* Un poco menos en móvil para evitar que lave el fondo */
-                filter: brightness(0.25) contrast(1.2); /* Mucho más oscuro para compensar pantallas de smartphones */
+                opacity: 0.45; /* Optimizado para pantallas pequeñas */
+                filter: brightness(0.35) contrast(1.1); /* Más oscuro para legibilidad */
             }
             .video-scrim {
-                background: rgba(0, 0, 0, 0.85); /* Capa casi sólida en móviles */
+                background: linear-gradient(to bottom, 
+                    rgba(0, 0, 0, 0.7) 0%, 
+                    rgba(0, 0, 0, 0.9) 100%); /* Capa más densa en móviles */
             }
         }
 
@@ -222,7 +225,8 @@
 <body class="font-sans">
     <!-- Contenedor de Video de Fondo -->
     <div class="video-container">
-        <video autoplay muted loop playsinline id="hero-video">
+        <!-- Atributos optimizados para smartphones (playsinline y muted son requeridos para autoplay) -->
+        <video autoplay muted loop playsinline id="hero-video" poster="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
             <source src="hero-bg.mp4" type="video/mp4">
         </video>
     </div>
@@ -247,7 +251,6 @@
             </div>
 
             <div class="flex items-center space-x-2 md:space-x-4">
-                <!-- Selector de Visual Mode -->
                 <div class="flex items-center space-x-2">
                     <span class="hidden md:block font-mono text-[8px] text-gray-500 uppercase tracking-tighter">Visual_Mode:</span>
                     <div class="flex bg-black/80 border border-white/10 p-0.5 md:p-1 rounded-sm shadow-inner overflow-hidden">
