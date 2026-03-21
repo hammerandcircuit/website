@@ -6,7 +6,7 @@
     <title>HVAC Pro Houston | AC Repair & Heating Service — 24/7 Emergency</title>
     <meta name="description" content="Houston's trusted HVAC expearts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
 
-    <!-- Preload LCP Image -->
+    <!-- Preload LCP Image (Fallback) -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" fetchpriority="high">
 
     <!-- Fuentes -->
@@ -123,10 +123,31 @@
         @keyframes pulseEmergency { 0%, 100% { background-color: var(--accent-emergency); } 50% { background-color: #B91C1C; } }
         @media (min-width: 1024px) { .sticky-emergency { display: none; } }
 
-        /* HERO */
-        .hero-split { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 70px); }
+        /* HERO - VIDEO IMPLEMENTATION */
+        .hero-split { position: relative; display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 70px); overflow: hidden; }
         @media (min-width: 1024px) { .hero-split { grid-template-columns: 1fr 1fr; } }
-        .hero-left { display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 8vw, 80px) clamp(20px, 5vw, 60px); }
+        
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--bg-base) 10%, rgba(15, 23, 42, 0.6) 50%, rgba(15, 23, 42, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .hero-left { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 8vw, 80px) clamp(20px, 5vw, 60px); }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);
@@ -138,18 +159,18 @@
         .hero-left h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; margin-bottom: 20px; }
         .hero-left h1 em { font-style: normal; color: var(--primary); }
         .hero-left p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
-        .hero-right { position: relative; overflow: hidden; min-height: 350px; }
-        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--bg-base) 0%, transparent 40%, transparent 60%, var(--bg-base) 100%); }
+        
+        .hero-right { position: relative; overflow: hidden; min-height: 350px; z-index: 2; }
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0; } /* Transparent to let video show through or used as fallback */
 
         /* TICKER */
-        .ticker-wrap { background: var(--bg-card); border-y: 1px solid var(--border-subtle); padding: 12px 0; overflow: hidden; }
+        .ticker-wrap { position: relative; z-index: 10; background: var(--bg-card); border-y: 1px solid var(--border-subtle); padding: 12px 0; overflow: hidden; }
         .ticker-track { display: flex; gap: 50px; animation: ticker 40s linear infinite; width: max-content; }
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .ticker-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
 
         /* STATS */
-        .stats-section { padding: 60px 0; background: var(--bg-base); }
+        .stats-section { padding: 60px 0; background: var(--bg-base); position: relative; z-index: 10; }
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
         .stat-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-subtle); text-align: center; transition: var(--transition-smooth); }
@@ -264,6 +285,14 @@
         <!-- HOME SECTION -->
         <div id="home" class="page-section active">
             <section class="hero-split">
+                <!-- VIDEO BACKGROUND IMPLEMENTADO -->
+                <video autoplay muted loop playsinline class="hero-video-bg">
+                    <source src="hero-bg.mp4" type="video/mp4">
+                    <!-- Fallback image si el video no carga -->
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="Fallback Background">
+                </video>
+                <div class="hero-overlay"></div>
+
                 <div class="hero-left">
                     <div class="hero-badge">
                         <span></span>
@@ -277,8 +306,8 @@
                     </div>
                 </div>
                 <div class="hero-right">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician working" width="1200" height="800" fetchpriority="high" decoding="async">
-                    <div class="hero-right-overlay"></div>
+                    <!-- La imagen ahora es transparente para dejar ver el video de fondo -->
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician" width="1200" height="800" fetchpriority="high" decoding="async">
                 </div>
             </section>
 

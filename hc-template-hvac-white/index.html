@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HVAC Pro Houston | AC Repair & Heating Service — 24/7 Emergency</title>
-    <meta name="description" content="Houston's trusted HVAC expearts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
-
-    <!-- Preload LCP Image -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" fetchpriority="high">
+    <meta name="description" content="Houston's trusted HVAC experts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,7 +123,7 @@
         /* HERO */
         .hero-split { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 70px); }
         @media (min-width: 1024px) { .hero-split { grid-template-columns: 1fr 1fr; } }
-        .hero-left { display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 8vw, 80px) clamp(20px, 5vw, 60px); }
+        .hero-left { display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 8vw, 80px) clamp(20px, 5vw, 60px); z-index: 10; background: var(--bg-base); }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             background: rgba(22, 163, 74, 0.1); border: 1px solid rgba(22, 163, 74, 0.2);
@@ -138,9 +135,22 @@
         .hero-left h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; margin-bottom: 20px; }
         .hero-left h1 em { font-style: normal; color: var(--primary); }
         .hero-left p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
-        .hero-right { position: relative; overflow: hidden; min-height: 350px; }
-        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
-        .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--bg-base) 0%, transparent 40%, transparent 60%, var(--bg-base) 100%); }
+        
+        .hero-right { position: relative; overflow: hidden; min-height: 350px; background: #000; }
+        .hero-right video { 
+            width: 100%; height: 100%; object-fit: cover; 
+            position: absolute; top: 0; left: 0;
+        }
+        .hero-right-overlay { 
+            position: absolute; inset: 0; 
+            background: linear-gradient(to right, var(--bg-base) 0%, transparent 40%, transparent 60%, var(--bg-base) 100%); 
+            z-index: 5;
+        }
+        @media (max-width: 1023px) {
+            .hero-right-overlay {
+                background: linear-gradient(to bottom, transparent 0%, transparent 80%, var(--bg-base) 100%);
+            }
+        }
 
         /* TICKER */
         .ticker-wrap { background: var(--bg-card); border-y: 1px solid var(--border-subtle); padding: 12px 0; overflow: hidden; }
@@ -277,7 +287,10 @@
                     </div>
                 </div>
                 <div class="hero-right">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician working" width="1200" height="800" fetchpriority="high" decoding="async">
+                    <!-- VIDEO BACKGROUND IMPLEMENTATION -->
+                    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200">
+                        <source src="hero-bg.mp4" type="video/mp4">
+                    </video>
                     <div class="hero-right-overlay"></div>
                 </div>
             </section>

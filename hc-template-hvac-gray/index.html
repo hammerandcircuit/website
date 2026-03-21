@@ -6,7 +6,7 @@
     <title>HVAC Pro Houston | AC Repair & Heating Service — 24/7 Emergency</title>
     <meta name="description" content="Houston's trusted HVAC experts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
 
-    <!-- Preload LCP Image -->
+    <!-- Preload Video Poster for LCP -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" fetchpriority="high">
 
     <!-- Fuentes -->
@@ -135,8 +135,15 @@
         .hero-left h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; margin-bottom: 20px; }
         .hero-left h1 em { font-style: normal; color: var(--primary); }
         .hero-left p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
+        
+        /* HERO VIDEO STYLES */
         .hero-right { position: relative; overflow: hidden; min-height: 350px; }
-        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .hero-right img, .hero-right video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.7; 
+        }
         .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--bg-base) 0%, transparent 40%, transparent 60%, var(--bg-base) 100%); }
 
         /* TICKER */
@@ -270,7 +277,11 @@
                     </div>
                 </div>
                 <div class="hero-right">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician working" width="1200" height="800" fetchpriority="high" decoding="async">
+                    <!-- VIDEO HERO REPLACEMENT -->
+                    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200">
+                        <source src="hero-bg.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                     <div class="hero-right-overlay"></div>
                 </div>
             </section>

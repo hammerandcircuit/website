@@ -99,8 +99,18 @@
             position: relative; height: calc(100vh - 80px); 
             display: flex; align-items: center; justify-content: center;
             text-align: center; color: white; 
+            overflow: hidden;
         }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; background-color: #222; }
+        .hero-bg { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            z-index: -1; 
+            background-color: #222; 
+        }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)); z-index: -1; }
         
         .page-header-banner {
@@ -217,7 +227,13 @@
         <!-- PÁGINA: HOME -->
         <div id="home" class="page-section">
             <section class="hero">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1600" alt="Austin Plumbing" class="hero-bg">
+                <!-- VIDEO DE FONDO DINÁMICO -->
+                <video autoplay muted loop playsinline class="hero-bg">
+                    <source src="hero-bg.mp4" type="video/mp4">
+                    <!-- Imagen de respaldo en caso de que el video no cargue -->
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1600" alt="Austin Plumbing">
+                </video>
+                
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
                     <div style="color:#FBBF24; margin-bottom:15px; font-weight:800; font-size: 1.2rem;">★★★★★ <span data-i18n="hero-tag">Trusted Austin Plumbers</span></div>
@@ -283,7 +299,6 @@
         <!-- PÁGINA: SERVICES -->
         <div id="services" class="page-section">
             <div class="page-header-banner">
-                <!-- IMAGEN ESTABLE DE SERVICIOS -->
                 <img src="https://images.unsplash.com/photo-1542013936693-8846383242e2?auto=format&fit=crop&q=80&w=1600" 
                      alt="Professional Plumbing Tools" 
                      class="hero-bg" 
@@ -398,7 +413,6 @@
             <h4 style="color:white; font-family:var(--font-heading); font-size:1.8rem; margin-bottom:10px; text-transform:uppercase;">Mike's Garza Plumbing</h4>
             <p style="max-width:600px; margin:0 auto 20px; font-size:0.9rem;">Providing Austin with professional, licensed plumbing solutions since 2009. We treat your home with the care it deserves.</p>
             <p>&copy; 2026 Mike's Garza Plumbing · Austin, TX</p>
-            <!-- LIGA ACTUALIZADA SOLICITADA -->
             <p style="margin-top:20px; font-size:0.75rem; opacity:0.6">Powered by <a href="https://hammercircuit.com/" target="_blank" style="color:white; text-decoration:underline">Hammer & Circuit Web Labs</a></p>
         </div>
     </footer>

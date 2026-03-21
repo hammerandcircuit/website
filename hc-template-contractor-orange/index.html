@@ -81,6 +81,22 @@
 
         /* HERO - PORTADA IMPACTANTE */
         .hero { position: relative; height: calc(100vh - 80px); display: flex; align-items: center; color: white; overflow: hidden; background: #000; }
+        
+        /* Estilos para el Video Hero Background */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.45);
+        }
+
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.45); }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,0,0,0.9) 20%, transparent 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; max-width: 900px; padding-left: 20px; border-left: 15px solid var(--primary); margin-left: 20px; }
@@ -233,9 +249,12 @@
         <!-- PÁGINA: HOME -->
         <div id="home" class="page-section active">
             <section class="hero">
-                <!-- IMAGEN HOME: Construcción -->
-                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1600" 
-                     alt="Houston Premier Construction" class="hero-bg" fetchpriority="high">
+                <!-- VIDEO BACKGROUND AGREGADO -->
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="hero-bg.mp4" type="video/mp4">
+                    <!-- Fallback: Imagen estática si el video falla -->
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1600" alt="Houston Premier Construction" class="hero-bg">
+                </video>
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
                     <h1 data-i18n="hero-title">Houston's Most Trusted Contractor</h1>
