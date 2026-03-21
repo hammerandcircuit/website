@@ -81,7 +81,7 @@
 
         body { background-color: var(--bg-main); color: var(--text-primary); height: 100vh; overflow: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         
-        /* Video Background Style */
+        /* Estilo de Video de Fondo Oscurecido */
         #hero-video {
             position: fixed;
             top: 0;
@@ -90,15 +90,25 @@
             height: 100%;
             object-fit: cover;
             z-index: -10;
-            opacity: 0.4; /* Opacidad para que el texto sea legible */
+            opacity: 0.18; /* Opacidad reducida para que sea mucho más oscuro */
+            filter: brightness(0.5) contrast(1.2) grayscale(0.3); /* Filtros para matar el "blanco" y hacerlo más industrial */
             transition: opacity 0.5s ease;
         }
 
-        .theme-light #hero-video { opacity: 0.15; }
+        .theme-light #hero-video { opacity: 0.08; filter: brightness(1.2) grayscale(1); }
         .theme-hc #hero-video { display: none; }
 
-        .carbon-bg {
-            background-color: transparent; /* Ahora el fondo es el video */
+        /* Capa de grano/ruido encima del video para textura */
+        .carbon-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -5;
         }
 
         .shutter-overlay {
@@ -170,11 +180,14 @@
         .theme-hc .template-card { border: 2px solid #FFF; }
     </style>
 </head>
-<body class="font-sans carbon-bg">
-    <!-- Hero Video Background -->
+<body class="font-sans">
+    <!-- Video de Fondo -->
     <video autoplay muted loop playsinline id="hero-video">
         <source src="hero-bg.mp4" type="video/mp4">
     </video>
+
+    <!-- Capa de Textura Carbono -->
+    <div class="carbon-overlay"></div>
 
     <div class="crt-overlay"></div>
     <div id="shutter" class="shutter-overlay"></div>
@@ -190,7 +203,7 @@
             </div>
 
             <div class="flex items-center space-x-2 md:space-x-4">
-                <!-- Theme Switcher -->
+                <!-- Selector de Temas -->
                 <div class="flex items-center space-x-2">
                     <span class="hidden md:block font-mono text-[8px] text-gray-500 uppercase tracking-tighter">Visual_Mode:</span>
                     <div class="flex bg-black/80 border border-white/10 p-0.5 md:p-1 rounded-sm shadow-inner overflow-hidden">
@@ -220,7 +233,7 @@
         </header>
 
         <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
-            <!-- SIDEBAR NAV -->
+            <!-- NAVEGACIÓN LATERAL -->
             <nav class="w-full md:w-64 lg:w-72 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0 overflow-x-auto no-scrollbar md:overflow-y-auto" style="border-color: var(--border-color)">
                 <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-4 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
                     <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_home">Home</span>
@@ -249,7 +262,7 @@
                 </div>
             </nav>
 
-            <!-- CONTENT -->
+            <!-- ÁREA DE CONTENIDO -->
             <div id="content-area" class="flex-grow p-5 md:p-12 lg:p-20 overflow-y-auto page-entry relative">
             </div>
         </main>
@@ -262,7 +275,7 @@
     </div>
 
     <script>
-        // Portfolio Data - Paths updated to templatesss/
+        // Datos del Portfolio
         const templates = [
             {
                 id: 'contractor',
