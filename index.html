@@ -103,7 +103,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.6; /* Un poco más de presencia en PC */
+            opacity: 0.8; /* Opacidad aumentada al 80% para PC */
             filter: brightness(0.4) contrast(1.1) grayscale(0.2); 
             transition: opacity 0.5s ease;
         }
@@ -126,13 +126,13 @@
         /* Ajustes específicos para móviles (Smartphone Fix) */
         @media (max-width: 768px) {
             #hero-video {
-                opacity: 0.45; /* Optimizado para pantallas pequeñas */
-                filter: brightness(0.35) contrast(1.1); /* Más oscuro para legibilidad */
+                opacity: 0.8; /* Opacidad aumentada al 80% también en móviles */
+                filter: brightness(0.35) contrast(1.1); /* Ajuste de brillo para legibilidad */
             }
             .video-scrim {
                 background: linear-gradient(to bottom, 
                     rgba(0, 0, 0, 0.7) 0%, 
-                    rgba(0, 0, 0, 0.9) 100%); /* Capa más densa en móviles */
+                    rgba(0, 0, 0, 0.9) 100%); /* Capa más densa en móviles para compensar la opacidad del video */
             }
         }
 
