@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hammer & Circuit | Fast Websites for Tradespeople in 48 Hours</title>
@@ -84,10 +81,24 @@
 
         body { background-color: var(--bg-main); color: var(--text-primary); height: 100vh; overflow: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         
+        /* Video Background Style */
+        #hero-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            opacity: 0.4; /* Opacidad para que el texto sea legible */
+            transition: opacity 0.5s ease;
+        }
+
+        .theme-light #hero-video { opacity: 0.15; }
+        .theme-hc #hero-video { display: none; }
+
         .carbon-bg {
-            background-color: var(--bg-main);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            background-blend-mode: overlay;
+            background-color: transparent; /* Ahora el fondo es el video */
         }
 
         .shutter-overlay {
@@ -160,6 +171,11 @@
     </style>
 </head>
 <body class="font-sans carbon-bg">
+    <!-- Hero Video Background -->
+    <video autoplay muted loop playsinline id="hero-video">
+        <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+
     <div class="crt-overlay"></div>
     <div id="shutter" class="shutter-overlay"></div>
 
