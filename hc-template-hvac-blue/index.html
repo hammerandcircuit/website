@@ -6,6 +6,45 @@
     <title>HVAC Pro Houston | AC Repair & Heating Service — 24/7 Emergency</title>
     <meta name="description" content="Houston's trusted HVAC expearts since 2012. AC repair, heating service and installation. Licensed, EPA certified. 24/7 emergency response. Call (713) 555-9832.">
 
+    <!-- REVIEW SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HVACBusiness",
+      "name": "Elite HVAC Services",
+      "telephone": "(555) 000-0002",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "456 Cooling Ave",
+        "addressLocality": "Houston",
+        "addressRegion": "TX",
+        "postalCode": "77001",
+        "addressCountry": "US"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "98"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "John Miller" },
+          "datePublished": "2024-01-15",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+          "reviewBody": "Excellent AC repair service. They fixed my unit in the middle of a Houston heatwave within 2 hours."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Sarah Chen" },
+          "datePublished": "2024-02-10",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+          "reviewBody": "Professional heating service installation. The team was punctual and left everything clean."
+        }
+      ]
+    }
+    </script>
+
     <!-- Preload LCP Image (Fallback) -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" fetchpriority="high">
 
@@ -16,7 +55,6 @@
 
     <style>
         :root {
-            /* Paleta Dark Steel & Electric Cyan (Tema Oscuro Moderno) */
             --primary: #06B6D4; 
             --primary-dark: #0891B2;
             --bg-base: #0F172A; 
@@ -161,13 +199,38 @@
         .hero-left p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
         
         .hero-right { position: relative; overflow: hidden; min-height: 350px; z-index: 2; }
-        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0; } /* Transparent to let video show through or used as fallback */
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 
         /* TICKER */
         .ticker-wrap { position: relative; z-index: 10; background: var(--bg-card); border-y: 1px solid var(--border-subtle); padding: 12px 0; overflow: hidden; }
         .ticker-track { display: flex; gap: 50px; animation: ticker 40s linear infinite; width: max-content; }
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .ticker-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+
+        /* NEW SERVICES GRID */
+        .srv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        .srv-card {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            color: inherit;
+        }
+        .srv-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-cold);
+        }
+        .srv-card svg { margin-bottom: 20px; }
+        .srv-card h3 { font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.3rem; }
+        .srv-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; }
 
         /* STATS */
         .stats-section { padding: 60px 0; background: var(--bg-base); position: relative; z-index: 10; }
@@ -214,6 +277,24 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* MAP SECTION */
+        .map-section { padding: 80px 0; }
+        .map-wrapper { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-cold); }
+
+        /* NAP FOOTER */
+        .nap-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 40px;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .nap-item { display: flex; align-items: center; gap: 10px; }
+        .nap-item svg { color: var(--primary); }
+
         /* CONTACT FORM */
         .form-box { background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border-subtle); max-width: 700px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .form-group { margin-bottom: 20px; }
@@ -234,7 +315,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* FOOTER */
-        footer { padding: 60px 0 100px; background: #020617; border-top: 1px solid var(--border-subtle); text-align: center; }
+        footer { padding: 80px 0 100px; background: #020617; border-top: 1px solid var(--border-subtle); text-align: center; }
         @media (min-width: 1024px) { footer { padding-bottom: 100px; } }
         .footer-logo { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: var(--text-primary); }
         .footer-logo span { color: var(--primary); }
@@ -245,7 +326,7 @@
 </head>
 <body onload="initApp()">
 
-    <a href="tel:+17135559832" class="sticky-emergency">
+    <a href="tel:+15550000002" class="sticky-emergency">
         <span data-i18n="sticky-call">CALL 24/7 EMERGENCY — FREE ESTIMATE</span>
     </a>
 
@@ -285,10 +366,8 @@
         <!-- HOME SECTION -->
         <div id="home" class="page-section active">
             <section class="hero-split">
-                <!-- VIDEO BACKGROUND IMPLEMENTADO -->
                 <video autoplay muted loop playsinline class="hero-video-bg">
                     <source src="hero-bg.mp4" type="video/mp4">
-                    <!-- Fallback image si el video no carga -->
                     <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="Fallback Background">
                 </video>
                 <div class="hero-overlay"></div>
@@ -302,11 +381,10 @@
                     <p data-i18n="hero-desc">AC repair, heating service and full installation. On budget, on time, guaranteed. Trusted by Houston homeowners since 2012.</p>
                     <div style="display:flex; gap:15px; flex-wrap:wrap;">
                         <button onclick="navigateTo('contact')" class="btn btn-primary" data-i18n="cta-schedule">Schedule Service</button>
-                        <a href="tel:+17135559832" class="btn btn-outline" data-i18n="cta-call">📞 Call Now</a>
+                        <a href="tel:+15550000002" class="btn btn-outline" data-i18n="cta-call">📞 Call Now</a>
                     </div>
                 </div>
                 <div class="hero-right">
-                    <!-- La imagen ahora es transparente para dejar ver el video de fondo -->
                     <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200" alt="HVAC Pro Technician" width="1200" height="800" fetchpriority="high" decoding="async">
                 </div>
             </section>
@@ -317,10 +395,55 @@
                     <div class="ticker-item"><span style="color:var(--primary)">●</span> <div data-i18n="t2">EPA Certified Technicians</div></div>
                     <div class="ticker-item"><span style="color:var(--primary)">●</span> <div data-i18n="t3">⭐ 4.9 Google Rating</div></div>
                     <div class="ticker-item"><span style="color:var(--primary)">●</span> <div data-i18n="t1">24/7 Emergency Response</div></div>
-                    <div class="ticker-item"><span style="color:var(--primary)">●</span> <div data-i18n="t2">EPA Certified Technicians</div></div>
-                    <div class="ticker-item"><span style="color:var(--primary)">●</span> <div data-i18n="t3">⭐ 4.9 Google Rating</div></div>
                 </div>
             </div>
+
+            <!-- 1. SERVICES GRID (6 TARJETAS) -->
+            <section id="services-summary" class="reveal" style="padding: 80px 0;">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 data-i18n="nav-services">Our Services</h2>
+                    </div>
+                    <div class="srv-grid">
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            <h3 data-i18n="s1-name">AC Repair</h3>
+                            <p data-i18n="s1-desc">Compressor issues, refrigerant leaks, and electrical faults diagnosed same day.</p>
+                            <span style="color:var(--primary); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+                            <h3 data-i18n="s3-name">AC Installation</h3>
+                            <p data-i18n="s3-desc">New unit install with ductwork assessment and energy optimization.</p>
+                            <span style="color:var(--primary); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 10-6 12-6 18a6 6 0 0 0 12 0c0-6-6-8-6-18z"/></svg>
+                            <h3 data-i18n="s2-name">Heating Service</h3>
+                            <p data-i18n="s2-desc">Furnace repair, ignition problems, and heat pump service. Winter-ready.</p>
+                            <span style="color:var(--primary); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <h3 data-i18n="s4-name">Maintenance Plan</h3>
+                            <p data-i18n="s4-desc">Quarterly filter changes, inspections and tune-ups. Save 10% on repairs.</p>
+                            <span style="color:var(--primary); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card" style="border-color: var(--accent-emergency);">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg>
+                            <h3 data-i18n="s5-name">Emergency Service</h3>
+                            <p data-i18n="s5-desc">24/7 dispatch, 2-hour guaranteed arrival. No surprise holiday fees.</p>
+                            <span style="color:var(--accent-emergency); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                        <a href="#contact" onclick="navigateTo('contact')" class="srv-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                            <h3 data-i18n="s6-name">Air Quality</h3>
+                            <p data-i18n="s6-desc">Duct cleaning, air purifiers, and humidity control audits.</p>
+                            <span style="color:var(--primary); font-weight:700; font-size:0.8rem;">GET QUOTE →</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
 
             <section class="stats-section">
                 <div class="container">
@@ -415,38 +538,6 @@
                                 <span class="review-loc">Katy, TX · Installation</span>
                             </div>
                         </div>
-                        <div class="review-card reveal">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <p class="review-text" data-i18n="r3-text">"Signed up for the maintenance plan. Saved $400+ in discounts. System runs better than ever."</p>
-                            <div class="review-meta">
-                                <span class="review-author">Jennifer Thompson</span>
-                                <span class="review-loc">Sugar Land, TX · Maintenance</span>
-                            </div>
-                        </div>
-                        <div class="review-card reveal">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <p class="review-text" data-i18n="r4-text">"Heater stopped in December. Same-day fix, cracked heat exchanger. Honest, fast, fair price."</p>
-                            <div class="review-meta">
-                                <span class="review-author">Robert Kim</span>
-                                <span class="review-loc">The Woodlands, TX · Heating</span>
-                            </div>
-                        </div>
-                        <div class="review-card reveal">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <p class="review-text" data-i18n="r5-text">"Duct cleaning + UV purifier after renovation. Difference was immediate. Highly recommend."</p>
-                            <div class="review-meta">
-                                <span class="review-author">Sandra Flores</span>
-                                <span class="review-loc">Spring, TX · Air Quality</span>
-                            </div>
-                        </div>
-                        <div class="review-card reveal">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <p class="review-text" data-i18n="r6-text">"Explained everything, showed old parts. Total transparency. Will use again for sure."</p>
-                            <div class="review-meta">
-                                <span class="review-author">David Nguyen</span>
-                                <span class="review-loc">Cypress, TX · AC Repair</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -454,6 +545,26 @@
 
         <!-- CONTACT SECTION -->
         <div id="contact" class="page-section">
+            <!-- 3. GOOGLE MAPS EMBED -->
+            <section class="map-section reveal">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 data-i18n="map-title">Our Service Area</h2>
+                    </div>
+                    <div class="map-wrapper">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d221447.1685350711!2d-95.5448373!3d29.817178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640b8b4488d8501%3A0xca0d02def365053b!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </section>
+
             <section class="contact-section">
                 <div class="container">
                     <div class="form-box reveal">
@@ -494,6 +605,21 @@
 
     <footer>
         <div class="container">
+            <!-- 4. NAP FOOTER -->
+            <div class="nap-block">
+                <div class="nap-item">
+                    <strong>Elite HVAC Services</strong>
+                </div>
+                <div class="nap-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>456 Cooling Ave, Houston, TX 77001</span>
+                </div>
+                <div class="nap-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>(555) 000-0002</span>
+                </div>
+            </div>
+
             <div class="footer-logo">❄️ HVAC<span>Pro</span> Houston</div>
             <p class="footer-sub" data-i18n="footer-sub">Serving Houston Metro Area since 2012 · Licensed · Insured</p>
             <div class="footer-powered">
@@ -508,66 +634,56 @@
                 "nav-home":"Home", "nav-services":"Services", "nav-portfolio":"Reviews", "nav-contact":"Contact", "nav-tagline":"SERVING HOUSTON 24/7",
                 "badge-available":"AVAILABLE NOW", "hero-title":"Houston's Climate Control Experts",
                 "hero-desc":"AC repair, heating service and full installation. On budget, on time, guaranteed.",
-                "cta-schedule":"Schedule Service", "cta-call":"📞 Call Now", "temp-label":"OPTIMAL COMFORT",
+                "cta-schedule":"Schedule Service", "cta-call":"📞 Call Now",
                 "t1":"24/7 Emergency Response", "t2":"EPA Certified Technicians", "t3":"⭐ 4.9 Google Rating",
                 "stat-systems":"Systems Fixed", "stat-years":"Years Exp.", "stat-rating":"Google Stars", "stat-response":"Response Time",
                 "services-sub":"Complete HVAC solutions for Houston homes",
                 "reviews-sub":"Real Houston homeowners — real results",
-                "s1-name":"AC Repair", "s2-name":"Heating Service", "s3-name":"Installation",
-                "s4-name":"Maintenance Plans", "s5-name":"Emergency Service", "s6-name":"Air Quality",
-                "s1-desc":"Compressor issues, refrigerant leaks, electrical faults diagnosed same day.",
-                "s2-desc":"Furnace repair, ignition problems, heat pump service. Winter-ready.",
+                "s1-name":"AC Repair", "s2-name":"Heating Service", "s3-name":"AC Installation",
+                "s4-name":"Maintenance Plan", "s5-name":"Emergency Service", "s6-name":"Air Quality",
+                "s1-desc":"Compressor issues, refrigerant leaks, and electrical faults diagnosed same day.",
+                "s2-desc":"Furnace repair, ignition problems, and heat pump service. Winter-ready.",
                 "s3-desc":"New unit install with ductwork assessment and energy optimization.",
                 "s4-desc":"Quarterly filter changes, inspections and tune-ups. Save 10% on repairs.",
                 "s5-desc":"24/7 dispatch, 2-hour guaranteed arrival. No surprise holiday fees.",
-                "s6-desc":"Duct cleaning, air purifiers, humidity control and thermal audits.",
-                "r1-text":"\"Called at 11 PM in July. AC completely out. Arrived in 90 min, running by 1 AM. Professional, fair price.\"",
-                "r2-text":"\"Installed a new Carrier system in one day. Handled permits, old unit removal — everything.\"",
-                "r3-text":"\"Signed up for the maintenance plan. Saved $400+ in discounts. System runs better than ever.\"",
-                "r4-text":"\"Heater stopped in December. Same-day fix, cracked heat exchanger. Honest, fast, fair price.\"",
-                "r5-text":"\"Duct cleaning + UV purifier after renovation. Difference was immediate. Highly recommend.\"",
-                "r6-text":"\"Explained everything, showed old parts. Total transparency. Will use again for sure.\"",
+                "s6-desc":"Duct cleaning, air purifiers, and humidity control audits.",
+                "map-title": "Our Service Area",
                 "form-title":"Request Free Quote", "f-name":"Full Name", "f-phone":"Phone Number", "f-service":"Service Type", "f-issue":"Describe Your Issue", "f-btn":"Send SMS Request →",
-                "ph-name":"John Doe", "ph-phone":"(713) 000-0000", "ph-issue":"Tell us what's happening...",
+                "ph-name":"John Doe", "ph-phone":"(555) 000-0002", "ph-issue":"Tell us what's happening...",
                 "footer-sub":"Serving Houston Metro Area since 2012", "sticky-call":"CALL 24/7 EMERGENCY — FREE ESTIMATE"
             },
             es: {
                 "nav-home":"Inicio", "nav-services":"Servicios", "nav-portfolio":"Reseñas", "nav-contact":"Contacto", "nav-tagline":"SIRVIENDO HOUSTON 24/7",
                 "badge-available":"DISPONIBLE AHORA", "hero-title":"Expertos en Clima de Houston",
                 "hero-desc":"Reparación de AC, calefacción e instalación completa. A presupuesto y a tiempo.",
-                "cta-schedule":"Agendar Servicio", "cta-call":"📞 Llamar", "temp-label":"CONFORT ÓPTIMO",
+                "cta-schedule":"Agendar Servicio", "cta-call":"📞 Llamar",
                 "t1":"Respuesta 24/7", "t2":"Técnicos Certificados EPA", "t3":"⭐ 4.9 en Google",
                 "stat-systems":"Sistemas Reparados", "stat-years":"Años de Exp.", "stat-rating":"Estrellas Google", "stat-response":"Tiempo de Respuesta",
                 "services-sub":"Soluciones HVAC completas para Houston",
                 "reviews-sub":"Propietarios reales de Houston — resultados reales",
-                "s1-name":"Reparación AC", "s2-name":"Calefacción", "s3-name":"Instalación",
-                "s4-name":"Planes de Mantenimiento", "s5-name":"Servicio de Emergencia", "s6-name":"Calidad del Aire",
+                "s1-name":"Reparación AC", "s2-name":"Calefacción", "s3-name":"Instalación AC",
+                "s4-name":"Plan de Mantenimiento", "s5-name":"Servicio de Emergencia", "s6-name":"Calidad del Aire",
                 "s1-desc":"Compresores, fugas de refrigerante y fallas eléctricas reparadas hoy mismo.",
                 "s2-desc":"Reparación de hornos y bombas de calor. Listo para el invierno.",
                 "s3-desc":"Instalación de unidades nuevas con optimización de ductos.",
                 "s4-desc":"Cambios de filtro, inspecciones y puestas a punto. Ahorra 10% en reparaciones.",
-                "s5-desc":"Despacho 24/7, llegada garantizada en 2 horas. Sin cargos extra en festivos.",
-                "s6-desc":"Limpieza de ductos, purificadores de aire, control de humedad y auditorías térmicas.",
-                "r1-text":"\"Llamé a las 11 PM en julio. AC apagado. Llegaron en 90 minutos. Profesionales y precio justo.\"",
-                "r2-text":"\"Instalaron un sistema Carrier en un día. Manejaron permisos y retiro de unidad vieja.\"",
-                "r3-text":"\"Me inscribí al plan de mantenimiento. Ahorré $400+ en descuentos. El sistema nunca corrió mejor.\"",
-                "r4-text":"\"Calefactor apagado en diciembre. Lo repararon el mismo día. Diagnóstico honesto y precio justo.\"",
-                "r5-text":"\"Limpieza de ductos y purificador UV tras remodelación. La diferencia fue inmediata.\"",
-                "r6-text":"\"Explicaron todo y mostraron las piezas viejas. Total transparencia. Los volveré a usar.\"",
+                "s5-desc":"Despacho 24/7, llegada garantizada en 2 horas. Sin cargos extra.",
+                "s6-desc":"Limpieza de ductos, purificadores de aire y auditorías de humedad.",
+                "map-title": "Nuestra Área de Servicio",
                 "form-title":"Solicitar Presupuesto Gratis", "f-name":"Nombre Completo", "f-phone":"Teléfono", "f-service":"Servicio", "f-issue":"Problema", "f-btn":"Enviar SMS →",
-                "ph-name":"Juan Pérez", "ph-phone":"(713) 000-0000", "ph-issue":"Cuéntanos qué sucede...",
+                "ph-name":"Juan Pérez", "ph-phone":"(555) 000-0002", "ph-issue":"Cuéntanos qué sucede...",
                 "footer-sub":"Sirviendo Houston desde 2012", "sticky-call":"EMERGENCIA 24/7 — ESTIMADO GRATIS"
             },
             zh: {
                 "nav-home":"首页", "nav-services":"服务", "nav-portfolio":"评价", "nav-contact":"联系", "nav-tagline":"全天候服务休斯顿",
                 "badge-available":"现在可用", "hero-title":"休斯顿空调暖通专家",
                 "hero-desc":"空调维修、供暖服务和整机安装。按时按预算，提供保证。",
-                "cta-schedule":"预约服务", "cta-call":"📞 立即拨打", "temp-label":"最佳舒适度",
+                "cta-schedule":"预约服务", "cta-call":"📞 立即拨打",
                 "t1":"24/7 紧急响应", "t2":"EPA 认证技术员", "t3":"⭐ 谷歌 4.9 星级",
                 "stat-systems":"系统维修量", "stat-years":"多年经验", "stat-rating":"谷歌星级", "stat-response":"响应时间",
                 "services-sub":"为休斯顿家庭提供全面暖通解决方案",
                 "reviews-sub":"真实房主反馈 — 真实效果",
-                "s1-name":"空调维修", "s2-name":"供暖服务", "s3-name":"安装服务",
+                "s1-name":"空调维修", "s2-name":"供暖服务", "s3-name":"空调安装",
                 "s4-name":"维护计划", "s5-name":"紧急服务", "s6-name":"空气质量",
                 "s1-desc":"压缩机问题、制冷剂泄漏、电路故障，当天解决。",
                 "s2-desc":"炉灶维修、点火问题、热泵服务。冬季就绪。",
@@ -575,14 +691,9 @@
                 "s4-desc":"季度滤网更换、检查和调优。维修享九折优惠。",
                 "s5-desc":"24/7 调度，保证2小时内到达。节假日无额外费用。",
                 "s6-desc":"风管清洁、空气净化器、湿度控制和热力审计。",
-                "r1-text":"\"7月晚上11点致电，空调停机。90分钟到场，凌晨1点修好。专业且价格公道。\"",
-                "r2-text":"\"一天内完成新系统安装。办理许可证、拆除旧机，一站式服务。\"",
-                "r3-text":"\"加入了维护计划，节省了400多美元。系统运行状态极佳。\"",
-                "r4-text":"\"12月暖气故障，当天修好。诊断诚实，速度快。\"",
-                "r5-text":"\"装修后做了风管清洁和UV净化。效果立竿见影。\"",
-                "r6-text":"\"解释清晰，展示旧零件。完全透明，值得再次光顾。\"",
+                "map-title": "服务范围",
                 "form-title":"获取免费报价", "f-name":"姓名", "f-phone":"电话", "f-service":"服务类型", "f-issue":"问题描述", "f-btn":"发送短信申请 →",
-                "ph-name":"张三", "ph-phone":"(713) 000-0000", "ph-issue":"请描述您的问题...",
+                "ph-name":"张三", "ph-phone":"(555) 000-0002", "ph-issue":"请描述您的问题...",
                 "footer-sub":"自2012年起服务休斯顿地区", "sticky-call":"24/7 紧急热线 — 免费估价"
             }
         };
@@ -648,8 +759,8 @@
             const phone = document.getElementById('phone').value;
             const service = document.getElementById('service').value;
             const issue = document.getElementById('issue').value;
-            const body = `HVAC PRO: ${name} (${phone}) - Service: ${service}. Issue: ${issue}`;
-            window.location.href = `sms:+17135559832${/iPhone/i.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(body)}`;
+            const body = `ELITE HVAC: ${name} (${phone}) - Service: ${service}. Issue: ${issue}`;
+            window.location.href = `sms:+15550000002${/iPhone/i.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(body)}`;
         }
 
         function initApp() { initReveal(); changeLanguage('en'); }
