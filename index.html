@@ -45,6 +45,15 @@
                         sans: ['Inter', 'sans-serif'],
                         heading: ['Barlow Condensed', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-custom 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'pulse-custom': {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.9, transform: 'scale(1.02)' },
+                        }
                     }
                 }
             }
@@ -168,6 +177,29 @@
         
         .template-card { border-color: var(--border-color); background-color: var(--bg-dark); }
         
+        /* Botón de pago animado */
+        .pay-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .pay-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
         /* Accesibilidad: Objetivos táctiles */
         .theme-btn, .lang-btn { min-width: 36px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
         @media (min-width: 768px) { .theme-btn, .lang-btn { min-width: 42px; min-height: 42px; } }
@@ -306,7 +338,7 @@
                 hero_cta: "Launch My 48h Site – $199",
                 protocol_title: "THE 48-HOUR CLOCK",
                 protocol_sub: "To ensure a high-quality launch, the following protocol must be met.",
-                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via PayPal is required to book your spot.",
+                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via Stripe is required to book your spot.",
                 p_item_2_t: "02. The Information Kit", p_item_2_d: "Complete your business data form. Missing info pauses the delivery clock.",
                 p_item_3_t: "03. Style Selection", p_item_3_d: "Choose your master template. Optimized for sub-1s load times.",
                 p_item_4_t: "04. Domain Access", p_item_4_d: "Provide DNS access or we'll manage a new one for you instantly.",
@@ -323,6 +355,8 @@
                 p_maint_title: "Service & Hosting: $29/mo",
                 p_m_item_1: "Secure Hosting + SSL Protection", p_m_item_2: "Professional Domain Management", p_m_item_3: "Performance Reporting + Support",
                 p_m_savings: "[SAVINGS: $80 / 3mo · $300 / year]",
+                p_buy_btn: "Initialize Deployment ($199)",
+                p_sub_1: "Subscribe: Monthly", p_sub_2: "Subscribe: Quarterly", p_sub_3: "Subscribe: Annual",
                 p_specs_title: "TECHNICAL SPECS & LIMITS",
                 p_specs_maint: "Maintenance includes: 1-4 photo updates and 1 page of text edits per month.",
                 p_specs_report: "Plus: Every month, we send a performance report including visitor count and 'Click-to-Call' metrics.",
@@ -342,7 +376,7 @@
                 hero_cta: "Iniciar Mi Web en 48h – $199",
                 protocol_title: "EL RELOJ DE 48 HORAS",
                 protocol_sub: "Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
-                p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía PayPal para apartar tu lugar en producción.",
+                p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía Stripe para apartar tu lugar en producción.",
                 p_item_2_t: "02. Kit de Información", p_item_2_d: "Completa el formulario de negocio. La falta de datos pausa el reloj.",
                 p_item_3_t: "03. Selección de Estilo", p_item_3_d: "Elige una de nuestras plantillas maestras optimizadas para velocidad.",
                 p_item_4_t: "04. Acceso a Dominio", p_item_4_d: "Danos acceso a tu DNS o gestionamos uno nuevo al instante.",
@@ -359,6 +393,8 @@
                 p_maint_title: "Servicio y Hosting: $29/mes",
                 p_m_item_1: "Hosting Seguro + Protección SSL", p_m_item_2: "Gestión Profesional de Dominio", p_m_item_3: "Reporte de Desempeño + Soporte",
                 p_m_savings: "[MODO_AHORRO: $80 / 3meses · $300 / año]",
+                p_buy_btn: "Inicializar Despliegue ($199)",
+                p_sub_1: "Suscribirse: Mensual", p_sub_2: "Suscribirse: Trimestral", p_sub_3: "Suscribirse: Anual",
                 p_specs_title: "DETALLES TÉCNICOS Y LÍMITES",
                 p_specs_maint: "Mantenimiento incluye: 1-4 fotos y 1 cuartilla de texto al mes.",
                 p_specs_report: "Plus: Recibirás un reporte mensual de desempeño con datos de visitantes y clics en tu teléfono.",
@@ -369,6 +405,39 @@
                 port_sub: "Status de Red — Velocidad de carga verificada sub-1s",
                 port_view: "Ver Demo en Vivo",
                 port_switch: "Cambiar Variación:"
+            },
+            zh: {
+                nav_home: "首页", nav_solutions: "为什么选择我们", nav_protocol: "48小时协议", nav_pricing: "价格",
+                nav_portfolio: "案例展示", nav_contact: "联系我们",
+                hero_title: "工业强度 + 数字精度",
+                hero_desc: "我们在48小时内为各行各业的专业人士构建高性能网站。拒绝营销虚头，只为您的业务带来更多电话咨询。",
+                hero_cta: "启动我的48小时站点 – $199",
+                protocol_title: "48小时时钟",
+                protocol_sub: "为了确保高质量发布，必须满足以下协议。",
+                p_item_1_t: "01. 初始部署费用", p_item_1_d: "需要通过Stripe一次性支付199美元以预留您的名额。",
+                p_item_2_t: "02. 信息工具包", p_item_2_d: "完成您的业务资料表。缺少信息将暂停交付时钟。",
+                p_item_3_t: "03. 样式选择", p_item_3_d: "选择您的主模板。针对亚秒级加载时间进行了优化。",
+                p_item_4_t: "04. 域名访问", p_item_4_d: "提供DNS访问权限，或我们将立即为您管理一个新域名。",
+                protocol_summary: "今天付款并填表，我们最多在2个工作日内交付。",
+                sol_title: "行业优势",
+                sol_desc: "大多数机构构建的是缓慢、臃肿的网站。我们使用纯代码确保您是镇上加载最快的。",
+                sol_item_1_t: "比工具更快", sol_item_1_d: "即时加载意味着客户不会挂断电话去联系下一个人。",
+                sol_item_2_t: "坚固耐用", sol_item_2_d: "纯代码构建，确保在任何移动设备上100%可靠。",
+                sol_item_3_t: "随时开工", sol_item_3_d: "专门针对将本地访客转化为付费订单进行了优化。",
+                price_title: "$199 蓝图",
+                p_build_title: "一次性构建：$199",
+                p_item_1: ".com 域名注册", p_item_2: "网站开发（选定模板）", p_item_3: "初始设置与部署",
+                p_gift: "🎁 免费赠品：包含前3个月维护！",
+                p_maint_title: "服务与托管：$29/月",
+                p_m_item_1: "安全托管 + SSL保护", p_m_item_2: "专业域名管理", p_m_item_3: "性能报告 + 支持",
+                p_m_savings: "[节省：$80 / 3个月 · $300 / 年]",
+                p_buy_btn: "初始化部署 ($199)",
+                p_sub_1: "订阅：按月", p_sub_2: "订阅：按季", p_sub_3: "订阅：年度",
+                contact_title: "联系实验室",
+                contact_lead: "Ferran | 技术负责人",
+                port_title: "大师蓝图",
+                port_view: "实时预览",
+                port_switch: "切换变体:"
             }
         };
 
@@ -507,7 +576,8 @@
                         <div class="max-w-6xl mx-auto">
                             <h2 class="text-4xl sm:text-5xl md:text-7xl font-heading uppercase italic text-center mb-10" style="color: var(--text-primary)">${t.price_title}</h2>
                             <div class="grid lg:grid-cols-2 gap-6 items-stretch mb-12">
-                                <div class="bg-tool-gray/30 p-6 md:p-12 border-t-8 flex flex-col hover:opacity-90 transition-all" style="border-color: var(--border-color)">
+                                <!-- Tarjeta de Construcción ($199) -->
+                                <div class="bg-tool-gray/30 p-6 md:p-12 border-t-8 flex flex-col hover:opacity-95 transition-all" style="border-color: var(--border-color)">
                                     <div class="text-3xl md:text-5xl font-heading font-black italic mb-6 uppercase leading-none" style="color: var(--text-primary)">${t.p_build_title}</div>
                                     <ul class="space-y-3 text-xs md:text-sm font-mono uppercase flex-grow mb-6" style="color: var(--text-secondary)">
                                         <li>[+] ${t.p_item_1}</li>
@@ -515,7 +585,14 @@
                                         <li>[+] ${t.p_item_3}</li>
                                     </ul>
                                     <div class="text-tool-red font-mono text-xs uppercase italic mb-6 font-bold">${t.p_gift}</div>
+                                    
+                                    <a href="https://buy.stripe.com/3cIeVf6Q7esO0bNfosc3m00" target="_blank" 
+                                       class="pay-button animate-pulse-slow block w-full bg-tool-red text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(227,6,19,0.3)] hover:brightness-110">
+                                       ${t.p_buy_btn}
+                                    </a>
                                 </div>
+
+                                <!-- Tarjeta de Mantenimiento ($29/mo) -->
                                 <div class="bg-tool-gray/40 p-6 md:p-12 border-t-8 border-tool-red flex flex-col shadow-2xl transform lg:scale-105 z-10">
                                     <div class="text-2xl md:text-4xl font-heading font-black italic mb-6 uppercase leading-tight" style="color: var(--text-primary)">${t.p_maint_title}</div>
                                     <ul class="space-y-3 text-xs md:text-sm font-mono uppercase flex-grow mb-8" style="color: var(--text-primary)">
@@ -525,6 +602,22 @@
                                     </ul>
                                     <div class="mb-6 p-3 bg-black/40 border-l-2 border-tool-red/40">
                                         <p class="text-[11px] font-mono text-tool-red uppercase italic tracking-wider animate-pulse">${t.p_m_savings}</p>
+                                    </div>
+
+                                    <!-- Links de Mantenimiento -->
+                                    <div class="space-y-3">
+                                        <a href="https://buy.stripe.com/28E6oJ5M3acy3nZ6RWc3m03" target="_blank" 
+                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                           ${t.p_sub_1}
+                                        </a>
+                                        <a href="https://buy.stripe.com/9B6aEZfmDgAW4s33FKc3m02" target="_blank" 
+                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                           ${t.p_sub_2}
+                                        </a>
+                                        <a href="https://buy.stripe.com/bJe14p8Yf1G2aQr904c3m01" target="_blank" 
+                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                           ${t.p_sub_3}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
