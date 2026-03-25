@@ -24,12 +24,12 @@
     }
     </script>
 
-    <!-- Fonts con display swap para evitar bloqueo de renderizado -->
+    <!-- Fonts con display swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind Play CDN con optimización de carga -->
+    <!-- Tailwind Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         window.tailwind.config = {
@@ -39,7 +39,6 @@
                         'tool-red': 'var(--accent)',
                         'tool-dark': 'var(--bg-dark)',
                         'tool-gray': 'var(--bg-gray)',
-                        'tool-silver': '#C0C0C0',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -52,7 +51,7 @@
                     keyframes: {
                         'pulse-custom': {
                             '0%, 100%': { opacity: 1, transform: 'scale(1)' },
-                            '50%': { opacity: 0.9, transform: 'scale(1.02)' },
+                            '50%': { opacity: 0.9, transform: 'scale(1.015)' },
                         }
                     }
                 }
@@ -67,12 +66,11 @@
             --bg-dark: #0F0F0F;
             --bg-gray: #1E1E1E;
             --text-primary: #FFFFFF;
-            --text-secondary: #A1A1AA; /* Zinc 400 para contraste */
+            --text-secondary: #A1A1AA;
             --border-color: rgba(255, 255, 255, 0.08);
             --grid-opacity: 0.4;
         }
 
-        /* Modo Claro - Accesibilidad */
         body.theme-light {
             --bg-main: #F4F4F5;
             --bg-dark: #FFFFFF;
@@ -83,7 +81,6 @@
             --grid-opacity: 0.2;
         }
 
-        /* Modo Alto Contraste */
         body.theme-hc {
             --accent: #FFFF00; 
             --bg-main: #000000;
@@ -118,7 +115,7 @@
         .carbon-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.03; pointer-events: none; z-index: -5; will-change: transform;
+            opacity: 0.03; pointer-events: none; z-index: -5;
         }
 
         .shutter-overlay {
@@ -182,6 +179,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            z-index: 1;
         }
         .pay-button::after {
             content: '';
@@ -193,6 +191,7 @@
             background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite;
+            pointer-events: none;
         }
         @keyframes shine {
             0% { left: -100%; }
@@ -201,8 +200,7 @@
         }
 
         /* Accesibilidad: Objetivos táctiles */
-        .theme-btn, .lang-btn { min-width: 36px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
-        @media (min-width: 768px) { .theme-btn, .lang-btn { min-width: 42px; min-height: 42px; } }
+        .theme-btn, .lang-btn { min-width: 42px; min-height: 42px; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body class="font-sans antialiased">
@@ -228,26 +226,24 @@
 
             <div class="flex items-center space-x-2 md:space-x-6">
                 <div class="flex items-center space-x-2">
-                    <span class="hidden md:block font-mono text-[10px] text-zinc-500 uppercase tracking-tighter">Visual:</span>
                     <div class="flex bg-black/80 border border-white/10 p-1 rounded-sm shadow-inner overflow-hidden">
-                        <button onclick="setTheme('dark')" class="theme-btn p-1.5 transition-all" id="theme-dark" title="Dark Mode" aria-label="Dark Mode">
+                        <button onclick="setTheme('dark')" class="theme-btn transition-all" id="theme-dark" title="Dark Mode" aria-label="Dark Mode">
                             <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                         </button>
-                        <button onclick="setTheme('light')" class="theme-btn p-1.5 transition-all border-l border-white/5" id="theme-light" title="Light Mode" aria-label="Light Mode">
+                        <button onclick="setTheme('light')" class="theme-btn transition-all border-l border-white/5" id="theme-light" title="Light Mode" aria-label="Light Mode">
                             <svg class="w-4 h-4 text-zinc-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
                         </button>
-                        <button onclick="setTheme('hc')" class="theme-btn p-1.5 transition-all border-l border-white/5" id="theme-hc" title="High Contrast" aria-label="High Contrast">
+                        <button onclick="setTheme('hc')" class="theme-btn transition-all border-l border-white/5" id="theme-hc" title="High Contrast" aria-label="High Contrast">
                             <span class="text-[11px] font-black text-zinc-400">HC</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <span class="hidden lg:block font-mono text-[10px] text-zinc-500 uppercase tracking-tighter">Lang:</span>
                     <div class="flex bg-black/80 border border-white/10 p-1 rounded-sm shadow-inner">
-                        <button onclick="setLanguage('en')" class="lang-btn px-3 md:px-5 py-1 text-[11px] md:text-[12px] font-bold uppercase transition-all" id="lang-en">EN</button>
-                        <button onclick="setLanguage('es')" class="lang-btn px-3 md:px-5 py-1 text-[11px] md:text-[12px] font-bold uppercase transition-all border-l border-white/5" id="lang-es">ES</button>
-                        <button onclick="setLanguage('zh')" class="lang-btn px-3 md:px-5 py-1 text-[11px] md:text-[12px] font-bold uppercase transition-all border-l border-white/5" id="lang-zh">ZH</button>
+                        <button onclick="setLanguage('en')" class="lang-btn px-2 text-[11px] font-bold uppercase transition-all" id="lang-en">EN</button>
+                        <button onclick="setLanguage('es')" class="lang-btn px-2 text-[11px] font-bold uppercase transition-all border-l border-white/5" id="lang-es">ES</button>
+                        <button onclick="setLanguage('zh')" class="lang-btn px-2 text-[11px] font-bold uppercase transition-all border-l border-white/5" id="lang-zh">ZH</button>
                     </div>
                 </div>
             </div>
@@ -257,23 +253,23 @@
 
         <main class="flex-grow flex flex-col md:flex-row overflow-hidden">
             <nav class="w-full md:w-64 lg:w-72 bg-tool-dark border-r border-white/5 flex md:flex-col order-last md:order-first shrink-0 overflow-x-auto no-scrollbar md:overflow-y-auto" style="border-color: var(--border-color)">
-                <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_home">Home</span>
+                <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_home">Home</span>
                 </button>
-                <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_solutions">Why Us</span>
+                <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_solutions">Why Us</span>
                 </button>
-                <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_protocol">48h Protocol</span>
+                <button onclick="changePage('protocol')" id="nav-protocol" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_protocol">48h Protocol</span>
                 </button>
-                <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_pricing">Pricing</span>
+                <button onclick="changePage('pricing')" id="nav-pricing" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_pricing">Pricing</span>
                 </button>
-                <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_portfolio">Portfolio</span>
+                <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_portfolio">Portfolio</span>
                 </button>
-                <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-b border-white/5 group shrink-0" style="border-color: var(--border-color)">
-                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter group-hover:text-tool-red transition-colors" data-i18n="nav_contact">Contact</span>
+                <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_contact">Contact</span>
                 </button>
 
                 <div class="hidden md:block mt-auto p-8 bg-black/40 border-t border-white/5" style="border-color: var(--border-color)">
@@ -338,7 +334,7 @@
                 hero_cta: "Launch My 48h Site – $199",
                 protocol_title: "THE 48-HOUR CLOCK",
                 protocol_sub: "To ensure a high-quality launch, the following protocol must be met.",
-                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via Stripe is required to book your spot.",
+                p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via Stripe or PayPal is required to book your spot.",
                 p_item_2_t: "02. The Information Kit", p_item_2_d: "Complete your business data form. Missing info pauses the delivery clock.",
                 p_item_3_t: "03. Style Selection", p_item_3_d: "Choose your master template. Optimized for sub-1s load times.",
                 p_item_4_t: "04. Domain Access", p_item_4_d: "Provide DNS access or we'll manage a new one for you instantly.",
@@ -355,8 +351,14 @@
                 p_maint_title: "Service & Hosting: $29/mo",
                 p_m_item_1: "Secure Hosting + SSL Protection", p_m_item_2: "Professional Domain Management", p_m_item_3: "Performance Reporting + Support",
                 p_m_savings: "[SAVINGS: $80 / 3mo · $300 / year]",
-                p_buy_btn: "Initialize Deployment ($199)",
-                p_sub_1: "Subscribe: Monthly", p_sub_2: "Subscribe: Quarterly", p_sub_3: "Subscribe: Annual",
+                p_pay_stripe: "Pay with Stripe ($199)",
+                p_pay_paypal: "If you prefer, with PayPal ($199)",
+                p_sub_1: "Monthly: Stripe Checkout", 
+                p_sub_1_pp: "Monthly: PayPal Subscription",
+                p_sub_2: "Quarterly: Stripe Checkout", 
+                p_sub_2_pp: "Quarterly: PayPal Subscription",
+                p_sub_3: "Annual: Stripe Checkout",
+                p_sub_3_pp: "Annual: PayPal Subscription",
                 p_specs_title: "TECHNICAL SPECS & LIMITS",
                 p_specs_maint: "Maintenance includes: 1-4 photo updates and 1 page of text edits per month.",
                 p_specs_report: "Plus: Every month, we send a performance report including visitor count and 'Click-to-Call' metrics.",
@@ -376,7 +378,7 @@
                 hero_cta: "Iniciar Mi Web en 48h – $199",
                 protocol_title: "EL RELOJ DE 48 HORAS",
                 protocol_sub: "Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
-                p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía Stripe para apartar tu lugar en producción.",
+                p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía Stripe o PayPal para apartar tu lugar en producción.",
                 p_item_2_t: "02. Kit de Información", p_item_2_d: "Completa el formulario de negocio. La falta de datos pausa el reloj.",
                 p_item_3_t: "03. Selección de Estilo", p_item_3_d: "Elige una de nuestras plantillas maestras optimizadas para velocidad.",
                 p_item_4_t: "04. Acceso a Dominio", p_item_4_d: "Danos acceso a tu DNS o gestionamos uno nuevo al instante.",
@@ -393,8 +395,14 @@
                 p_maint_title: "Servicio y Hosting: $29/mes",
                 p_m_item_1: "Hosting Seguro + Protección SSL", p_m_item_2: "Gestión Profesional de Dominio", p_m_item_3: "Reporte de Desempeño + Soporte",
                 p_m_savings: "[MODO_AHORRO: $80 / 3meses · $300 / año]",
-                p_buy_btn: "Inicializar Despliegue ($199)",
-                p_sub_1: "Suscribirse: Mensual", p_sub_2: "Suscribirse: Trimestral", p_sub_3: "Suscribirse: Anual",
+                p_pay_stripe: "Pagar con Stripe ($199)",
+                p_pay_paypal: "O si prefieres con PayPal ($199)",
+                p_sub_1: "Mensual: Link Stripe",
+                p_sub_1_pp: "Mensual: Suscripción PayPal",
+                p_sub_2: "Trimestral: Link Stripe",
+                p_sub_2_pp: "Trimestral: Suscripción PayPal",
+                p_sub_3: "Anual: Link Stripe",
+                p_sub_3_pp: "Anual: Suscripción PayPal",
                 p_specs_title: "DETALLES TÉCNICOS Y LÍMITES",
                 p_specs_maint: "Mantenimiento incluye: 1-4 fotos y 1 cuartilla de texto al mes.",
                 p_specs_report: "Plus: Recibirás un reporte mensual de desempeño con datos de visitantes y clics en tu teléfono.",
@@ -414,7 +422,7 @@
                 hero_cta: "启动我的48小时站点 – $199",
                 protocol_title: "48小时时钟",
                 protocol_sub: "为了确保高质量发布，必须满足以下协议。",
-                p_item_1_t: "01. 初始部署费用", p_item_1_d: "需要通过Stripe一次性支付199美元以预留您的名额。",
+                p_item_1_t: "01. 初始部署费用", p_item_1_d: "需要通过 Stripe 或 PayPal 一次性支付199美元以预留您的名额。",
                 p_item_2_t: "02. 信息工具包", p_item_2_d: "完成您的业务资料表。缺少信息将暂停交付时钟。",
                 p_item_3_t: "03. 样式选择", p_item_3_d: "选择您的主模板。针对亚秒级加载时间进行了优化。",
                 p_item_4_t: "04. 域名访问", p_item_4_d: "提供DNS访问权限，或我们将立即为您管理一个新域名。",
@@ -431,8 +439,14 @@
                 p_maint_title: "服务与托管：$29/月",
                 p_m_item_1: "安全托管 + SSL保护", p_m_item_2: "专业域名管理", p_m_item_3: "性能报告 + 支持",
                 p_m_savings: "[节省：$80 / 3个月 · $300 / 年]",
-                p_buy_btn: "初始化部署 ($199)",
-                p_sub_1: "订阅：按月", p_sub_2: "订阅：按季", p_sub_3: "订阅：年度",
+                p_pay_stripe: "使用 Stripe 支付 ($199)",
+                p_pay_paypal: "或使用 PayPal 支付 ($199)",
+                p_sub_1: "每月订阅 (Stripe)", 
+                p_sub_1_pp: "每月订阅 (PayPal)",
+                p_sub_2: "季度订阅 (Stripe)", 
+                p_sub_2_pp: "季度订阅 (PayPal)",
+                p_sub_3: "年度订阅 (Stripe)",
+                p_sub_3_pp: "年度订阅 (PayPal)",
                 contact_title: "联系实验室",
                 contact_lead: "Ferran | 技术负责人",
                 port_title: "大师蓝图",
@@ -532,7 +546,7 @@
                                         `).join('')}
                                     </div>
                                 </div>
-                                <a id="link-${temp.id}" href="${temp.variations[0].link}" target="_blank" class="mt-auto block w-full bg-white/5 hover:bg-tool-red text-white py-4 font-heading uppercase italic text-center text-sm tracking-widest transition-colors border border-white/10">
+                                <a id="link-${temp.id}" href="${temp.variations[0].link}" target="_blank" rel="noopener noreferrer" class="mt-auto block w-full bg-white/5 hover:bg-tool-red text-white py-4 font-heading uppercase italic text-center text-sm tracking-widest transition-colors border border-white/10">
                                     ${t.port_view}
                                 </a>
                             </div>
@@ -586,10 +600,21 @@
                                     </ul>
                                     <div class="text-tool-red font-mono text-xs uppercase italic mb-6 font-bold">${t.p_gift}</div>
                                     
-                                    <a href="https://buy.stripe.com/3cIeVf6Q7esO0bNfosc3m00" target="_blank" 
-                                       class="pay-button animate-pulse-slow block w-full bg-tool-red text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(227,6,19,0.3)] hover:brightness-110">
-                                       ${t.p_buy_btn}
-                                    </a>
+                                    <div class="space-y-4">
+                                        <a href="https://buy.stripe.com/3cIeVf6Q7esO0bNfosc3m00" target="_blank" rel="noopener noreferrer" 
+                                           class="pay-button animate-pulse-slow block w-full bg-tool-red text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(227,6,19,0.3)] hover:brightness-110">
+                                           ${t.p_pay_stripe}
+                                        </a>
+                                        <div class="flex items-center gap-4">
+                                            <div class="flex-grow h-px bg-white/10"></div>
+                                            <div class="text-[9px] font-mono text-zinc-500 uppercase tracking-widest italic">ALTERNATIVE</div>
+                                            <div class="flex-grow h-px bg-white/10"></div>
+                                        </div>
+                                        <a href="https://www.paypal.com/ncp/payment/S765LATLPF746" target="_blank" rel="noopener noreferrer" 
+                                           class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(0,48,135,0.3)] hover:brightness-110">
+                                           ${t.p_pay_paypal}
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <!-- Tarjeta de Mantenimiento ($29/mo) -->
@@ -604,20 +629,39 @@
                                         <p class="text-[11px] font-mono text-tool-red uppercase italic tracking-wider animate-pulse">${t.p_m_savings}</p>
                                     </div>
 
-                                    <!-- Links de Mantenimiento -->
-                                    <div class="space-y-3">
-                                        <a href="https://buy.stripe.com/28E6oJ5M3acy3nZ6RWc3m03" target="_blank" 
-                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                           ${t.p_sub_1}
-                                        </a>
-                                        <a href="https://buy.stripe.com/9B6aEZfmDgAW4s33FKc3m02" target="_blank" 
-                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                           ${t.p_sub_2}
-                                        </a>
-                                        <a href="https://buy.stripe.com/bJe14p8Yf1G2aQr904c3m01" target="_blank" 
-                                           class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                           ${t.p_sub_3}
-                                        </a>
+                                    <div class="space-y-4">
+                                        <div class="space-y-2">
+                                            <a href="https://buy.stripe.com/bJe14p8Yf1G2aQr904c3m01" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                               ${t.p_sub_1}
+                                            </a>
+                                            <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2FY37293CU395970CNHBR7PI" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
+                                               ${t.p_sub_1_pp}
+                                            </a>
+                                        </div>
+                                        <div class="h-px bg-white/5 my-2"></div>
+                                        <div class="space-y-2">
+                                            <a href="https://buy.stripe.com/9B6aEZfmDgAW4s33FKc3m02" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                               ${t.p_sub_2}
+                                            </a>
+                                            <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-22M20507AF693321GNHBSCFI" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
+                                               ${t.p_sub_2_pp}
+                                            </a>
+                                        </div>
+                                        <div class="h-px bg-white/5 my-2"></div>
+                                        <div class="space-y-2">
+                                            <a href="https://buy.stripe.com/28E6oJ5M3acy3nZ6RWc3m03" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
+                                               ${t.p_sub_3}
+                                            </a>
+                                            <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-71788859UR873010TNHBSH7Y" target="_blank" rel="noopener noreferrer" 
+                                               class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
+                                               ${t.p_sub_3_pp}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -649,14 +693,12 @@
             const variation = template.variations[index];
             const imgEl = document.getElementById(`img-${templateId}`);
             const linkEl = document.getElementById(`link-${templateId}`);
-            
             imgEl.style.opacity = '0.3';
             setTimeout(() => {
                 imgEl.src = variation.img;
                 if (linkEl) linkEl.href = variation.link;
                 imgEl.style.opacity = '1';
             }, 150);
-            
             document.querySelectorAll(`.dot-${templateId}`).forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
             });
