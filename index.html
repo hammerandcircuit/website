@@ -47,11 +47,16 @@
                     },
                     animation: {
                         'pulse-slow': 'pulse-custom 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-red': 'glow-red 2s infinite',
                     },
                     keyframes: {
                         'pulse-custom': {
                             '0%, 100%': { opacity: 1, transform: 'scale(1)' },
                             '50%': { opacity: 0.9, transform: 'scale(1.015)' },
+                        },
+                        'glow-red': {
+                            '0%, 100%': { boxShadow: '0 0 5px rgba(227, 6, 19, 0.2)' },
+                            '50%': { boxShadow: '0 0 20px rgba(227, 6, 19, 0.5)' },
                         }
                     }
                 }
@@ -199,6 +204,13 @@
             100% { left: 100%; }
         }
 
+        /* SMS Banner Specific Styles */
+        .sms-banner {
+            border-left: 8px solid var(--accent);
+            background: linear-gradient(90deg, rgba(227, 6, 19, 0.05) 0%, transparent 100%);
+            animation: glow-red 3s infinite;
+        }
+
         /* Accesibilidad: Objetivos táctiles */
         .theme-btn, .lang-btn { min-width: 42px; min-height: 42px; display: flex; align-items: center; justify-content: center; }
     </style>
@@ -332,6 +344,11 @@
                 hero_title: "INDUSTRIAL STRENGTH + DIGITAL PRECISION.",
                 hero_desc: "We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.",
                 hero_cta: "Launch My 48h Site – $199",
+                // SMS Specific
+                sms_prompt: "Coming from the SMS we sent you?",
+                sms_portfolio_btn: "View Our Portfolio",
+                sms_buy_btn: "Buy Now to Start Immediately",
+                
                 protocol_title: "THE 48-HOUR CLOCK",
                 protocol_sub: "To ensure a high-quality launch, the following protocol must be met.",
                 p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via Stripe or PayPal is required to book your spot.",
@@ -376,6 +393,11 @@
                 hero_title: "FUERZA INDUSTRIAL + PRECISIÓN DIGITAL.",
                 hero_desc: "Sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos, solo más llamadas para tu negocio.",
                 hero_cta: "Iniciar Mi Web en 48h – $199",
+                // SMS Specific
+                sms_prompt: "¿Vienes por el mensaje SMS que te mandamos?",
+                sms_portfolio_btn: "Ver Nuestro Portafolio",
+                sms_buy_btn: "Comprar Ahora para Empezar Ya",
+
                 protocol_title: "EL RELOJ DE 48 HORAS",
                 protocol_sub: "Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
                 p_item_1_t: "01. Pago de Despliegue", p_item_1_d: "Pago único de $199 USD vía Stripe o PayPal para apartar tu lugar en producción.",
@@ -420,6 +442,9 @@
                 hero_title: "工业强度 + 数字精度",
                 hero_desc: "我们在48小时内为各行各业的专业人士构建高性能网站。拒绝营销虚头，只为您的业务带来更多电话咨询。",
                 hero_cta: "启动我的48小时站点 – $199",
+                sms_prompt: "您是从我们发送的短信过来的吗？",
+                sms_portfolio_btn: "查看我们的案例",
+                sms_buy_btn: "立即购买并开始",
                 protocol_title: "48小时时钟",
                 protocol_sub: "为了确保高质量发布，必须满足以下协议。",
                 p_item_1_t: "01. 初始部署费用", p_item_1_d: "需要通过 Stripe 或 PayPal 一次性支付199美元以预留您的名额。",
@@ -507,6 +532,33 @@
                 case 'home':
                     content.innerHTML = `
                         <div class="max-w-4xl">
+                            <!-- High Impact SMS Banner -->
+                            <div class="sms-banner mb-12 p-6 md:p-8 border-t border-r border-b border-white/5 relative overflow-hidden group">
+                                <div class="flex flex-col md:flex-row md:items-center gap-6 relative z-10">
+                                    <div class="shrink-0">
+                                        <div class="w-12 h-12 bg-tool-red flex items-center justify-center rounded-sm">
+                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-heading text-2xl md:text-3xl uppercase italic leading-none mb-2" style="color: var(--text-primary)">
+                                            ${t.sms_prompt}
+                                        </h3>
+                                        <div class="flex flex-wrap gap-3">
+                                            <button onclick="changePage('portfolio')" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 font-mono text-[11px] uppercase tracking-wider border border-white/10 transition-all">
+                                                ${t.sms_portfolio_btn}
+                                            </button>
+                                            <button onclick="changePage('pricing')" class="bg-tool-red hover:brightness-110 text-white px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-lg animate-pulse-slow">
+                                                ${t.sms_buy_btn}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute top-0 right-0 p-2 opacity-10 font-mono text-[60px] select-none font-black italic -rotate-12 pointer-events-none">SMS</div>
+                            </div>
+
                             <h2 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-heading uppercase italic leading-[0.85] mb-8" style="color: var(--text-primary)">${t.hero_title}</h2>
                             <p class="text-base md:text-2xl lg:text-3xl mb-10 max-w-2xl font-light italic leading-relaxed border-l-2 border-tool-red pl-5" style="color: var(--text-secondary)">${t.hero_desc}</p>
                             <button onclick="changePage('protocol')" class="bg-tool-red text-white px-8 py-5 md:px-12 md:py-6 font-heading text-xl md:text-3xl uppercase italic tracking-tighter hover:brightness-110 active:scale-95 transition-all shadow-xl">
