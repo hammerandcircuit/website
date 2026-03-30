@@ -268,6 +268,9 @@
                 <button onclick="changePage('home')" id="nav-home" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
                     <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_home">Home</span>
                 </button>
+                <button onclick="changePage('contractors')" id="nav-contractors" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_contractors">For Contractors</span>
+                </button>
                 <button onclick="changePage('solutions')" id="nav-solutions" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
                     <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_solutions">Why Us</span>
                 </button>
@@ -280,6 +283,9 @@
                 <button onclick="changePage('portfolio')" id="nav-portfolio" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
                     <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_portfolio">Portfolio</span>
                 </button>
+                <button onclick="changePage('about')" id="nav-about" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-r md:border-r-0 md:border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
+                    <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_about">About Lab</span>
+                </button>
                 <button onclick="changePage('contact')" id="nav-contact" class="switch-btn flex-1 md:flex-none text-center md:text-left p-5 md:p-6 lg:p-8 hover:bg-white/5 border-b border-white/5 shrink-0" style="border-color: var(--border-color)">
                     <span class="font-heading text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter transition-colors" data-i18n="nav_contact">Contact</span>
                 </button>
@@ -287,7 +293,7 @@
                 <div class="hidden md:block mt-auto p-8 bg-black/40 border-t border-white/5" style="border-color: var(--border-color)">
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 bg-tool-red rounded-full animate-pulse shadow-[0_0_8px_var(--accent)]"></div>
-                        <span class="text-[9px] font-mono font-bold uppercase italic tracking-widest" style="color: var(--text-primary)">OPS: AUSTIN_TX</span>
+                        <span class="text-[9px] font-mono font-bold uppercase italic tracking-widest" style="color: var(--text-primary)">OPS: ACTIVE</span>
                     </div>
                 </div>
             </nav>
@@ -340,7 +346,7 @@
         const translations = {
             en: {
                 nav_home: "Home", nav_solutions: "Why Us", nav_protocol: "48h Protocol", nav_pricing: "Pricing",
-                nav_portfolio: "Portfolio", nav_contact: "Contact",
+                nav_portfolio: "Portfolio", nav_contact: "Contact", nav_about: "About Lab", nav_contractors: "For Contractors",
                 hero_title: "INDUSTRIAL STRENGTH + DIGITAL PRECISION.",
                 hero_desc: "We build high-performance websites for tradespeople in 48 hours. No marketing fluff, just more calls for your business.",
                 hero_cta: "Launch My 48h Site – $199",
@@ -349,6 +355,29 @@
                 sms_portfolio_btn: "View Our Portfolio",
                 sms_buy_btn: "Buy Now to Start Immediately",
                 
+                // About Section
+                about_title: "About Hammer & Circuit Web Lab",
+                about_p1: "Hammer & Circuit Web Lab is a small, independent web studio focused on building high‑performance sites for contractors and local service businesses. We specialize in fast, secure, mobile‑optimized websites that turn search traffic into real calls and booked jobs.",
+                about_b1: "Flat‑fee builds, no long‑term agency retainers",
+                about_b2: "SSL security and performance best practices included",
+                about_b3: "Designed for Google, built for mobile users",
+                about_b4: "Direct, personal support from the same team that builds your site",
+                about_footer: "Hammer & Circuit Web Lab is privately owned and operated as a small studio.",
+
+                // Contractors Section
+                contr_title: "Websites for Contractors",
+                contr_offer: "Flat $199 setup + $29/month hosting. Live in 48 hours.",
+                contr_p1: "We build high‑performance, conversion‑focused websites for trades like plumbing, electrical, HVAC, roofing, and more. Every site comes with SSL security, mobile‑first design, and clear calls‑to‑action so more visitors turn into phone calls.",
+                contr_b1: "Built to rank and be trusted by Google",
+                contr_b2: "Mobile‑first layouts for on‑the‑go customers",
+                contr_b3: "Clear calls‑to‑action that generate calls and quote requests",
+                contr_b4: "Simple pricing: $199 setup, $29/month hosting",
+                contr_cta: "Request a contractor demo",
+                contr_demo_plumb: "Plumber Website Demo",
+                contr_demo_elec: "Electrician Website Demo",
+                contr_demo_hvac: "HVAC Website Demo",
+                contr_view_demo: "View live demo →",
+
                 protocol_title: "THE 48-HOUR CLOCK",
                 protocol_sub: "To ensure a high-quality launch, the following protocol must be met.",
                 p_item_1_t: "01. Initial Deployment Payment", p_item_1_d: "A one-time $199 USD payment via Stripe or PayPal is required to book your spot.",
@@ -380,7 +409,7 @@
                 p_specs_maint: "Maintenance includes: 1-4 photo updates and 1 page of text edits per month.",
                 p_specs_report: "Plus: Every month, we send a performance report including visitor count and 'Click-to-Call' metrics.",
                 contact_title: "CONTACT THE LAB",
-                contact_lead: "Ferran | Tech Lead",
+                contact_lead: "Support | Tech Lead",
                 contact_email: "ferranasmodeus@hammercircuit.com",
                 port_title: "MASTER BLUEPRINTS",
                 port_sub: "Network status — Sub-1s Load times verified",
@@ -389,7 +418,7 @@
             },
             es: {
                 nav_home: "Inicio", nav_solutions: "Por Qué", nav_protocol: "Protocolo 48h", nav_pricing: "Precios",
-                nav_portfolio: "Portfolio", nav_contact: "Contacto",
+                nav_portfolio: "Portfolio", nav_contact: "Contacto", nav_about: "Sobre el Lab", nav_contractors: "Contratistas",
                 hero_title: "FUERZA INDUSTRIAL + PRECISIÓN DIGITAL.",
                 hero_desc: "Sitios web de alto rendimiento para oficios en 48 horas. Sin rodeos, solo más llamadas para tu negocio.",
                 hero_cta: "Iniciar Mi Web en 48h – $199",
@@ -397,6 +426,29 @@
                 sms_prompt: "¿Vienes por el mensaje SMS que te mandamos?",
                 sms_portfolio_btn: "Ver Nuestro Portafolio",
                 sms_buy_btn: "Comprar Ahora para Empezar Ya",
+
+                // About Section (Spanish)
+                about_title: "Sobre Hammer & Circuit Web Lab",
+                about_p1: "Hammer & Circuit Web Lab es un pequeño estudio web independiente enfocado en construir sitios de alto rendimiento para contratistas y negocios de servicios locales. Nos especializamos en sitios rápidos, seguros y optimizados para móviles que convierten el tráfico de búsqueda en llamadas reales y trabajos reservados.",
+                about_b1: "Construcción por tarifa fija, sin contratos mensuales forzosos",
+                about_b2: "Seguridad SSL y mejores prácticas de rendimiento incluidas",
+                about_b3: "Diseñado para Google, construido para usuarios móviles",
+                about_b4: "Soporte directo y personal del mismo equipo que construye tu sitio",
+                about_footer: "Hammer & Circuit Web Lab es propiedad privada y opera como un estudio pequeño.",
+
+                // Contractors Section (Spanish)
+                contr_title: "Webs para Contratistas",
+                contr_offer: "$199 configuración + $29/mes hosting. Lista en 48 horas.",
+                contr_p1: "Construimos sitios web de alto rendimiento y enfocados en la conversión para oficios como plomería, electricidad, HVAC, techado y más. Cada sitio viene con seguridad SSL, diseño móvil-primero y llamadas a la acción claras para que más visitantes se conviertan en llamadas telefónicas.",
+                contr_b1: "Construido para rankear y ser confiable para Google",
+                contr_b2: "Diseños optimizados para clientes en movimiento",
+                contr_b3: "Llamadas a la acción claras que generan solicitudes de presupuesto",
+                contr_b4: "Precio simple: $199 configuración, $29/mes hosting",
+                contr_cta: "Solicitar demo para contratistas",
+                contr_demo_plumb: "Demo Web Plomero",
+                contr_demo_elec: "Demo Web Electricista",
+                contr_demo_hvac: "Demo Web HVAC",
+                contr_view_demo: "Ver demo en vivo →",
 
                 protocol_title: "EL RELOJ DE 48 HORAS",
                 protocol_sub: "Para garantizar una entrega de calidad, debemos cumplir con este protocolo.",
@@ -429,7 +481,7 @@
                 p_specs_maint: "Mantenimiento incluye: 1-4 fotos y 1 cuartilla de texto al mes.",
                 p_specs_report: "Plus: Recibirás un reporte mensual de desempeño con datos de visitantes y clics en tu teléfono.",
                 contact_title: "CONTACTA AL LAB",
-                contact_lead: "Ferran | Tech Lead",
+                contact_lead: "Soporte | Líder Técnico",
                 contact_email: "ferranasmodeus@hammercircuit.com",
                 port_title: "PLANTILLAS MAESTRAS",
                 port_sub: "Status de Red — Velocidad de carga verificada sub-1s",
@@ -438,13 +490,13 @@
             },
             zh: {
                 nav_home: "首页", nav_solutions: "为什么选择我们", nav_protocol: "48小时协议", nav_pricing: "价格",
-                nav_portfolio: "案例展示", nav_contact: "联系我们",
+                nav_portfolio: "案例展示", nav_contact: "联系我们", nav_about: "关于实验室", nav_contractors: "承包商网站",
                 hero_title: "工业强度 + 数字精度",
                 hero_desc: "我们在48小时内为各行各业的专业人士构建高性能网站。拒绝营销虚头，只为您的业务带来更多电话咨询。",
                 hero_cta: "启动我的48小时站点 – $199",
-                sms_prompt: "您是从我们发送的短信过来的吗？",
-                sms_portfolio_btn: "查看我们的案例",
-                sms_buy_btn: "立即购买并开始",
+                about_title: "关于 Hammer & Circuit 网络实验室",
+                contr_title: "承包商专用网站",
+                contr_offer: "$199 设置费 + $29/月 托管。48小时内上线。",
                 protocol_title: "48小时时钟",
                 protocol_sub: "为了确保高质量发布，必须满足以下协议。",
                 p_item_1_t: "01. 初始部署费用", p_item_1_d: "需要通过 Stripe 或 PayPal 一次性支付199美元以预留您的名额。",
@@ -454,26 +506,9 @@
                 protocol_summary: "今天付款并填表，我们最多在2个工作日内交付。",
                 sol_title: "行业优势",
                 sol_desc: "大多数机构构建的是缓慢、臃肿的网站。我们使用纯代码确保您是镇上加载最快的。",
-                sol_item_1_t: "比工具更快", sol_item_1_d: "即时加载意味着客户不会挂断电话去联系下一个人。",
-                sol_item_2_t: "坚固耐用", sol_item_2_d: "纯代码构建，确保在任何移动设备上100%可靠。",
-                sol_item_3_t: "随时开工", sol_item_3_d: "专门针对将本地访客转化为付费订单进行了优化。",
                 price_title: "$199 蓝图",
                 p_build_title: "一次性构建：$199",
-                p_item_1: ".com 域名注册", p_item_2: "网站开发（选定模板）", p_item_3: "初始设置与部署",
-                p_gift: "🎁 免费赠品：包含前3个月维护！",
-                p_maint_title: "服务与托管：$29/月",
-                p_m_item_1: "安全托管 + SSL保护", p_m_item_2: "专业域名管理", p_m_item_3: "性能报告 + 支持",
-                p_m_savings: "[节省：$80 / 3个月 · $300 / 年]",
-                p_pay_stripe: "使用 Stripe 支付 ($199)",
-                p_pay_paypal: "或使用 PayPal 支付 ($199)",
-                p_sub_1: "每月订阅 (Stripe)", 
-                p_sub_1_pp: "每月订阅 (PayPal)",
-                p_sub_2: "季度订阅 (Stripe)", 
-                p_sub_2_pp: "季度订阅 (PayPal)",
-                p_sub_3: "年度订阅 (Stripe)",
-                p_sub_3_pp: "年度订阅 (PayPal)",
                 contact_title: "联系实验室",
-                contact_lead: "Ferran | 技术负责人",
                 port_title: "大师蓝图",
                 port_view: "实时预览",
                 port_switch: "切换变体:"
@@ -561,9 +596,94 @@
 
                             <h2 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-heading uppercase italic leading-[0.85] mb-8" style="color: var(--text-primary)">${t.hero_title}</h2>
                             <p class="text-base md:text-2xl lg:text-3xl mb-10 max-w-2xl font-light italic leading-relaxed border-l-2 border-tool-red pl-5" style="color: var(--text-secondary)">${t.hero_desc}</p>
-                            <button onclick="changePage('protocol')" class="bg-tool-red text-white px-8 py-5 md:px-12 md:py-6 font-heading text-xl md:text-3xl uppercase italic tracking-tighter hover:brightness-110 active:scale-95 transition-all shadow-xl">
-                                ${t.hero_cta}
-                            </button>
+                            
+                            <div class="flex flex-wrap gap-4 mb-20">
+                                <button onclick="changePage('protocol')" class="bg-tool-red text-white px-8 py-5 md:px-12 md:py-6 font-heading text-xl md:text-3xl uppercase italic tracking-tighter hover:brightness-110 active:scale-95 transition-all shadow-xl">
+                                    ${t.hero_cta}
+                                </button>
+                                <button onclick="changePage('contractors')" class="bg-white/5 border border-white/10 text-white px-8 py-5 md:px-12 md:py-6 font-heading text-xl md:text-3xl uppercase italic tracking-tighter hover:bg-white/10 transition-all">
+                                    ${t.nav_contractors}
+                                </button>
+                            </div>
+
+                            <!-- Integration: Websites for Contractors Preview -->
+                            <div class="mt-20 py-12 border-t border-white/10">
+                                <h2 class="text-4xl md:text-6xl font-heading uppercase italic mb-4" style="color: var(--text-primary)">${t.contr_title}</h2>
+                                <p class="text-xl md:text-2xl font-heading uppercase italic text-tool-red mb-6">${t.contr_offer}</p>
+                                <p class="text-lg italic leading-relaxed mb-8 max-w-2xl" style="color: var(--text-secondary)">${t.contr_p1}</p>
+                                <button onclick="changePage('contractors')" class="text-tool-red font-mono text-sm uppercase italic hover:underline">View Contractor Demos & Features →</button>
+                            </div>
+
+                            <!-- Integration: About Preview -->
+                            <div class="mt-20 py-12 border-t-4 border-tool-red">
+                                <h2 class="text-3xl md:text-5xl font-heading uppercase italic mb-6" style="color: var(--text-primary)">${t.about_title}</h2>
+                                <p class="text-base italic leading-relaxed mb-8 max-w-2xl" style="color: var(--text-secondary)">${t.about_p1}</p>
+                                <ul class="space-y-4 mb-10">
+                                    <li class="flex items-start gap-3 italic text-sm"><span class="text-tool-red font-bold">»</span> ${t.about_b1}</li>
+                                    <li class="flex items-start gap-3 italic text-sm"><span class="text-tool-red font-bold">»</span> ${t.about_b2}</li>
+                                    <li class="flex items-start gap-3 italic text-sm"><span class="text-tool-red font-bold">»</span> ${t.about_b3}</li>
+                                    <li class="flex items-start gap-3 italic text-sm"><span class="text-tool-red font-bold">»</span> ${t.about_b4}</li>
+                                </ul>
+                                <p class="text-[10px] font-mono uppercase tracking-widest text-zinc-500">${t.about_footer}</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'contractors':
+                    content.innerHTML = `
+                        <div class="max-w-6xl">
+                            <h2 class="text-5xl md:text-8xl font-heading uppercase italic mb-2" style="color: var(--text-primary)">${t.contr_title}</h2>
+                            <h3 class="text-2xl md:text-4xl font-heading uppercase italic text-tool-red mb-8">${t.contr_offer}</h3>
+                            <p class="text-lg md:text-2xl italic leading-relaxed mb-12 max-w-3xl" style="color: var(--text-secondary)">${t.contr_p1}</p>
+                            
+                            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                                <ul class="space-y-6">
+                                    <li class="flex items-start gap-4 italic text-lg"><div class="w-2 h-2 bg-tool-red mt-2 shrink-0"></div> ${t.contr_b1}</li>
+                                    <li class="flex items-start gap-4 italic text-lg"><div class="w-2 h-2 bg-tool-red mt-2 shrink-0"></div> ${t.contr_b2}</li>
+                                    <li class="flex items-start gap-4 italic text-lg"><div class="w-2 h-2 bg-tool-red mt-2 shrink-0"></div> ${t.contr_b3}</li>
+                                    <li class="flex items-start gap-4 italic text-lg"><div class="w-2 h-2 bg-tool-red mt-2 shrink-0"></div> ${t.contr_b4}</li>
+                                </ul>
+                                <div class="flex flex-col justify-center">
+                                    <button onclick="changePage('contact')" class="bg-tool-red text-white px-8 py-5 font-heading text-2xl uppercase italic tracking-tighter hover:brightness-110 transition-all">
+                                        ${t.contr_cta}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-8">
+                                ${['plumb', 'elec', 'hvac'].map((type, i) => `
+                                    <div class="template-card border-t-4 p-6 flex flex-col hover:border-tool-red transition-all">
+                                        <div class="bg-zinc-900 aspect-video mb-6 border border-white/10 flex items-center justify-center italic text-xs text-zinc-600">PREVIEW_FRAME_${type.toUpperCase()}</div>
+                                        <h4 class="text-xl font-heading uppercase italic mb-4" style="color: var(--text-primary)">${t['contr_demo_'+type]}</h4>
+                                        <a href="#" class="text-tool-red font-mono text-[10px] uppercase tracking-widest font-bold">${t.contr_view_demo}</a>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'about':
+                    content.innerHTML = `
+                        <div class="max-w-4xl">
+                            <h2 class="text-5xl md:text-7xl font-heading uppercase italic mb-8" style="color: var(--text-primary)">${t.about_title}</h2>
+                            <div class="p-8 md:p-12 bg-tool-gray/20 border-l-8 border-tool-red mb-12">
+                                <p class="text-xl md:text-3xl italic leading-tight" style="color: var(--text-primary)">
+                                    ${t.about_p1}
+                                </p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                                <ul class="space-y-6">
+                                    <li class="flex items-start gap-4 italic text-base"><span class="text-tool-red font-bold">»</span> ${t.about_b1}</li>
+                                    <li class="flex items-start gap-4 italic text-base"><span class="text-tool-red font-bold">»</span> ${t.about_b2}</li>
+                                </ul>
+                                <ul class="space-y-6">
+                                    <li class="flex items-start gap-4 italic text-base"><span class="text-tool-red font-bold">»</span> ${t.about_b3}</li>
+                                    <li class="flex items-start gap-4 italic text-base"><span class="text-tool-red font-bold">»</span> ${t.about_b4}</li>
+                                </ul>
+                            </div>
+                            <p class="text-xs font-mono uppercase tracking-[0.3em] text-zinc-600 italic border-t border-white/5 pt-8">
+                                ${t.about_footer}
+                            </p>
                         </div>
                     `;
                     break;
@@ -655,7 +775,7 @@
                                     <div class="space-y-4">
                                         <a href="https://buy.stripe.com/3cIeVf6Q7esO0bNfosc3m00" target="_blank" rel="noopener noreferrer" 
                                            class="pay-button animate-pulse-slow block w-full bg-tool-red text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(227,6,19,0.3)] hover:brightness-110">
-                                           ${t.p_pay_stripe}
+                                            ${t.p_pay_stripe}
                                         </a>
                                         <div class="flex items-center gap-4">
                                             <div class="flex-grow h-px bg-white/10"></div>
@@ -664,7 +784,7 @@
                                         </div>
                                         <a href="https://www.paypal.com/ncp/payment/S765LATLPF746" target="_blank" rel="noopener noreferrer" 
                                            class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-5 font-heading text-xl uppercase italic text-center shadow-[0_0_20px_rgba(0,48,135,0.3)] hover:brightness-110">
-                                           ${t.p_pay_paypal}
+                                            ${t.p_pay_paypal}
                                         </a>
                                     </div>
                                 </div>
@@ -685,33 +805,11 @@
                                         <div class="space-y-2">
                                             <a href="https://buy.stripe.com/bJe14p8Yf1G2aQr904c3m01" target="_blank" rel="noopener noreferrer" 
                                                class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                               ${t.p_sub_1}
+                                                ${t.p_sub_1}
                                             </a>
                                             <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2FY37293CU395970CNHBR7PI" target="_blank" rel="noopener noreferrer" 
                                                class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
-                                               ${t.p_sub_1_pp}
-                                            </a>
-                                        </div>
-                                        <div class="h-px bg-white/5 my-2"></div>
-                                        <div class="space-y-2">
-                                            <a href="https://buy.stripe.com/9B6aEZfmDgAW4s33FKc3m02" target="_blank" rel="noopener noreferrer" 
-                                               class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                               ${t.p_sub_2}
-                                            </a>
-                                            <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-22M20507AF693321GNHBSCFI" target="_blank" rel="noopener noreferrer" 
-                                               class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
-                                               ${t.p_sub_2_pp}
-                                            </a>
-                                        </div>
-                                        <div class="h-px bg-white/5 my-2"></div>
-                                        <div class="space-y-2">
-                                            <a href="https://buy.stripe.com/28E6oJ5M3acy3nZ6RWc3m03" target="_blank" rel="noopener noreferrer" 
-                                               class="pay-button block w-full bg-white/10 hover:bg-white/20 text-white py-3 font-heading text-lg uppercase italic text-center border border-white/20 transition-all">
-                                               ${t.p_sub_3}
-                                            </a>
-                                            <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-71788859UR873010TNHBSH7Y" target="_blank" rel="noopener noreferrer" 
-                                               class="pay-button animate-pulse-slow block w-full bg-[#003087] text-white py-3 font-heading text-lg uppercase italic text-center shadow-[0_0_10px_rgba(0,48,135,0.2)] hover:brightness-110 border border-white/10 transition-all">
-                                               ${t.p_sub_3_pp}
+                                                ${t.p_sub_1_pp}
                                             </a>
                                         </div>
                                     </div>
