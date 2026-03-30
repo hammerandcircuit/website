@@ -630,6 +630,11 @@
                     `;
                     break;
                 case 'contractors':
+                    const contrImages = {
+                        plumb: 'https://hammercircuit.com/templatesss/hc-template-plumber-blue.jpg',
+                        hvac: 'https://hammercircuit.com/templatesss/hc-template-hvac-white.jpg',
+                        elec: 'https://hammercircuit.com/templatesss/hc-template-contractor-blue.jpg'
+                    };
                     content.innerHTML = `
                         <div class="max-w-6xl">
                             <h2 class="text-5xl md:text-8xl font-heading uppercase italic mb-2" style="color: var(--text-primary)">${t.contr_title}</h2>
@@ -651,9 +656,11 @@
                             </div>
 
                             <div class="grid md:grid-cols-3 gap-8">
-                                ${['plumb', 'elec', 'hvac'].map((type, i) => `
+                                ${['plumb', 'elec', 'hvac'].map((type) => `
                                     <div class="template-card border-t-4 p-6 flex flex-col hover:border-tool-red transition-all">
-                                        <div class="bg-zinc-900 aspect-video mb-6 border border-white/10 flex items-center justify-center italic text-xs text-zinc-600">PREVIEW_FRAME_${type.toUpperCase()}</div>
+                                        <div class="aspect-video mb-6 border border-white/10 overflow-hidden bg-zinc-900 shadow-xl">
+                                            <img src="${contrImages[type]}" alt="${t['contr_demo_'+type]}" class="w-full h-full object-cover">
+                                        </div>
                                         <h4 class="text-xl font-heading uppercase italic mb-4" style="color: var(--text-primary)">${t['contr_demo_'+type]}</h4>
                                         <a href="#" class="text-tool-red font-mono text-[10px] uppercase tracking-widest font-bold">${t.contr_view_demo}</a>
                                     </div>
